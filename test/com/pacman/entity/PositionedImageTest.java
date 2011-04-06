@@ -1,14 +1,20 @@
 package com.pacman.entity;
 
-import static com.pacman.entity.Direction.*;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+import static com.pacman.entity.Direction.DOWN;
+import static com.pacman.entity.Direction.LEFT;
+import static com.pacman.entity.Direction.RIGHT;
+import static com.pacman.entity.Direction.UP;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 import org.lwjgl.util.ReadableDimension;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Image;
+
+import com.pacman.renderer.Renderable;
 
 public class PositionedImageTest {
 
@@ -17,10 +23,10 @@ public class PositionedImageTest {
 		Image image = mock(Image.class);
 		ReadablePoint position = mock(ReadablePoint.class);
 		ReadableDimension dimension = mock(ReadableDimension.class);
-		new PositionedImage(position, dimension, image).draw();
+		Renderable positionedImage = new PositionedImage(position, dimension, image);
+		positionedImage.draw();
 
-		verify(image).draw(position.getX(), position.getY(),
-				(float) dimension.getWidth(), (float) dimension.getWidth());
+		verify(image).draw(0, 0, dimension.getWidth(), dimension.getWidth());
 	}
 
 	@Test

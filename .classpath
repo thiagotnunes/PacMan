@@ -4,7 +4,27 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/hiero.jar"/>
+	<classpathentry kind="lib" path="lib/ibxm.jar"/>
+	<classpathentry kind="lib" path="lib/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/jnlp.jar"/>
+	<classpathentry kind="lib" path="lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/tnunes/Workspaces/Java/PacMan/PacMan/lib/lwjgl-2.7.1/native/linux"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/natives-linux.jar"/>
+	<classpathentry kind="lib" path="lib/natives-mac.jar"/>
+	<classpathentry kind="lib" path="lib/natives-win32.jar"/>
+	<classpathentry kind="lib" path="lib/packulike.jar"/>
+	<classpathentry kind="lib" path="lib/pedigree.jar"/>
+	<classpathentry kind="lib" path="lib/scalar.jar"/>
+	<classpathentry kind="lib" path="lib/slick-util.jar"/>
+	<classpathentry kind="lib" path="lib/slick.jar"/>
+	<classpathentry kind="lib" path="lib/tinylinepp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

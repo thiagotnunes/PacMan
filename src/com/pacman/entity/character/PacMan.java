@@ -1,12 +1,15 @@
 package com.pacman.entity.character;
 
+import org.lwjgl.util.Point;
 import org.newdawn.slick.Input;
 
 import com.pacman.entity.Direction;
 import com.pacman.entity.PositionedImage;
+import com.pacman.renderer.Renderable;
 
-public class PacMan {
+public class PacMan implements Renderable {
 
+	public static final Float SPEED = 0.1f;
 	private PositionedImage positionedImage;
 	protected Direction currentDirection;
 
@@ -27,7 +30,9 @@ public class PacMan {
 		positionedImage.move(currentDirection, 1, delta);
 	}
 
-	public void setImage(PositionedImage positionedImage) {
-		this.positionedImage = positionedImage;
+	@Override
+	public Point getPosition() {
+		return positionedImage.getPosition();
 	}
+
 }
