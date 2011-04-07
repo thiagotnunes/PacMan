@@ -1,10 +1,5 @@
 package com.pacman.entity.character;
 
-import static com.pacman.entity.Direction.DOWN;
-import static com.pacman.entity.Direction.LEFT;
-import static com.pacman.entity.Direction.RIGHT;
-import static com.pacman.entity.Direction.UP;
-
 import java.util.Map;
 
 import org.lwjgl.util.Dimension;
@@ -47,16 +42,7 @@ public class PacMan implements Renderable {
 	}
 
 	public void move(int delta) {
-		int moveDelta = delta;
-		if (currentDirection == UP) {
-			position.translate(0, -moveDelta);
-		} else if (currentDirection == DOWN) {
-			position.translate(0, moveDelta);
-		} else if (currentDirection == RIGHT) {
-			position.translate(moveDelta, 0);
-		} else if (currentDirection == LEFT) {
-			position.translate(-moveDelta, 0);
-		}
+		currentDirection.movePoint(position, delta);
 	}
 
 	@Override

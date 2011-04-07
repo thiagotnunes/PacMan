@@ -1,11 +1,38 @@
 package com.pacman.entity;
 
+import static org.newdawn.slick.Input.KEY_DOWN;
+import static org.newdawn.slick.Input.KEY_LEFT;
+import static org.newdawn.slick.Input.KEY_RIGHT;
+import static org.newdawn.slick.Input.KEY_UP;
+
+import org.lwjgl.util.Point;
 import org.newdawn.slick.Input;
-import static org.newdawn.slick.Input.*;
 
 public enum Direction {
-	UP, DOWN, RIGHT, LEFT;
+	UP {
+		@Override
+		public void movePoint(Point p, int delta) {
+			p.translate(0, -delta);
+		}
+	}, DOWN {
+		@Override
+		public void movePoint(Point p, int delta) {
+			p.translate(0, delta);
+		}
+	}, RIGHT {
+		@Override
+		public void movePoint(Point p, int delta) {
+			p.translate(delta, 0);
+		}
+	}, LEFT {
+		@Override
+		public void movePoint(Point p, int delta) {
+			p.translate(-delta, 0);
+		}
+	};
 
+	public abstract void movePoint(Point p, int delta);
+	
 	public Direction fromInput(Input input) {
 		if (input.isKeyDown(KEY_UP)) {
 			return UP;
