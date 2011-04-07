@@ -16,7 +16,8 @@ public class PacManGame extends BasicGame {
 	private final PacManFactory pacManFactory;
 	private final Renderer renderer;
 
-	public PacManGame(String title, PacManFactory pacManFactory, Dimension dimension, Renderer renderer) {
+	public PacManGame(String title, PacManFactory pacManFactory,
+			Dimension dimension, Renderer renderer) {
 		super(title);
 		this.pacManFactory = pacManFactory;
 		this.renderer = renderer;
