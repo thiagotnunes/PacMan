@@ -12,6 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.Board;
+import com.pacman.entity.BoardFactory;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.renderer.Renderer;
@@ -23,16 +24,19 @@ public class PacManGameTest {
 	private PacMan pacMan;
 	private Renderer renderer;
 	private Board board;
+	private BoardFactory boardFactory;
 
 	@Before
 	public void setUp() throws SlickException {
 		pacMan = mock(PacMan.class);
 		pacManFactory = mock(PacManFactory.class);
+		boardFactory = mock(BoardFactory.class);
 		renderer = mock(Renderer.class);
 		board = mock(Board.class);
-		pacManGame = new PacManGame("PacMan", pacManFactory, board, renderer);
+		pacManGame = new PacManGame("PacMan", pacManFactory, boardFactory, renderer);
 		
 		when(pacManFactory.create()).thenReturn(pacMan);
+		when(boardFactory.create(eq(PacManGame.MAP_PATH))).thenReturn(board);
 		
 		pacManGame.init(null);
 	}
@@ -40,6 +44,7 @@ public class PacManGameTest {
 	@After
 	public void tearDown() throws SlickException {
 		verify(pacManFactory).create();
+		verify(boardFactory).create(eq(PacManGame.MAP_PATH));
 	}
 	
 	@Test

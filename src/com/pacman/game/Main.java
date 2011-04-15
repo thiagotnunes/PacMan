@@ -1,11 +1,10 @@
 package com.pacman.game;
 
-import org.lwjgl.util.Dimension;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.AnimationFactory;
-import com.pacman.entity.Board;
+import com.pacman.entity.BoardFactory;
+import com.pacman.entity.MapFactory;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.renderer.DefaultRenderer;
 
@@ -14,17 +13,14 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		String title = "--- PacMan ---";
 
-		Dimension gameDimension = new Dimension(800, 600);
-		DefaultRenderer renderer = new DefaultRenderer();
-		TiledMap map = new TiledMap("data/maze/1/1.tmx");
+		DefaultRenderer renderer = new DefaultRenderer();		
+		BoardFactory boardFactory = new BoardFactory(new MapFactory());
+		PacManFactory pacManFactory = new PacManFactory(new AnimationFactory());
 		
-		Board board = new Board(map, gameDimension, renderer);
-		PacManGame pacManGame = new PacManGame(title, new PacManFactory(
-				new AnimationFactory()), board, renderer);
+		PacManGame pacManGame = new PacManGame(title, pacManFactory, boardFactory, renderer);
 
 		AppGameContainer container = new AppGameContainer(pacManGame);
-		container.setDisplayMode(gameDimension.getWidth(), gameDimension
-				.getHeight(), false);
+		container.setDisplayMode(800, 600, false);
 
 		container.start();
 	}
