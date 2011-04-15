@@ -5,6 +5,7 @@ import java.util.Map;
 import org.lwjgl.util.Dimension;
 import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import com.pacman.entity.Direction;
@@ -28,7 +29,7 @@ public class PacMan implements Renderable {
 		updateAnimation(currentDirection);
 	}
 
-	public void draw() {
+	public void draw(Graphics g) {
 		currentAnimation.draw(position.getX() * SPEED, position.getY() * SPEED, dimension.getWidth(), dimension.getHeight());
 	}
 

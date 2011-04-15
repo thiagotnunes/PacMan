@@ -64,7 +64,7 @@ public class PacManTest {
 
 	@Test
 	public void shouldSetInitialDirectionAndDrawPacMan() throws Exception {
-		pacMan.draw();
+		pacMan.draw(null);
 
 		verify(leftAnimation).draw(position.getX() * SPEED,
 				position.getY() * SPEED, dimension.getWidth(),

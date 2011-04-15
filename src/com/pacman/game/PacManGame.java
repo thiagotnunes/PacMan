@@ -1,11 +1,11 @@
 package com.pacman.game;
 
-import org.lwjgl.util.Dimension;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.pacman.entity.Board;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.renderer.Renderer;
@@ -15,11 +15,13 @@ public class PacManGame extends BasicGame {
 	private PacMan pacMan;
 	private final PacManFactory pacManFactory;
 	private final Renderer renderer;
+	private final Board board;
 
 	public PacManGame(String title, PacManFactory pacManFactory,
-			Dimension dimension, Renderer renderer) {
+			Board board, Renderer renderer) {
 		super(title);
 		this.pacManFactory = pacManFactory;
+		this.board = board;
 		this.renderer = renderer;
 	}
 
@@ -36,6 +38,7 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		renderer.render(board, g);
 		renderer.render(pacMan, g, PacMan.SPEED);
 	}
 

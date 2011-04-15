@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="25" tileheight="25">
+ <tileset name="PacMan" firstgid="1">
+  <tile id="0">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAQklEQVR42mNgYGD4Twc8asmoJaOWDApLRMz+/0fGgmi0CBa+IJF6YHgYBZcgDi8TCgJsGFcwjibhUUtGLRm1hMoYACRSrskyVDiWAAAAAElFTkSuQmCC
+    </data>
+   </image>
+  </tile>
+  <tile id="1">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAVklEQVR42mNgYGD4TwiLmP3HyiYBE1YkSA9LRIaNJYKjPhmZEY9uMBkWEadQEItFxGCoPvIsoYlPkF1PU0vwBZUgFCPzkRzF8J8OeNSSUUtGLRkxlgAA0laq+uSM8rcAAAAASUVORK5CYII=
+    </data>
+   </image>
+  </tile>
+  <tile id="2">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAWklEQVR42mNgYGD4TwgLmv3HyiYBE1YkgmSwCK0sEaSHJSKjloxaQpN8gu5ysnwC0gRyHYxGZ1NsAbHBRWFQER8nFPgCNbjQsSClhpMTXKOWjFoyasmoJYQxAP6JoztuZgeeAAAAAElFTkSuQmCC
+    </data>
+   </image>
+  </tile>
+  <tile id="3">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAVElEQVR42mNgYGD4Twc8asmoJaOWDFlLRMz+Y2BBJFoQTZwkS2CaaeYTMg2nzBIRtGDBhxnItYDqPkE2lGZxQhdLBOltieCwCa6h7RORYRkn5FgCAADdrYDTD7diAAAAAElFTkSuQmCC
+    </data>
+   </image>
+  </tile>
+  <tile id="4">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAWUlEQVR42mNgYGD4Twc8asmoJaOWDApLRMz+/xcEYhEkLIgmRhefCFJuGfGKybYIOXjQg0kQzVAKfEOa68m0iLg4obklyAYL0sMSkSFtieCw9IngaHDR2hIASi+lxFTY/NMAAAAASUVORK5CYII=
+    </data>
+   </image>
+  </tile>
+  <tile id="5">
+   <image format="png">
+    <data encoding="base64">
+     iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAQklEQVR42mNgYGD4TwwWNPsPZ4sgsYnExCkUoYclyD4RpIclQzu46G7J0I6T4WPJaOoaDa5RS0YtGepll+CIbUgAAOefrsYt4PF9AAAAAElFTkSuQmCC
+    </data>
+   </image>
+  </tile>
+ </tileset>
+ <layer name="Boundaries" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO3WuQ0AMAzDQObz/iPbU0QNBbC+VhdYod5U5Fb6+vr6+vr6+vr6n/1N7n+fqQGbtmafAAwAAA==
+  </data>
+ </layer>
+</map>

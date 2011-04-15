@@ -24,7 +24,7 @@ public class DefaultRendererTest {
 		
 		verify(g).pushTransform();
 		verify(g).translate(point.getX(), point.getY());
-		verify(renderable).draw();
+		verify(renderable).draw(g);
 		verify(g).popTransform();
 	}
 	
@@ -42,7 +42,7 @@ public class DefaultRendererTest {
 		
 		verify(g).pushTransform();
 		verify(g).translate(point.getX()*speed, point.getY()*speed);
-		verify(renderable).draw();
+		verify(renderable).draw(g);
 		verify(g).popTransform();
 	}
 	

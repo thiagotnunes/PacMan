@@ -19,7 +19,7 @@ public class DefaultRenderer implements Renderer {
 	private void draw(Renderable renderable, Graphics g, Float x, Float y) {
 		g.pushTransform();
 		g.translate(x, y);
-		renderable.draw();
+		renderable.draw(g);
 		g.popTransform();
 	}
 
