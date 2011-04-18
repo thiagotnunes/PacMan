@@ -3,8 +3,6 @@ package com.pacman.entity.character;
 import org.junit.Test;
 import org.newdawn.slick.Input;
 
-import com.pacman.entity.character.Direction;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.newdawn.slick.Input.*;
@@ -26,7 +24,7 @@ public class DirectionTest {
 		validateFromInput(KEY_A, DOWN, DOWN);
 		validateFromInput(KEY_APOSTROPHE, DOWN, DOWN);
 	}
-
+	
 	private void validateFromInput(int key, Direction expectedDirection,
 			Direction currentDirection) {
 		Input input = mock(Input.class);

@@ -10,12 +10,12 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.util.Dimension;
 import org.lwjgl.util.Point;
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Polygon;
 
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 
 public class PacManTest {
@@ -28,8 +28,7 @@ public class PacManTest {
 	private Animation rightAnimation;
 	private Animation upAnimation;
 	private Animation downAnimation;
-	private Point position;
-	private Dimension dimension;
+	private SquarePolygon squarePolygon;
 
 	@Before
 	public void setUp() {
@@ -38,14 +37,13 @@ public class PacManTest {
 		rightAnimation = mock(Animation.class);
 		upAnimation = mock(Animation.class);
 		downAnimation = mock(Animation.class);
+		squarePolygon = mock(SquarePolygon.class);
 		animationMap.put(LEFT, leftAnimation);
 		animationMap.put(RIGHT, rightAnimation);
 		animationMap.put(UP, upAnimation);
 		animationMap.put(DOWN, downAnimation);
-		position = new Point(10, 10);
-		dimension = new Dimension(20, 20);
 
-		pacMan = new PacMan(position, dimension, animationMap, LEFT);
+		pacMan = new PacMan(squarePolygon, animationMap, LEFT);
 	}
 
 	@Test
@@ -55,11 +53,16 @@ public class PacManTest {
 
 	@Test
 	public void shouldSetInitialDirectionAndDrawPacMan() throws Exception {
+		Point position = new Point(20, 20);
+		Polygon polygon = mock(Polygon.class);
+		
+		when(squarePolygon.getPosition()).thenReturn(position);
+		when(squarePolygon.getPolygon()).thenReturn(polygon);
+		
 		pacMan.draw(null);
 
 		verify(leftAnimation).draw(position.getX() * SPEED,
-				position.getY() * SPEED, dimension.getWidth(),
-				dimension.getHeight());
+				position.getY() * SPEED, polygon.getWidth(), polygon.getHeight());
 	}
 
 	@Test
@@ -73,39 +76,18 @@ public class PacManTest {
 
 	@Test
 	public void shouldReturnCurrentPosition() throws Exception {
-		Point position = new Point(10, 10);
-		Renderable renderable = new PacMan(position, dimension, animationMap,
-				LEFT);
+		Renderable renderable = new PacMan(squarePolygon, animationMap, LEFT);
+		Point position = new Point(10, 20);
 
-		assertEquals(position, renderable.getPosition());
-	}
-
-	@Test
-	public void shouldMoveAccordinglyToTheDirection() throws Exception {
-		validatePosition(UP, new Point(0, -1));
-		validatePosition(DOWN, new Point(0, 1));
-		validatePosition(LEFT, new Point(-1, 0));
-		validatePosition(RIGHT, new Point(1, 0));
-	}
-
-	@Test
-	public void shouldReturnShapeRepresentingUpdatedPosition() throws Exception {
-		assertEquals(new Rectangle(position.getX() + 1, position.getY(),
-				dimension.getWidth(), dimension.getHeight()), pacMan
-				.updatedShape());
-	}
-
-	private void validatePosition(Direction direction, Point expectedPosition) {
-		PacMan pacMan = new PacMan(new Point(0, 0), dimension, animationMap,
-				direction);
-		pacMan.move(1);
-		assertEquals(expectedPosition, pacMan.getPosition());
+		when(squarePolygon.getPosition()).thenReturn(position);
+		
+		assertSame(position, renderable.getPosition());
 	}
 
 	private void testDirectionUpdate(int key, Direction direction) {
 		Input input = createInput(key);
 
-		PacMan pacMan = new PacMan(null, null, animationMap, DOWN);
+		PacMan pacMan = new PacMan(null, animationMap, DOWN);
 		pacMan.updateDirectionIfRequested(input);
 
 		assertSame(direction, pacMan.currentDirection);

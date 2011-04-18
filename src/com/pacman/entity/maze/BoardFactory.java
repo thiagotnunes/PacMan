@@ -10,8 +10,8 @@ public class BoardFactory {
 		this.mapFactory = mapFactory;
 	}
 
-	public Board create(String path) throws SlickException {
-		return new Board(mapFactory.create(path));
+	public Board create(String path, Integer blockSize) throws SlickException {
+		return new Board(mapFactory.create(path), blockSize);
 	}
 
 }

@@ -39,7 +39,7 @@ public class PacManGameTest {
 				renderer);
 
 		when(pacManFactory.create()).thenReturn(pacMan);
-		when(boardFactory.create(eq(PacManGame.MAP_PATH))).thenReturn(board);
+		when(boardFactory.create(eq(PacManGame.MAP_PATH), any(Integer.class))).thenReturn(board);
 
 		pacManGame.init(null);
 	}
@@ -47,7 +47,7 @@ public class PacManGameTest {
 	@After
 	public void tearDown() throws SlickException {
 		verify(pacManFactory).create();
-		verify(boardFactory).create(eq(PacManGame.MAP_PATH));
+		verify(boardFactory).create(eq(PacManGame.MAP_PATH), any(Integer.class));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class PacManGameTest {
 		GameContainer gc = mock(GameContainer.class);
 		Shape shape = mock(Shape.class);
 
-		when(pacMan.updatedShape()).thenReturn(shape);
+		when(pacMan.updatedShape(eq(delta))).thenReturn(shape);
 		when(board.isCollidingWith(shape)).thenReturn(isColliding);
 
 		pacManGame.update(gc, delta);

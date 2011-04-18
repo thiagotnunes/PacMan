@@ -2,7 +2,6 @@ package com.pacman.entity.character;
 
 import java.util.Map;
 
-import org.lwjgl.util.Dimension;
 import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
@@ -10,29 +9,30 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
 	public static final Float SPEED = 0.1f;
 	protected Direction currentDirection;
-	private final Point position;
 	private final Map<Direction, Animation> animationMap;
 	protected Animation currentAnimation;
-	private final Dimension dimension;
+	private SquarePolygon squarePolygon;
 
-	public PacMan(Point position, Dimension dimension,
+	public PacMan(SquarePolygon squarePolygon,
 			Map<Direction, Animation> animationMap, Direction currentDirection) {
-		this.position = position;
-		this.dimension = dimension;
+		this.squarePolygon = squarePolygon;
 		this.animationMap = animationMap;
 		this.currentDirection = currentDirection;
 		updateAnimation(currentDirection);
 	}
 
 	public void draw(Graphics g) {
+		Point position = squarePolygon.getPosition();
+		Polygon polygon = squarePolygon.getPolygon();
 		currentAnimation.draw(position.getX() * SPEED, position.getY() * SPEED,
-				dimension.getWidth(), dimension.getHeight());
+				polygon.getWidth(), polygon.getHeight());
 	}
 
 	public void updateDirectionIfRequested(Input input) {
@@ -45,16 +45,16 @@ public class PacMan implements Renderable {
 	}
 
 	public void move(int delta) {
-		currentDirection.movePoint(position, delta);
+		squarePolygon = currentDirection.move(squarePolygon, delta);
 	}
 
 	@Override
 	public Point getPosition() {
-		return position;
+		return squarePolygon.getPosition();
 	}
 
-	public Shape updatedShape() {
-		return new Polygon(new float[] {});
+	public Shape updatedShape(int delta) {
+		return currentDirection.move(squarePolygon, delta).getPolygon();
 	}
 
 }

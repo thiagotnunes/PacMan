@@ -14,6 +14,7 @@ import com.pacman.renderer.Renderer;
 public class PacManGame extends BasicGame {
 
 	protected static final String MAP_PATH = "data/maze/1/1.tmx";
+	private static final Integer BLOCK_SIZE = 25;
 
 	private PacMan pacMan;
 	private Board board;
@@ -32,13 +33,13 @@ public class PacManGame extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		pacMan = pacManFactory.create();
-		board = boardFactory.create(MAP_PATH);
+		board = boardFactory.create(MAP_PATH, BLOCK_SIZE);
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		pacMan.updateDirectionIfRequested(gc.getInput());
-		if (!board.isCollidingWith(pacMan.updatedShape())) {
+		if (!board.isCollidingWith(pacMan.updatedShape(delta))) {
 			pacMan.move(delta);
 		}
 	}

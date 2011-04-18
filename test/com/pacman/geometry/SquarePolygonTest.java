@@ -1,36 +1,100 @@
 package com.pacman.geometry;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.lwjgl.util.Point;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
+
+import com.pacman.entity.Collidable;
+import com.pacman.renderer.Renderable;
 
 public class SquarePolygonTest {
 
 	@Test
 	public void shouldCreateSquarePolygon() throws Exception {
-		int x = 0;
-		int y = 0;
+		int x = 10;
+		int y = 20;
 		int width = 25;
 		SquarePolygon square = new SquarePolygon(x, y, width);
 
-		Point[] squarePoints = new Point[] { new Point(x, y),
-				new Point(width - 1, y), new Point(width - 1, width - 1),
-				new Point(x, width - 1) };
 		Polygon expectedPolygon = new Polygon(new float[] {
-				x + squarePoints[0].getX(), y + squarePoints[0].getY(),
-				x + squarePoints[1].getX(), y + squarePoints[1].getY(),
-				x + squarePoints[2].getX(), y + squarePoints[2].getY(),
-				x + squarePoints[3].getX(), y + squarePoints[3].getY() });
+				x, y,
+				x + width - 1, y,
+				x + width - 1, y + width - 1,
+				x, y + width - 1 });
 
 		Polygon actualPolygon = square.getPolygon();
 
 		assertEquals(expectedPolygon.getPointCount(), actualPolygon
 				.getPointCount());
+		assertTrue(actualPolygon.closed());
 		validatePolygons(expectedPolygon, actualPolygon);
 	}
+	
+	@Test
+	public void shouldDrawItSelf() throws Exception {
+		SquarePolygon squarePolygon = new SquarePolygon(0, 0, 10);
+		Graphics g = mock(Graphics.class);
+		
+		squarePolygon.draw(g);
+		
+		verify(g).draw(eq(squarePolygon.getPolygon()));
+	}
+	
+	@Test
+	public void shouldReturnCurrentPosition() throws Exception {
+		Renderable squarePolygon = new SquarePolygon(2, 1, 10);
+		
+		assertEquals(2, squarePolygon.getPosition().getX());
+		assertEquals(1, squarePolygon.getPosition().getY());
+	}
+	
+	@Test
+	public void shouldBeCollidingWithIntersectingShape() throws Exception {
+		Polygon polygon = mock(Polygon.class);
+		Collidable squarePolygon = new SquarePolygon(polygon);
+		Shape shape = mock(Shape.class);
+		
+		when(polygon.intersects(eq(shape))).thenReturn(true);
+		
+		assertTrue(squarePolygon.isCollidingWith(shape));
+	}
+	
+	@Test
+	public void shouldNotBeCollidingWithNonIntersectingShape() throws Exception {
+		Polygon polygon = mock(Polygon.class);
+		Collidable squarePolygon = new SquarePolygon(polygon);
+		Shape shape = mock(Shape.class);
+		
+		when(polygon.intersects(eq(shape))).thenReturn(false);
+		
+		assertFalse(squarePolygon.isCollidingWith(shape));
+	}
 
+	@Test
+	public void shouldTranslateSquarePolygon() throws Exception {
+		Polygon polygon = mock(Polygon.class);
+		SquarePolygon squarePolygon = new SquarePolygon(polygon);
+		
+		when(polygon.copy()).thenReturn(polygon);
+		
+		Integer x = 1;
+		Integer y = 1;
+		SquarePolygon translated = squarePolygon.translate(x, y);
+		
+		assertEquals(x.doubleValue(), translated.getPolygon().getX(), 2);
+		assertEquals(y.doubleValue(), translated.getPolygon().getY(), 2);
+		
+		verify(polygon).copy();
+		verify(polygon, times(2)).getX();
+		verify(polygon, times(2)).getY();
+		verify(polygon).setLocation(x, y);
+	}
+	
 	private void validatePolygons(Polygon expectedPolygon, Polygon actualPolygon) {
 		for (int i = 0; i < expectedPolygon.getPointCount(); i++) {
 			float[] expectedPoint = expectedPolygon.getPoint(i);

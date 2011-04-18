@@ -1,37 +1,35 @@
 package com.pacman.entity.character;
 
-import static org.newdawn.slick.Input.KEY_DOWN;
-import static org.newdawn.slick.Input.KEY_LEFT;
-import static org.newdawn.slick.Input.KEY_RIGHT;
-import static org.newdawn.slick.Input.KEY_UP;
+import static org.newdawn.slick.Input.*;
 
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Input;
+
+import com.pacman.geometry.SquarePolygon;
 
 public enum Direction {
 	UP {
 		@Override
-		public void movePoint(Point p, int delta) {
-			p.translate(0, -delta);
+		public SquarePolygon move(SquarePolygon p, int delta) {
+			return p.translate(0, -delta);
 		}
 	}, DOWN {
 		@Override
-		public void movePoint(Point p, int delta) {
-			p.translate(0, delta);
+		public SquarePolygon move(SquarePolygon p, int delta) {
+			return p.translate(0, delta);
 		}
 	}, RIGHT {
 		@Override
-		public void movePoint(Point p, int delta) {
-			p.translate(delta, 0);
+		public SquarePolygon move(SquarePolygon p, int delta) {
+			return p.translate(delta, 0);
 		}
 	}, LEFT {
 		@Override
-		public void movePoint(Point p, int delta) {
-			p.translate(-delta, 0);
+		public SquarePolygon move(SquarePolygon p, int delta) {
+			return p.translate(-delta, 0);
 		}
 	};
 
-	public abstract void movePoint(Point p, int delta);
+	public abstract SquarePolygon move(SquarePolygon p, int delta);
 	
 	public Direction fromInput(Input input) {
 		if (input.isKeyDown(KEY_UP)) {

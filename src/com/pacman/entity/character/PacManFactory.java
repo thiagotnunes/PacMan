@@ -6,10 +6,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lwjgl.util.Dimension;
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
+
+import com.pacman.geometry.SquarePolygon;
 
 
 public class PacManFactory {
@@ -26,7 +26,7 @@ public class PacManFactory {
 		animationMap.put(UP, animationFactory.createFromPath(70, createPathsFrom(UP)));
 		animationMap.put(LEFT, animationFactory.createFromPath(70, createPathsFrom(LEFT)));
 		animationMap.put(RIGHT, animationFactory.createFromPath(70, createPathsFrom(RIGHT)));
-		return new PacMan(new Point(100, 100), new Dimension(20, 20), animationMap, Direction.LEFT);
+		return new PacMan(new SquarePolygon(100, 100, 25), animationMap, Direction.LEFT);
 	}
 	
 	private String[] createPathsFrom(Direction direction) {

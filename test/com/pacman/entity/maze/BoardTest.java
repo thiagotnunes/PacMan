@@ -23,7 +23,7 @@ public class BoardTest {
 		when(map.getHeight()).thenReturn(1);
 		when(map.getTileId(anyInt(), anyInt(), eq(0))).thenReturn(1);
 
-		Board board = new Board(map);
+		Board board = new Board(map, 25);
 
 		assertEquals(1, board.getBlocks().size());
 	}
@@ -33,7 +33,7 @@ public class BoardTest {
 		Graphics g = mock(Graphics.class);
 
 		TiledMap map = mock(TiledMap.class);
-		Board board = new Board(map);
+		Board board = new Board(map, 25);
 
 		board.draw(g);
 

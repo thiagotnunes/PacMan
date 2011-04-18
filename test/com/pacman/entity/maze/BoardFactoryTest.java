@@ -14,13 +14,14 @@ public class BoardFactoryTest {
 	@Test
 	public void shouldCreateBoard() throws Exception {
 		String path = "path";
+		int blockSize = 25;
 		MapFactory mapFactory = mock(MapFactory.class);
 		TiledMap map = mock(TiledMap.class);
 
 		when(mapFactory.create(eq(path))).thenReturn(map);
 
 		BoardFactory boardFactory = new BoardFactory(mapFactory);
-		boardFactory.create(path);
+		boardFactory.create(path, blockSize);
 
 		verify(mapFactory).create(eq(path));
 	}

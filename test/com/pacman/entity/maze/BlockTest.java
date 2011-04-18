@@ -6,58 +6,52 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
 import com.pacman.entity.Collidable;
+import com.pacman.geometry.SquarePolygon;
 
 public class BlockTest {
 
 	@Test
 	public void shouldCreateSquareForBlock() throws Exception {
-		Block block = new Block(0, 0);
+		SquarePolygon squarePolygon = mock(SquarePolygon.class);
+		Block block = new Block(squarePolygon);
 
-		Polygon polygon = block.getPolygon();
+		block.getPolygon();
 
-		float[] expected = new float[] { 0, 0, 24, 0, 24, 24, 0, 24 };
-		float[] actual = polygon.getPoints();
-
-		assertEquals(4, polygon.getPointCount());
-		for (int i = 0; i < expected.length; i++)
-			assertEquals(expected[i], actual[i], 2);
+		verify(squarePolygon).getPolygon();
 	}
 
 	@Test
 	public void shouldDrawItSelf() throws Exception {
-		Block block = new Block(0, 0);
+		SquarePolygon squarePolygon = mock(SquarePolygon.class);
+		Block block = new Block(squarePolygon);
 		Graphics g = mock(Graphics.class);
-
+		
 		block.draw(g);
-		Polygon polygon = block.getPolygon();
 
-		verify(g).draw(eq(polygon));
-		assertEquals(0, block.getPosition().getX(), 1);
-		assertEquals(0, block.getPosition().getY(), 1);
+		verify(squarePolygon).draw(eq(g));
 	}
 
 	@Test
 	public void shouldBeCollidingWithIntersectingShape() throws Exception {
-		Polygon polygon = mock(Polygon.class);
-		Collidable block = new Block(polygon);
+		SquarePolygon squarePolygon = mock(SquarePolygon.class);
+		Collidable block = new Block(squarePolygon);
 		Shape shape = mock(Shape.class);
 
-		when(polygon.intersects(shape)).thenReturn(true);
+		when(squarePolygon.isCollidingWith(eq(shape))).thenReturn(true);
 
 		assertTrue(block.isCollidingWith(shape));
 	}
 
 	@Test
 	public void shouldNotBeCollidingWithNonIntersectingShape() throws Exception {
-		Polygon polygon = mock(Polygon.class);
-		Collidable block = new Block(polygon);
+		SquarePolygon squarePolygon = mock(SquarePolygon.class);
+		Collidable block = new Block(squarePolygon);
 		Shape shape = mock(Shape.class);
 
-		when(polygon.intersects(shape)).thenReturn(false);
+		when(squarePolygon.isCollidingWith(eq(shape))).thenReturn(false);
 
 		assertFalse(block.isCollidingWith(shape));
 	}
