@@ -29,9 +29,8 @@ public class PacMan implements Renderable {
 	}
 
 	public void draw(Graphics g) {
-		Point position = squarePolygon.getPosition();
 		Polygon polygon = squarePolygon.getPolygon();
-		currentAnimation.draw(position.getX() * SPEED, position.getY() * SPEED,
+		currentAnimation.draw(0, 0,
 				polygon.getWidth(), polygon.getHeight());
 	}
 

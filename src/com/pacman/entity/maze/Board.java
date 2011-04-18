@@ -35,7 +35,7 @@ public class Board implements Renderable, Collidable {
 		for (int x = 0; x < map.getWidth(); x++) {
 			for (int y = 0; y < map.getHeight(); y++) {
 				if (map.getTileId(x, y, COLLISION_LAYER) == 1) {
-					blocks.add(new Block(new SquarePolygon(x, y, blockWidth)));
+					blocks.add(new Block(new SquarePolygon(x * blockWidth, y * blockWidth, blockWidth)));
 				}
 			}
 		}

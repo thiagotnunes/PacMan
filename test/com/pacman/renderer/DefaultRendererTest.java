@@ -1,8 +1,6 @@
 package com.pacman.renderer;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.lwjgl.util.Point;
@@ -37,11 +35,10 @@ public class DefaultRendererTest {
 
 		when(renderable.getPosition()).thenReturn(point);
 		
-		float speed = 0.4f;
-		renderer.render(renderable, g, speed);
+		renderer.render(renderable, g);
 		
 		verify(g).pushTransform();
-		verify(g).translate(point.getX()*speed, point.getY()*speed);
+		verify(g).translate(point.getX(), point.getY());
 		verify(renderable).draw(g);
 		verify(g).popTransform();
 	}

@@ -20,8 +20,6 @@ import com.pacman.renderer.Renderable;
 
 public class PacManTest {
 
-	private static final float SPEED = 0.1f;
-
 	private PacMan pacMan;
 	private Map<Direction, Animation> animationMap;
 	private Animation leftAnimation;
@@ -61,8 +59,7 @@ public class PacManTest {
 		
 		pacMan.draw(null);
 
-		verify(leftAnimation).draw(position.getX() * SPEED,
-				position.getY() * SPEED, polygon.getWidth(), polygon.getHeight());
+		verify(leftAnimation).draw(0, 0, polygon.getWidth(), polygon.getHeight());
 	}
 
 	@Test
