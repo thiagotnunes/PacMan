@@ -9,27 +9,27 @@ import com.pacman.geometry.SquarePolygon;
 public enum Direction {
 	UP {
 		@Override
-		public SquarePolygon move(SquarePolygon p, int delta) {
+		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(0, -delta);
 		}
 	}, DOWN {
 		@Override
-		public SquarePolygon move(SquarePolygon p, int delta) {
+		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(0, delta);
 		}
 	}, RIGHT {
 		@Override
-		public SquarePolygon move(SquarePolygon p, int delta) {
+		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(delta, 0);
 		}
 	}, LEFT {
 		@Override
-		public SquarePolygon move(SquarePolygon p, int delta) {
+		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(-delta, 0);
 		}
 	};
 
-	public abstract SquarePolygon move(SquarePolygon p, int delta);
+	public abstract SquarePolygon move(SquarePolygon p, float delta);
 	
 	public Direction fromInput(Input input) {
 		if (input.isKeyDown(KEY_UP)) {

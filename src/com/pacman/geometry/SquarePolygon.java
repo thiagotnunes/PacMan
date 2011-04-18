@@ -50,7 +50,7 @@ public class SquarePolygon implements Renderable, Collidable {
 		return polygon.intersects(shape);
 	}
 
-	public SquarePolygon translate(Integer x, Integer y) {
+	public SquarePolygon translate(float x, float y) {
 		float currentX = polygon.getX();
 		float currentY = polygon.getY();
 		

@@ -44,7 +44,7 @@ public class PacMan implements Renderable {
 	}
 
 	public void move(int delta) {
-		squarePolygon = currentDirection.move(squarePolygon, delta);
+		squarePolygon = currentDirection.move(squarePolygon, delta * SPEED);
 	}
 
 	@Override
