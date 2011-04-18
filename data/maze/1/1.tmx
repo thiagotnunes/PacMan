@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="25" tileheight="25">
- <tileset firstgid="1" name="horizontalLine" tilewidth="25" tileheight="25">
-  <image source="../horizontalLine.png" width="25" height="25"/>
+ <tileset firstgid="1" name="PacMan" tilewidth="25" tileheight="25">
+  <image source="../../../../../../../Downloads/PAC-MAN_Sprite_Sheet_YYG.png" width="1430" height="543"/>
+  <tile id="0">
+   <properties>
+    <property name="solid" value="0"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="solid" value="1"/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="2" name="lowerLeft" tilewidth="25" tileheight="25">
-  <image source="../lowerLeft.png" width="25" height="25"/>
- </tileset>
- <tileset firstgid="3" name="lowerRight" tilewidth="25" tileheight="25">
-  <image source="../lowerRight.png" width="25" height="25"/>
- </tileset>
- <tileset firstgid="4" name="upperLeft" tilewidth="25" tileheight="25">
-  <image source="../upperLeft.png" width="25" height="25"/>
- </tileset>
- <tileset firstgid="5" name="upperRight" tilewidth="25" tileheight="25">
-  <image source="../upperRight.png" width="25" height="25"/>
- </tileset>
- <tileset firstgid="6" name="verticalLine" tilewidth="25" tileheight="25">
-  <image source="../verticalLine.png" width="25" height="25"/>
- </tileset>
- <layer name="Tile Layer 1" width="32" height="24">
+ <layer name="Layer 0" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WuQ0AMAzDQObz/iPbU0QNBbC+VhdYod5U5Fb6+vr6+vr6+vr6n/1N7n+fqQGbtmafAAwAAA==
+   H4sIAAAAAAAAC+3NsQ0AAAyDsPT/p3sGi5GYfdsuvorP5/P5fD6fzy/88ge/E9d5AAwAAA==
+  </data>
+ </layer>
+ <layer name="Layer 1" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC1NkZmBQGSBsDMRRQDxQIGfU/lH7R+0ftX/U/lH7R+0ftX/U/lH76Wy/HQsDg/0A4QAgBgCzYBJRAAwAAA==
   </data>
  </layer>
 </map>
