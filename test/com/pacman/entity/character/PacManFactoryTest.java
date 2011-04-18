@@ -11,8 +11,6 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.pacman.entity.AnimationFactory;
-import com.pacman.entity.Direction;
 
 public class PacManFactoryTest {
 

@@ -5,16 +5,16 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.Board;
-import com.pacman.entity.BoardFactory;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
+import com.pacman.entity.maze.Board;
+import com.pacman.entity.maze.BoardFactory;
 import com.pacman.renderer.Renderer;
 
 public class PacManGame extends BasicGame {
 
 	protected static final String MAP_PATH = "data/maze/1/1.tmx";
-	
+
 	private PacMan pacMan;
 	private Board board;
 	private final PacManFactory pacManFactory;
@@ -38,7 +38,9 @@ public class PacManGame extends BasicGame {
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		pacMan.updateDirectionIfRequested(gc.getInput());
-		pacMan.move(delta);
+		if (!board.isCollidingWith(pacMan.updatedShape())) {
+			pacMan.move(delta);
+		}
 	}
 
 	@Override

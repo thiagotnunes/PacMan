@@ -2,10 +2,10 @@ package com.pacman.game;
 
 import org.newdawn.slick.AppGameContainer;
 
-import com.pacman.entity.AnimationFactory;
-import com.pacman.entity.BoardFactory;
-import com.pacman.entity.MapFactory;
+import com.pacman.entity.character.AnimationFactory;
 import com.pacman.entity.character.PacManFactory;
+import com.pacman.entity.maze.BoardFactory;
+import com.pacman.entity.maze.MapFactory;
 import com.pacman.renderer.DefaultRenderer;
 
 public class Main {

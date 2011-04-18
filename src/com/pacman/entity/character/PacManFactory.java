@@ -1,9 +1,6 @@
 package com.pacman.entity.character;
 
-import static com.pacman.entity.Direction.DOWN;
-import static com.pacman.entity.Direction.LEFT;
-import static com.pacman.entity.Direction.RIGHT;
-import static com.pacman.entity.Direction.UP;
+import static com.pacman.entity.character.Direction.*;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,8 +11,6 @@ import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.AnimationFactory;
-import com.pacman.entity.Direction;
 
 public class PacManFactory {
 

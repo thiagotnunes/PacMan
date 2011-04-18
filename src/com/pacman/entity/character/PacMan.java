@@ -7,8 +7,9 @@ import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 
-import com.pacman.entity.Direction;
 import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
@@ -20,8 +21,8 @@ public class PacMan implements Renderable {
 	protected Animation currentAnimation;
 	private final Dimension dimension;
 
-
-	public PacMan(Point position, Dimension dimension, Map<Direction, Animation> animationMap, Direction currentDirection) {
+	public PacMan(Point position, Dimension dimension,
+			Map<Direction, Animation> animationMap, Direction currentDirection) {
 		this.position = position;
 		this.dimension = dimension;
 		this.animationMap = animationMap;
@@ -30,14 +31,15 @@ public class PacMan implements Renderable {
 	}
 
 	public void draw(Graphics g) {
-		currentAnimation.draw(position.getX() * SPEED, position.getY() * SPEED, dimension.getWidth(), dimension.getHeight());
+		currentAnimation.draw(position.getX() * SPEED, position.getY() * SPEED,
+				dimension.getWidth(), dimension.getHeight());
 	}
 
 	public void updateDirectionIfRequested(Input input) {
 		currentDirection = currentDirection.fromInput(input);
 		updateAnimation(currentDirection);
 	}
-	
+
 	private void updateAnimation(Direction currentDirection) {
 		currentAnimation = animationMap.get(currentDirection);
 	}
@@ -49,6 +51,10 @@ public class PacMan implements Renderable {
 	@Override
 	public Point getPosition() {
 		return position;
+	}
+
+	public Shape updatedShape() {
+		return new Polygon(new float[] {});
 	}
 
 }

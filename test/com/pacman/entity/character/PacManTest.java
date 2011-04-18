@@ -1,18 +1,9 @@
 package com.pacman.entity.character;
 
-import static com.pacman.entity.Direction.DOWN;
-import static com.pacman.entity.Direction.LEFT;
-import static com.pacman.entity.Direction.RIGHT;
-import static com.pacman.entity.Direction.UP;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.newdawn.slick.Input.KEY_DOWN;
-import static org.newdawn.slick.Input.KEY_LEFT;
-import static org.newdawn.slick.Input.KEY_RIGHT;
-import static org.newdawn.slick.Input.KEY_UP;
+import static com.pacman.entity.character.Direction.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.newdawn.slick.Input.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.util.Dimension;
 import org.lwjgl.util.Point;
+import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
 
-import com.pacman.entity.Direction;
 import com.pacman.renderer.Renderable;
 
 public class PacManTest {
@@ -95,6 +86,13 @@ public class PacManTest {
 		validatePosition(DOWN, new Point(0, 1));
 		validatePosition(LEFT, new Point(-1, 0));
 		validatePosition(RIGHT, new Point(1, 0));
+	}
+
+	@Test
+	public void shouldReturnShapeRepresentingUpdatedPosition() throws Exception {
+		assertEquals(new Rectangle(position.getX() + 1, position.getY(),
+				dimension.getWidth(), dimension.getHeight()), pacMan
+				.updatedShape());
 	}
 
 	private void validatePosition(Direction direction, Point expectedPosition) {
