@@ -14,7 +14,7 @@ import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
-	public static final Float SPEED = 0.1f;
+	public static final Float SPEED = 0.15f;
 	protected Direction currentDirection;
 	private final Map<Direction, Animation> animationMap;
 	protected Animation currentAnimation;
@@ -30,8 +30,7 @@ public class PacMan implements Renderable {
 
 	public void draw(Graphics g) {
 		Polygon polygon = squarePolygon.getPolygon();
-		currentAnimation.draw(0, 0,
-				polygon.getWidth(), polygon.getHeight());
+		currentAnimation.draw(0, 0, polygon.getWidth(), polygon.getHeight());
 	}
 
 	public void updateDirectionIfRequested(Input input) {

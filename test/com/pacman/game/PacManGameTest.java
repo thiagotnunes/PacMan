@@ -39,7 +39,7 @@ public class PacManGameTest {
 				renderer);
 
 		when(pacManFactory.create()).thenReturn(pacMan);
-		when(boardFactory.create(eq(PacManGame.MAP_PATH), any(Integer.class))).thenReturn(board);
+		when(boardFactory.from(eq(PacManGame.MAP_PATH))).thenReturn(board);
 
 		pacManGame.init(null);
 	}
@@ -47,7 +47,7 @@ public class PacManGameTest {
 	@After
 	public void tearDown() throws SlickException {
 		verify(pacManFactory).create();
-		verify(boardFactory).create(eq(PacManGame.MAP_PATH), any(Integer.class));
+		verify(boardFactory).from(eq(PacManGame.MAP_PATH));
 	}
 
 	@Test

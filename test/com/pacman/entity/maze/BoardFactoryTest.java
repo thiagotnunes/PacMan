@@ -6,23 +6,21 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.maze.BoardFactory;
-import com.pacman.entity.maze.MapFactory;
-
 public class BoardFactoryTest {
 
 	@Test
 	public void shouldCreateBoard() throws Exception {
 		String path = "path";
-		int blockSize = 25;
 		MapFactory mapFactory = mock(MapFactory.class);
+		BlockFactory blockFactory = mock(BlockFactory.class);
 		TiledMap map = mock(TiledMap.class);
 
-		when(mapFactory.create(eq(path))).thenReturn(map);
+		when(mapFactory.from(eq(path))).thenReturn(map);
 
-		BoardFactory boardFactory = new BoardFactory(mapFactory);
-		boardFactory.create(path, blockSize);
+		BoardFactory boardFactory = new BoardFactory(mapFactory, blockFactory);
+		boardFactory.from(path);
 
-		verify(mapFactory).create(eq(path));
+		verify(mapFactory).from(eq(path));
+		verify(blockFactory).from(eq(map));
 	}
 }
