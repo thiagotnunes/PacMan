@@ -58,7 +58,7 @@ public class PacManGame extends BasicGame {
 	}
 
 	private boolean movePacMan(Direction direction) {
-		SquarePolygon collisionPolygon = pacMan.translate(1f,
+		SquarePolygon collisionPolygon = pacMan.translate(PacMan.SPEED,
 				direction);
 		if (!board.isCollidingWith(collisionPolygon.getPolygon())) {
 			pacMan.updateCollisionPolygon(collisionPolygon);

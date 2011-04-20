@@ -85,7 +85,7 @@ public class PacManGameTest {
 		when(gc.getInput()).thenReturn(input);
 		when(pacMan.currentDirection()).thenReturn(LEFT);
 		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
-		when(pacMan.translate(eq(delta * PacMan.SPEED), eq(nextDirection)))
+		when(pacMan.translate(eq(PacMan.SPEED), eq(nextDirection)))
 				.thenReturn(collisionPolygon);
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(board.isCollidingWith(eq(polygon))).thenReturn(false);
@@ -124,7 +124,7 @@ public class PacManGameTest {
 		when(gc.getInput()).thenReturn(input);
 		when(pacMan.currentDirection()).thenReturn(currentDirection);
 		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
-		when(pacMan.translate(eq(delta * PacMan.SPEED), any(Direction.class)))
+		when(pacMan.translate(eq(PacMan.SPEED), any(Direction.class)))
 				.thenAnswer(collisionPolygonAnswer);
 		when(collisionPolygon.getPolygon()).thenReturn(polygonForNextDirection);
 		when(board.isCollidingWith(eq(polygonForNextDirection))).thenReturn(true);
