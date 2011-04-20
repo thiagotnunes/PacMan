@@ -14,11 +14,16 @@ public class BlockFactoryTest {
 	public void shouldCreateBlocksFromTiledMap() throws Exception {
 		BlockFactory factory = new BlockFactory();
 		TiledMap map = mock(TiledMap.class);
+		Integer firstTileId = 1;
+		Integer secondTileId = 2;
 
 		when(map.getTileWidth()).thenReturn(10);
 		when(map.getWidth()).thenReturn(1);
-		when(map.getHeight()).thenReturn(1);
-		when(map.getTileId(0, 0, 0)).thenReturn(1);
+		when(map.getHeight()).thenReturn(secondTileId);
+		when(map.getTileId(0, 0, 0)).thenReturn(firstTileId);
+		when(map.getTileId(0, 1, 0)).thenReturn(secondTileId);
+		when(map.getTileProperty(firstTileId, "collidable", "false")).thenReturn("true");
+		when(map.getTileProperty(secondTileId, "collidable", "false")).thenReturn("false");
 
 		List<Block> blocks = factory.from(map);
 
