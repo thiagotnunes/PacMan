@@ -59,7 +59,7 @@ public class PacManGameTest {
 		Graphics g = mock(Graphics.class);
 		pacManGame.render(null, g);
 
-		verify(renderer).render(pacMan, g, PacMan.SPEED);
+		verify(renderer).render(pacMan, g);
 	}
 
 	@Test

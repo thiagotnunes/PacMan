@@ -16,7 +16,6 @@ import com.pacman.renderer.Renderer;
 public class PacManGame extends BasicGame {
 
 	protected static final String MAP_PATH = "data/maze/1/complete.tmx";
-	protected static final float SPEED = 0.1f;
 
 	private PacMan pacMan;
 	private Board board;
@@ -54,7 +53,7 @@ public class PacManGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		renderer.render(board, g);
-		renderer.render(pacMan, g, PacMan.SPEED);
+		renderer.render(pacMan, g);
 	}
 
 }

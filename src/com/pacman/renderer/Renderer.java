@@ -6,6 +6,4 @@ public interface Renderer {
 
 	void render(Renderable renderable, Graphics g);
 
-	void render(Renderable renderable, Graphics g, Float speed);
-
 }
