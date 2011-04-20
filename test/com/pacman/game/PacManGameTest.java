@@ -1,7 +1,9 @@
 package com.pacman.game;
 
+import static com.pacman.entity.character.Direction.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
+import static org.newdawn.slick.Input.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,12 +13,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Polygon;
 
+import com.pacman.entity.character.Direction;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderer;
 
 public class PacManGameTest {
@@ -67,45 +71,44 @@ public class PacManGameTest {
 	}
 
 	@Test
-	public void shouldUpdatePacManAccordinglyToInput() throws Exception {
-		GameContainer gc = mock(GameContainer.class);
-		Input input = mock(Input.class);
-		when(gc.getInput()).thenReturn(input);
-
-		int delta = 0;
-		pacManGame.update(gc, delta);
-
-		verify(pacMan).updateDirectionIfRequested(input);
-	}
-
-	@Test
 	public void shouldMovePacManIfWillNotCollideWithBoard() throws Exception {
-		int delta = 1;
+		Direction nextDirection = DOWN;
+		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 
-		validatePacManCollissionWithMaze(delta, false);
+		mockPacManCollision(nextDirection, false, collisionPolygon);
 
-		verify(pacMan).move(eq(delta));
+		verify(pacMan).updateCollisionPolygon(eq(collisionPolygon));
+		verify(pacMan).updateDirection(eq(nextDirection));
 	}
 
 	@Test
 	public void shouldNotMovePacManIfWillColideWithBoard() throws Exception {
-		int delta = 1;
+		Direction nextDirection = DOWN;
+		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 
-		validatePacManCollissionWithMaze(delta, true);
+		mockPacManCollision(nextDirection, true, collisionPolygon);
 
-		verify(pacMan, never()).move(eq(delta));
+		verify(pacMan, never()).updateCollisionPolygon(eq(collisionPolygon));
+		verify(pacMan, never()).updateDirection(eq(nextDirection));
 	}
 
-	private void validatePacManCollissionWithMaze(int delta, boolean isColliding)
+	private void mockPacManCollision(Direction nextDirection,
+			boolean isColliding, SquarePolygon collisionPolygon)
 			throws SlickException {
+		int delta = 1;
 		GameContainer gc = mock(GameContainer.class);
-		Shape shape = mock(Shape.class);
+		Input input = mock(Input.class);
+		Polygon polygon = mock(Polygon.class);
 
-		when(pacMan.updatedShape(eq(delta))).thenReturn(shape);
-		when(board.isCollidingWith(shape)).thenReturn(isColliding);
+		when(gc.getInput()).thenReturn(input);
+		when(pacMan.currentDirection()).thenReturn(LEFT);
+		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
+		when(pacMan.translate(eq(delta * PacMan.SPEED), eq(nextDirection)))
+				.thenReturn(collisionPolygon);
+		when(collisionPolygon.getPolygon()).thenReturn(polygon);
+		when(board.isCollidingWith(eq(polygon))).thenReturn(isColliding);
 
 		pacManGame.update(gc, delta);
-
-		verify(board).isCollidingWith(shape);
 	}
+
 }

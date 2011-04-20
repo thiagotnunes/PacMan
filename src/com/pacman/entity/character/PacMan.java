@@ -5,9 +5,7 @@ import java.util.Map;
 import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Shape;
 
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
@@ -15,44 +13,51 @@ import com.pacman.renderer.Renderable;
 public class PacMan implements Renderable {
 
 	public static final Float SPEED = 0.15f;
-	protected Direction currentDirection;
 	private final Map<Direction, Animation> animationMap;
-	protected Animation currentAnimation;
-	private SquarePolygon squarePolygon;
+	private Direction currentDirection;
+	private Animation currentAnimation;
+	private SquarePolygon collisionPolygon;
 
 	public PacMan(SquarePolygon squarePolygon,
 			Map<Direction, Animation> animationMap, Direction currentDirection) {
-		this.squarePolygon = squarePolygon;
+		this.collisionPolygon = squarePolygon;
 		this.animationMap = animationMap;
 		this.currentDirection = currentDirection;
 		updateAnimation(currentDirection);
 	}
 
 	public void draw(Graphics g) {
-		Polygon polygon = squarePolygon.getPolygon();
+		Polygon polygon = collisionPolygon.getPolygon();
 		currentAnimation.draw(0, 0, polygon.getWidth(), polygon.getHeight());
 	}
 
-	public void updateDirectionIfRequested(Input input) {
-		currentDirection = currentDirection.fromInput(input);
-		updateAnimation(currentDirection);
+	public void updateDirection(Direction direction) {
+		currentDirection = direction;
+		updateAnimation(direction);
 	}
 
 	private void updateAnimation(Direction currentDirection) {
 		currentAnimation = animationMap.get(currentDirection);
 	}
 
-	public void move(int delta) {
-		squarePolygon = currentDirection.move(squarePolygon, delta * SPEED);
+	public void updateCollisionPolygon(SquarePolygon squarePolygon) {
+		this.collisionPolygon = squarePolygon;
+	}
+
+	public SquarePolygon translate(float delta, Direction direction) {
+		return direction.move(collisionPolygon, delta);
+	}
+
+	public Direction currentDirection() {
+		return currentDirection;
+	}
+
+	public Animation currentAnimation() {
+		return currentAnimation;
 	}
 
 	@Override
 	public Point getPosition() {
-		return squarePolygon.getPosition();
+		return collisionPolygon.getPosition();
 	}
-
-	public Shape updatedShape(int delta) {
-		return currentDirection.move(squarePolygon, delta).getPolygon();
-	}
-
 }

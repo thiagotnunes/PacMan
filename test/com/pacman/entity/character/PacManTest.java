@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.geometry.SquarePolygon;
@@ -30,36 +29,42 @@ public class PacManTest {
 
 	@Before
 	public void setUp() {
+		createAnimationMap();
+		squarePolygon = mock(SquarePolygon.class);
+
+		pacMan = new PacMan(squarePolygon, animationMap, LEFT);
+	}
+
+	private void createAnimationMap() {
 		animationMap = new HashMap<Direction, Animation>();
 		leftAnimation = mock(Animation.class);
 		rightAnimation = mock(Animation.class);
 		upAnimation = mock(Animation.class);
 		downAnimation = mock(Animation.class);
-		squarePolygon = mock(SquarePolygon.class);
 		animationMap.put(LEFT, leftAnimation);
 		animationMap.put(RIGHT, rightAnimation);
 		animationMap.put(UP, upAnimation);
 		animationMap.put(DOWN, downAnimation);
-
-		pacMan = new PacMan(squarePolygon, animationMap, LEFT);
 	}
 
 	@Test
-	public void currentAnimationShouldBeLeft() throws Exception {
-		assertSame(leftAnimation, pacMan.currentAnimation);
+	public void currentAnimationAndDirectionShouldBeLeft() throws Exception {
+		assertSame(LEFT, pacMan.currentDirection());
+		assertSame(leftAnimation, pacMan.currentAnimation());
 	}
 
 	@Test
 	public void shouldSetInitialDirectionAndDrawPacMan() throws Exception {
 		Point position = new Point(20, 20);
 		Polygon polygon = mock(Polygon.class);
-		
+
 		when(squarePolygon.getPosition()).thenReturn(position);
 		when(squarePolygon.getPolygon()).thenReturn(polygon);
-		
+
 		pacMan.draw(null);
 
-		verify(leftAnimation).draw(0, 0, polygon.getWidth(), polygon.getHeight());
+		verify(leftAnimation).draw(0, 0, polygon.getWidth(),
+				polygon.getHeight());
 	}
 
 	@Test
@@ -77,23 +82,27 @@ public class PacManTest {
 		Point position = new Point(10, 20);
 
 		when(squarePolygon.getPosition()).thenReturn(position);
-		
+
 		assertSame(position, renderable.getPosition());
 	}
 
+	@Test
+	public void shouldTranslatePacMan() throws Exception {
+		float delta = 1;
+		SquarePolygon expected = mock(SquarePolygon.class);
+
+		when(squarePolygon.translate(-delta, 0)).thenReturn(expected);
+
+		assertSame(expected, pacMan.translate(delta, LEFT));
+	}
+
 	private void testDirectionUpdate(int key, Direction direction) {
-		Input input = createInput(key);
-
 		PacMan pacMan = new PacMan(null, animationMap, DOWN);
-		pacMan.updateDirectionIfRequested(input);
 
-		assertSame(direction, pacMan.currentDirection);
-		assertSame(animationMap.get(direction), pacMan.currentAnimation);
+		pacMan.updateDirection(direction);
+
+		assertSame(direction, pacMan.currentDirection());
+		assertSame(animationMap.get(direction), pacMan.currentAnimation());
 	}
 
-	private Input createInput(int key) {
-		Input input = mock(Input.class);
-		when(input.isKeyDown(key)).thenReturn(true);
-		return input;
-	}
 }

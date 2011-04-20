@@ -12,17 +12,20 @@ public enum Direction {
 		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(0, -delta);
 		}
-	}, DOWN {
+	},
+	DOWN {
 		@Override
 		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(0, delta);
 		}
-	}, RIGHT {
+	},
+	RIGHT {
 		@Override
 		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(delta, 0);
 		}
-	}, LEFT {
+	},
+	LEFT {
 		@Override
 		public SquarePolygon move(SquarePolygon p, float delta) {
 			return p.translate(-delta, 0);
@@ -30,8 +33,8 @@ public enum Direction {
 	};
 
 	public abstract SquarePolygon move(SquarePolygon p, float delta);
-	
-	public Direction fromInput(Input input) {
+
+	public Direction next(Input input) {
 		if (input.isKeyDown(KEY_UP)) {
 			return UP;
 		} else if (input.isKeyDown(KEY_DOWN)) {
@@ -41,6 +44,7 @@ public enum Direction {
 		} else if (input.isKeyDown(KEY_LEFT)) {
 			return LEFT;
 		}
+
 		return this;
 	}
 

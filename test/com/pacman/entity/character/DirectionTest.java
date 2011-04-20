@@ -16,9 +16,9 @@ public class DirectionTest {
 	@Test
 	public void shouldReturnDirectionFromGivenInput() throws Exception {
 		validateFromInput(KEY_DOWN, DOWN, UP);
-		validateFromInput(KEY_UP, UP, UP);
-		validateFromInput(KEY_RIGHT, RIGHT, UP);
-		validateFromInput(KEY_LEFT, LEFT, UP);
+		validateFromInput(KEY_UP, UP, DOWN);
+		validateFromInput(KEY_RIGHT, RIGHT, LEFT);
+		validateFromInput(KEY_LEFT, LEFT, RIGHT);
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class DirectionTest {
 		validateFromInput(KEY_A, DOWN, DOWN);
 		validateFromInput(KEY_APOSTROPHE, DOWN, DOWN);
 	}
-	
+
 	@Test
 	public void shouldUpdateSquarePositionUp() throws Exception {
 		Direction direction = UP;
@@ -35,10 +35,10 @@ public class DirectionTest {
 		SquarePolygon expected = mock(SquarePolygon.class);
 
 		direction.move(expected, delta);
-		
+
 		verify(expected).translate(0, -delta);
 	}
-	
+
 	@Test
 	public void shouldUpdateSquarePositionDown() throws Exception {
 		Direction direction = DOWN;
@@ -46,10 +46,10 @@ public class DirectionTest {
 		SquarePolygon expected = mock(SquarePolygon.class);
 
 		direction.move(expected, delta);
-		
+
 		verify(expected).translate(0, delta);
 	}
-	
+
 	@Test
 	public void shouldUpdateSquarePositionRight() throws Exception {
 		Direction direction = RIGHT;
@@ -57,10 +57,10 @@ public class DirectionTest {
 		SquarePolygon expected = mock(SquarePolygon.class);
 
 		direction.move(expected, delta);
-		
+
 		verify(expected).translate(delta, 0);
 	}
-	
+
 	@Test
 	public void shouldUpdateSquarePositionLeft() throws Exception {
 		Direction direction = LEFT;
@@ -68,15 +68,15 @@ public class DirectionTest {
 		SquarePolygon expected = mock(SquarePolygon.class);
 
 		direction.move(expected, delta);
-		
+
 		verify(expected).translate(-delta, 0);
 	}
-	
+
 	private void validateFromInput(int key, Direction expectedDirection,
-			Direction currentDirection) {
+			Direction actualDirection) {
 		Input input = mock(Input.class);
 		when(input.isKeyDown(key)).thenReturn(true);
-		assertEquals(expectedDirection, currentDirection.fromInput(input));
+		assertEquals(expectedDirection, actualDirection.next(input));
 	}
 
 }

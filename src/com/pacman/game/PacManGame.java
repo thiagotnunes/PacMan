@@ -5,15 +5,18 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.pacman.entity.character.Direction;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderer;
 
 public class PacManGame extends BasicGame {
 
 	protected static final String MAP_PATH = "data/maze/1/complete.tmx";
+	protected static final float SPEED = 0.1f;
 
 	private PacMan pacMan;
 	private Board board;
@@ -37,9 +40,14 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		pacMan.updateDirectionIfRequested(gc.getInput());
-		if (!board.isCollidingWith(pacMan.updatedShape(delta))) {
-			pacMan.move(delta);
+		Direction direction = pacMan.currentDirection();
+		Direction nextDirection = direction.next(gc.getInput());
+		SquarePolygon squarePolygon = pacMan.translate(delta * PacMan.SPEED,
+				nextDirection);
+
+		if (!board.isCollidingWith(squarePolygon.getPolygon())) {
+			pacMan.updateCollisionPolygon(squarePolygon);
+			pacMan.updateDirection(nextDirection);
 		}
 	}
 
