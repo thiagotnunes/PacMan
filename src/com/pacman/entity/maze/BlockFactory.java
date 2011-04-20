@@ -9,6 +9,8 @@ import com.pacman.geometry.SquarePolygon;
 
 public class BlockFactory {
 
+	private static final String DEFAULT_COLLIDABLE_VALUE = "false";
+	private static final String COLLIDABLE = "collidable";
 	private static final int COLLISION_LAYER = 0;
 
 	public List<Block> from(TiledMap map) {
@@ -21,7 +23,7 @@ public class BlockFactory {
 			for (int y = 0; y < height; y++) {
 				int tileId = map.getTileId(x, y, COLLISION_LAYER);
 				if (Boolean.valueOf(map.getTileProperty(
-						tileId, "collidable", "false"))) {
+						tileId, COLLIDABLE, DEFAULT_COLLIDABLE_VALUE))) {
 					blocks.add(new Block(new SquarePolygon(x * blockWidth, y
 							* blockWidth, blockWidth)));
 				}

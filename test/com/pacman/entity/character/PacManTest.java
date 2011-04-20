@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.geometry.SquarePolygon;
@@ -55,13 +56,16 @@ public class PacManTest {
 
 	@Test
 	public void shouldSetInitialDirectionAndDrawPacMan() throws Exception {
-		Point position = new Point(20, 20);
+		int x = 20;
+		int y = 30;
+		Point position = new Point(x, y);
 		Polygon polygon = mock(Polygon.class);
-
+		Graphics g = mock(Graphics.class);
+		
 		when(squarePolygon.getPosition()).thenReturn(position);
 		when(squarePolygon.getPolygon()).thenReturn(polygon);
 
-		pacMan.draw(null);
+		pacMan.draw(g);
 
 		verify(leftAnimation).draw(0, 0, polygon.getWidth(),
 				polygon.getHeight());

@@ -23,7 +23,7 @@ public class Main {
 				boardFactory, renderer);
 
 		AppGameContainer container = new AppGameContainer(pacManGame);
-		container.setDisplayMode(700, 775, false);
+		container.setDisplayMode(700, 800, false);
 
 		container.start();
 	}

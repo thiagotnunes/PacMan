@@ -12,7 +12,7 @@ import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
-	public static final Float SPEED = 0.20f;
+	public static final Float SPEED = 0.50f;
 	private final Map<Direction, Animation> animationMap;
 	private Direction currentDirection;
 	private Animation currentAnimation;

@@ -8,6 +8,8 @@ import static org.newdawn.slick.Input.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -75,26 +77,6 @@ public class PacManGameTest {
 		Direction nextDirection = DOWN;
 		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 
-		mockPacManCollision(nextDirection, false, collisionPolygon);
-
-		verify(pacMan).updateCollisionPolygon(eq(collisionPolygon));
-		verify(pacMan).updateDirection(eq(nextDirection));
-	}
-
-	@Test
-	public void shouldNotMovePacManIfWillColideWithBoard() throws Exception {
-		Direction nextDirection = DOWN;
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
-
-		mockPacManCollision(nextDirection, true, collisionPolygon);
-
-		verify(pacMan, never()).updateCollisionPolygon(eq(collisionPolygon));
-		verify(pacMan, never()).updateDirection(eq(nextDirection));
-	}
-
-	private void mockPacManCollision(Direction nextDirection,
-			boolean isColliding, SquarePolygon collisionPolygon)
-			throws SlickException {
 		int delta = 1;
 		GameContainer gc = mock(GameContainer.class);
 		Input input = mock(Input.class);
@@ -106,9 +88,54 @@ public class PacManGameTest {
 		when(pacMan.translate(eq(delta * PacMan.SPEED), eq(nextDirection)))
 				.thenReturn(collisionPolygon);
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
-		when(board.isCollidingWith(eq(polygon))).thenReturn(isColliding);
+		when(board.isCollidingWith(eq(polygon))).thenReturn(false);
 
 		pacManGame.update(gc, delta);
+
+		verify(pacMan).updateCollisionPolygon(eq(collisionPolygon));
+		verify(pacMan).updateDirection(eq(nextDirection));
 	}
 
+	@Test
+	public void shouldNotMovePacManIfWillColideWithBoard() throws Exception {
+		Direction currentDirection = LEFT;
+		int delta = 1;
+		GameContainer gc = mock(GameContainer.class);
+		Input input = mock(Input.class);
+		
+		final SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		Polygon polygonForNextDirection = mock(Polygon.class);
+		
+		final SquarePolygon collisionPolygonForCurrentDirection = mock(SquarePolygon.class);
+		Polygon polygonForCurrentDirection = mock(Polygon.class);
+		
+		Answer<SquarePolygon> collisionPolygonAnswer = new Answer<SquarePolygon>() {
+			private int invocationCount;
+			
+			public SquarePolygon answer(InvocationOnMock invocation) throws Throwable {
+				if (invocationCount == 0) {
+					invocationCount++;
+					return collisionPolygon;
+				}
+				return collisionPolygonForCurrentDirection;
+			}
+		};
+		
+		when(gc.getInput()).thenReturn(input);
+		when(pacMan.currentDirection()).thenReturn(currentDirection);
+		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
+		when(pacMan.translate(eq(delta * PacMan.SPEED), any(Direction.class)))
+				.thenAnswer(collisionPolygonAnswer);
+		when(collisionPolygon.getPolygon()).thenReturn(polygonForNextDirection);
+		when(board.isCollidingWith(eq(polygonForNextDirection))).thenReturn(true);
+
+		when(collisionPolygonForCurrentDirection.getPolygon()).thenReturn(
+				polygonForCurrentDirection);
+		when(board.isCollidingWith(eq(polygonForCurrentDirection))).thenReturn(false);
+
+		pacManGame.update(gc, delta);
+
+		verify(pacMan).updateCollisionPolygon(eq(collisionPolygonForCurrentDirection));
+		verify(pacMan).updateDirection(eq(currentDirection));
+	}
 }

@@ -39,21 +39,33 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		Direction direction = pacMan.currentDirection();
-		Direction nextDirection = direction.next(gc.getInput());
-		SquarePolygon squarePolygon = pacMan.translate(delta * PacMan.SPEED,
-				nextDirection);
-
-		if (!board.isCollidingWith(squarePolygon.getPolygon())) {
-			pacMan.updateCollisionPolygon(squarePolygon);
-			pacMan.updateDirection(nextDirection);
-		}
+		updatePacMan(gc, delta);
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		renderer.render(board, g);
 		renderer.render(pacMan, g);
+	}
+
+	private void updatePacMan(GameContainer gc, int delta) {
+		Direction currentDirection = pacMan.currentDirection();
+		Direction nextDirection = currentDirection.next(gc.getInput());
+		
+		if (!movePacMan(nextDirection)) {
+			movePacMan(currentDirection);
+		}
+	}
+
+	private boolean movePacMan(Direction direction) {
+		SquarePolygon collisionPolygon = pacMan.translate(1f,
+				direction);
+		if (!board.isCollidingWith(collisionPolygon.getPolygon())) {
+			pacMan.updateCollisionPolygon(collisionPolygon);
+			pacMan.updateDirection(direction);
+			return true;
+		}
+		return false;
 	}
 
 }
