@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.newdawn.slick.Input.*;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;

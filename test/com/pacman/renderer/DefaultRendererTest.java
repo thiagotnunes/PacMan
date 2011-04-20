@@ -2,8 +2,9 @@ package com.pacman.renderer;
 
 import static org.mockito.Mockito.*;
 
+import java.awt.Point;
+
 import org.junit.Test;
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Graphics;
 
 
@@ -21,7 +22,7 @@ public class DefaultRendererTest {
 		renderer.render(renderable, g);
 		
 		verify(g).pushTransform();
-		verify(g).translate(point.getX(), point.getY());
+		verify(g).translate((float) point.getX(), (float) point.getY());
 		verify(renderable).draw(g);
 		verify(g).popTransform();
 	}
@@ -38,7 +39,7 @@ public class DefaultRendererTest {
 		renderer.render(renderable, g);
 		
 		verify(g).pushTransform();
-		verify(g).translate(point.getX(), point.getY());
+		verify(g).translate((float) point.getX(), (float) point.getY());
 		verify(renderable).draw(g);
 		verify(g).popTransform();
 	}

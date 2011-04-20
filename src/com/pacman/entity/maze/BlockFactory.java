@@ -22,15 +22,20 @@ public class BlockFactory {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				int tileId = map.getTileId(x, y, COLLISION_LAYER);
-				if (Boolean.valueOf(map.getTileProperty(
-						tileId, COLLIDABLE, DEFAULT_COLLIDABLE_VALUE))) {
-					blocks.add(new Block(new SquarePolygon(x * blockWidth, y
-							* blockWidth, blockWidth)));
+				if (isCollidable(map, tileId)) {
+					blocks.add(new Block(new SquarePolygon((float) x
+							* blockWidth, (float) y * blockWidth,
+							(float) blockWidth)));
 				}
 			}
 		}
 
 		return blocks;
+	}
+
+	private Boolean isCollidable(TiledMap map, int tileId) {
+		return Boolean.valueOf(map.getTileProperty(tileId, COLLIDABLE,
+				DEFAULT_COLLIDABLE_VALUE));
 	}
 
 }

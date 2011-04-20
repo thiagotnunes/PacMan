@@ -1,8 +1,8 @@
 package com.pacman.entity.character;
 
+import java.awt.Point;
 import java.util.Map;
 
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
@@ -12,7 +12,7 @@ import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
-	public static final Float SPEED = 1f;
+	public static final Float SPEED = 0.5f;
 	private final Map<Direction, Animation> animationMap;
 	private Direction currentDirection;
 	private Animation currentAnimation;

@@ -1,6 +1,7 @@
 package com.pacman.geometry;
 
-import org.lwjgl.util.Point;
+import java.awt.Point;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
@@ -12,7 +13,7 @@ public class SquarePolygon implements Renderable, Collidable {
 
 	private Polygon polygon;
 
-	public SquarePolygon(Integer x, Integer y, Integer width) {
+	public SquarePolygon(Float x, Float y, Float width) {
 		polygon = new Polygon(createPoints(x, y, width));
 		polygon.setClosed(true);
 	}
@@ -21,9 +22,9 @@ public class SquarePolygon implements Renderable, Collidable {
 		this.polygon = polygon;
 	}
 
-	private float[] createPoints(Integer x, Integer y, Integer width) {
-		Integer endingX = width - 1;
-		Integer endingY = endingX;
+	private float[] createPoints(Float x, Float y, Float width) {
+		Float endingX = width - 1;
+		Float endingY = endingX;
 
 		return new float[] { 
 				x, y,  

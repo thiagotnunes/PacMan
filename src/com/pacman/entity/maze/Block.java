@@ -1,6 +1,7 @@
 package com.pacman.entity.maze;
 
-import org.lwjgl.util.Point;
+import java.awt.Point;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;

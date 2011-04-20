@@ -16,9 +16,9 @@ public class SquarePolygonTest {
 
 	@Test
 	public void shouldCreateSquarePolygon() throws Exception {
-		int x = 10;
-		int y = 20;
-		int width = 25;
+		float x = 10f;
+		float y = 20f;
+		float width = 25f;
 		SquarePolygon square = new SquarePolygon(x, y, width);
 
 		Polygon expectedPolygon = new Polygon(new float[] {
@@ -37,7 +37,7 @@ public class SquarePolygonTest {
 	
 	@Test
 	public void shouldDrawItSelf() throws Exception {
-		SquarePolygon squarePolygon = new SquarePolygon(0, 0, 10);
+		SquarePolygon squarePolygon = new SquarePolygon(0f, 0f, 10f);
 		Graphics g = mock(Graphics.class);
 		
 		squarePolygon.draw(g);
@@ -47,10 +47,10 @@ public class SquarePolygonTest {
 	
 	@Test
 	public void shouldReturnCurrentPosition() throws Exception {
-		Renderable squarePolygon = new SquarePolygon(2, 1, 10);
+		Renderable squarePolygon = new SquarePolygon(2f, 1f, 10f);
 		
-		assertEquals(2, squarePolygon.getPosition().getX());
-		assertEquals(1, squarePolygon.getPosition().getY());
+		assertEquals(2, squarePolygon.getPosition().getX(), 1);
+		assertEquals(1, squarePolygon.getPosition().getY(), 1);
 	}
 	
 	@Test

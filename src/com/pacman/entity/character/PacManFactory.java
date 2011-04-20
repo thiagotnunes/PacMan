@@ -29,7 +29,7 @@ public class PacManFactory {
 				createPathsFrom(LEFT)));
 		animationMap.put(RIGHT, animationFactory.createFromPath(70,
 				createPathsFrom(RIGHT)));
-		return new PacMan(new SquarePolygon(25, 25, 25), animationMap, RIGHT);
+		return new PacMan(new SquarePolygon(24.5f, 24.5f, 26f), animationMap, RIGHT);
 	}
 
 	private String[] createPathsFrom(Direction direction) {
