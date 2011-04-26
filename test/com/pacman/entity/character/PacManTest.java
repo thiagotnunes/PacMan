@@ -2,19 +2,23 @@ package com.pacman.entity.character;
 
 import static com.pacman.entity.character.Direction.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.newdawn.slick.Input.*;
 
-import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
 
+import com.pacman.entity.Point;
+import com.pacman.entity.maze.Board;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 
@@ -26,14 +30,14 @@ public class PacManTest {
 	private Animation rightAnimation;
 	private Animation upAnimation;
 	private Animation downAnimation;
-	private SquarePolygon squarePolygon;
+	private SquarePolygon collisionPolygon;
 
 	@Before
 	public void setUp() {
 		createAnimationMap();
-		squarePolygon = mock(SquarePolygon.class);
+		collisionPolygon = mock(SquarePolygon.class);
 
-		pacMan = new PacMan(squarePolygon, animationMap, LEFT);
+		pacMan = new PacMan(collisionPolygon, animationMap, LEFT);
 	}
 
 	private void createAnimationMap() {
@@ -56,14 +60,14 @@ public class PacManTest {
 
 	@Test
 	public void shouldSetInitialDirectionAndDrawPacMan() throws Exception {
-		int x = 20;
-		int y = 30;
+		Float x = 20f;
+		Float y = 30f;
 		Point position = new Point(x, y);
 		Polygon polygon = mock(Polygon.class);
 		Graphics g = mock(Graphics.class);
-		
-		when(squarePolygon.getPosition()).thenReturn(position);
-		when(squarePolygon.getPolygon()).thenReturn(polygon);
+
+		when(collisionPolygon.getPosition()).thenReturn(position);
+		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 
 		pacMan.draw(g);
 
@@ -72,41 +76,61 @@ public class PacManTest {
 	}
 
 	@Test
-	public void shouldUpdateDirectionAccordinglyToTheGivenArrowKey()
-			throws Exception {
-		testDirectionUpdate(KEY_UP, UP);
-		testDirectionUpdate(KEY_DOWN, DOWN);
-		testDirectionUpdate(KEY_RIGHT, RIGHT);
-		testDirectionUpdate(KEY_LEFT, LEFT);
-	}
-
-	@Test
 	public void shouldReturnCurrentPosition() throws Exception {
-		Renderable renderable = new PacMan(squarePolygon, animationMap, LEFT);
-		Point position = new Point(10, 20);
+		Renderable renderable = new PacMan(collisionPolygon, animationMap, LEFT);
+		Point position = new Point(10f, 20f);
 
-		when(squarePolygon.getPosition()).thenReturn(position);
+		when(collisionPolygon.getPosition()).thenReturn(position);
 
 		assertSame(position, renderable.getPosition());
 	}
 
 	@Test
-	public void shouldTranslatePacMan() throws Exception {
-		float delta = 1;
-		SquarePolygon expected = mock(SquarePolygon.class);
+	public void shouldMovePacManIfWillNotCollideWithBoard() throws Exception {
+		int delta = 1;
+		GameContainer gc = mock(GameContainer.class);
+		Board board = mock(Board.class);
+		Input input = mock(Input.class);
+		Polygon polygon = mock(Polygon.class);
+		SquarePolygon movedCollisionPolygon = mock(SquarePolygon.class);
 
-		when(squarePolygon.translate(-delta, 0)).thenReturn(expected);
+		when(gc.getInput()).thenReturn(input);
+		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
+		when(collisionPolygon.getPolygon()).thenReturn(polygon);
+		when(board.isCollidingWith(eq(polygon))).thenReturn(false);
+		when(collisionPolygon.translate(0, 0.5f)).thenReturn(
+				movedCollisionPolygon);
 
-		assertSame(expected, pacMan.translate(delta, LEFT));
+		pacMan.update(gc, delta, board);
+
+		assertEquals(DOWN, pacMan.currentDirection());
+		assertEquals(downAnimation, pacMan.currentAnimation());
+		assertSame(movedCollisionPolygon, pacMan.currentCollisionPolygon());
 	}
 
-	private void testDirectionUpdate(int key, Direction direction) {
-		PacMan pacMan = new PacMan(null, animationMap, DOWN);
+	@Test
+	public void shouldNotMovePacManIfWillCollideWithBoard() throws Exception {
+		int delta = 1;
+		GameContainer gc = mock(GameContainer.class);
+		Board board = mock(Board.class);
+		Input input = mock(Input.class);
+		Polygon polygon = mock(Polygon.class);
+		final SquarePolygon movedCollisionPolygon = mock(SquarePolygon.class);
 
-		pacMan.updateDirection(direction);
+		when(gc.getInput()).thenReturn(input);
+		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
+		when(collisionPolygon.translate(0, 0.5f)).thenReturn(
+				movedCollisionPolygon);
+		when(collisionPolygon.translate(-0.5f, 0)).thenReturn(collisionPolygon);
+		when(movedCollisionPolygon.getPolygon()).thenReturn(polygon);
+		when(collisionPolygon.getPolygon()).thenReturn(polygon);
+		when(board.isCollidingWith(eq(polygon))).thenReturn(true);
 
-		assertSame(direction, pacMan.currentDirection());
-		assertSame(animationMap.get(direction), pacMan.currentAnimation());
+		pacMan.update(gc, delta, board);
+
+		assertEquals(LEFT, pacMan.currentDirection());
+		assertEquals(leftAnimation, pacMan.currentAnimation());
+		assertSame(collisionPolygon, pacMan.currentCollisionPolygon());
 	}
 
 }

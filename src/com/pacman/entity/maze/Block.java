@@ -1,12 +1,11 @@
 package com.pacman.entity.maze;
 
-import java.awt.Point;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
 import com.pacman.entity.Collidable;
+import com.pacman.entity.Point;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 

@@ -1,28 +1,20 @@
 package com.pacman.game;
 
-import static com.pacman.entity.character.Direction.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
-import static org.newdawn.slick.Input.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Polygon;
 
-import com.pacman.entity.character.Direction;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
-import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderer;
 
 public class PacManGameTest {
@@ -73,69 +65,12 @@ public class PacManGameTest {
 	}
 
 	@Test
-	public void shouldMovePacManIfWillNotCollideWithBoard() throws Exception {
-		Direction nextDirection = DOWN;
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
-
+	public void shouldUpdatePacMan() throws Exception {
 		int delta = 1;
 		GameContainer gc = mock(GameContainer.class);
-		Input input = mock(Input.class);
-		Polygon polygon = mock(Polygon.class);
-
-		when(gc.getInput()).thenReturn(input);
-		when(pacMan.currentDirection()).thenReturn(LEFT);
-		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
-		when(pacMan.translate(eq(PacMan.SPEED), eq(nextDirection)))
-				.thenReturn(collisionPolygon);
-		when(collisionPolygon.getPolygon()).thenReturn(polygon);
-		when(board.isCollidingWith(eq(polygon))).thenReturn(false);
 
 		pacManGame.update(gc, delta);
 
-		verify(pacMan).updateCollisionPolygon(eq(collisionPolygon));
-		verify(pacMan).updateDirection(eq(nextDirection));
-	}
-
-	@Test
-	public void shouldNotMovePacManIfWillColideWithBoard() throws Exception {
-		Direction currentDirection = LEFT;
-		int delta = 1;
-		GameContainer gc = mock(GameContainer.class);
-		Input input = mock(Input.class);
-		
-		final SquarePolygon collisionPolygon = mock(SquarePolygon.class);
-		Polygon polygonForNextDirection = mock(Polygon.class);
-		
-		final SquarePolygon collisionPolygonForCurrentDirection = mock(SquarePolygon.class);
-		Polygon polygonForCurrentDirection = mock(Polygon.class);
-		
-		Answer<SquarePolygon> collisionPolygonAnswer = new Answer<SquarePolygon>() {
-			private int invocationCount;
-			
-			public SquarePolygon answer(InvocationOnMock invocation) throws Throwable {
-				if (invocationCount == 0) {
-					invocationCount++;
-					return collisionPolygon;
-				}
-				return collisionPolygonForCurrentDirection;
-			}
-		};
-		
-		when(gc.getInput()).thenReturn(input);
-		when(pacMan.currentDirection()).thenReturn(currentDirection);
-		when(input.isKeyDown(eq(KEY_DOWN))).thenReturn(true);
-		when(pacMan.translate(eq(PacMan.SPEED), any(Direction.class)))
-				.thenAnswer(collisionPolygonAnswer);
-		when(collisionPolygon.getPolygon()).thenReturn(polygonForNextDirection);
-		when(board.isCollidingWith(eq(polygonForNextDirection))).thenReturn(true);
-
-		when(collisionPolygonForCurrentDirection.getPolygon()).thenReturn(
-				polygonForCurrentDirection);
-		when(board.isCollidingWith(eq(polygonForCurrentDirection))).thenReturn(false);
-
-		pacManGame.update(gc, delta);
-
-		verify(pacMan).updateCollisionPolygon(eq(collisionPolygonForCurrentDirection));
-		verify(pacMan).updateDirection(eq(currentDirection));
+		verify(pacMan).update(eq(gc), eq(delta), eq(board));
 	}
 }

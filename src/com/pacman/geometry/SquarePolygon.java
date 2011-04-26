@@ -1,12 +1,11 @@
 package com.pacman.geometry;
 
-import java.awt.Point;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
 import com.pacman.entity.Collidable;
+import com.pacman.entity.Point;
 import com.pacman.renderer.Renderable;
 
 public class SquarePolygon implements Renderable, Collidable {
@@ -26,24 +25,21 @@ public class SquarePolygon implements Renderable, Collidable {
 		Float endingX = width - 1;
 		Float endingY = endingX;
 
-		return new float[] { 
-				x, y,  
-				x + endingX, y, 
-				x + endingX, y + endingY, 
-				x ,	y + endingY };
+		return new float[] { x, y, x + endingX, y, x + endingX, y + endingY, x,
+				y + endingY };
 	}
 
 	public Polygon getPolygon() {
 		return polygon;
 	}
-	
+
 	public void draw(Graphics g) {
 		g.draw(polygon);
 	}
 
 	@Override
 	public Point getPosition() {
-		return new Point((int) polygon.getMinX(), (int) polygon.getMinY());
+		return new Point(polygon.getX(), polygon.getY());
 	}
 
 	@Override
@@ -54,11 +50,19 @@ public class SquarePolygon implements Renderable, Collidable {
 	public SquarePolygon translate(float x, float y) {
 		float currentX = polygon.getX();
 		float currentY = polygon.getY();
-		
+
 		Polygon translatedPolygon = polygon.copy();
 		translatedPolygon.setLocation(currentX + x, currentY + y);
-		
+
 		return new SquarePolygon(translatedPolygon);
+	}
+
+	@Override
+	public String toString() {
+		return "[(" + polygon.getMinX() + ", " + polygon.getMinY() + ")\n, "
+				+ "(" + polygon.getMaxX() + ", " + polygon.getMinY() + ")\n, "
+				+ "(" + polygon.getMaxX() + ", " + polygon.getMaxY() + ")\n, "
+				+ "(" + polygon.getMinX() + ", " + polygon.getMaxY() + ")]";
 	}
 
 }

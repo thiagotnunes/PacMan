@@ -1,8 +1,8 @@
 package com.pacman.renderer;
 
-import java.awt.Point;
-
 import org.newdawn.slick.Graphics;
+
+import com.pacman.entity.Point;
 
 public interface Renderable {
 

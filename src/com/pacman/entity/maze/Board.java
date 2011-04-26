@@ -1,6 +1,5 @@
 package com.pacman.entity.maze;
 
-import java.awt.Point;
 import java.util.List;
 
 import org.newdawn.slick.Graphics;
@@ -8,6 +7,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.Collidable;
+import com.pacman.entity.Point;
 import com.pacman.renderer.Renderable;
 
 public class Board implements Renderable, Collidable {
@@ -27,11 +27,14 @@ public class Board implements Renderable, Collidable {
 	@Override
 	public void draw(Graphics g) {
 		map.render(0, 0);
+		// for (Block block : blocks) {
+		// g.draw(block.getPolygon());
+		// }
 	}
 
 	@Override
 	public Point getPosition() {
-		return new Point(0, 0);
+		return new Point(0f, 0f);
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package com.pacman.renderer;
 
-import java.awt.Point;
-
 import org.newdawn.slick.Graphics;
+
+import com.pacman.entity.Point;
 
 public class DefaultRenderer implements Renderer {
 
 	@Override
 	public void render(Renderable renderable, Graphics g) {
 		Point position = renderable.getPosition();
-		draw(renderable, g, (float) position.getX(), (float) position.getY());
+		draw(renderable, g, position.getX(), position.getY());
 	}
 
 	private void draw(Renderable renderable, Graphics g, Float x, Float y) {
