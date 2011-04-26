@@ -11,6 +11,8 @@ import java.io.File;
 
 import org.junit.Test;
 
+import com.pacman.entity.direction.Direction;
+
 
 public class PacManFactoryTest {
 

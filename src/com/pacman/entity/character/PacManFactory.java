@@ -1,6 +1,6 @@
 package com.pacman.entity.character;
 
-import static com.pacman.entity.character.Direction.*;
+import static com.pacman.entity.direction.Direction.*;
 
 import java.io.File;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ import java.util.Map;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
+import com.pacman.entity.direction.Direction;
 import com.pacman.geometry.SquarePolygon;
 
 public class PacManFactory {

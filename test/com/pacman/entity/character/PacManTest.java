@@ -1,6 +1,6 @@
 package com.pacman.entity.character;
 
-import static com.pacman.entity.character.Direction.*;
+import static com.pacman.entity.direction.Direction.*;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -18,6 +18,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.Point;
+import com.pacman.entity.direction.Direction;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
