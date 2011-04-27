@@ -3,11 +3,11 @@ package com.pacman.entity.maze;
 import java.util.List;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.Collidable;
 import com.pacman.entity.Point;
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 
 public class Board implements Renderable, Collidable {
@@ -38,9 +38,9 @@ public class Board implements Renderable, Collidable {
 	}
 
 	@Override
-	public boolean isCollidingWith(Shape shape) {
+	public boolean isCollidingWith(SquarePolygon collidable) {
 		for (Block block : blocks) {
-			if (block.isCollidingWith(shape)) {
+			if (block.isCollidingWith(collidable)) {
 				return true;
 			}
 		}

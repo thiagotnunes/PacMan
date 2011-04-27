@@ -9,6 +9,7 @@ import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
+import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderer;
 
 public class PacManGame extends BasicGame {
@@ -31,7 +32,7 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		pacMan = pacManFactory.create();
+		pacMan = pacManFactory.from(new SquarePolygon(24.5f, 24.5f, 26f));
 		board = boardFactory.from(MAP_PATH);
 	}
 

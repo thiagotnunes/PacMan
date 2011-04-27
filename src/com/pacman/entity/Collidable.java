@@ -1,9 +1,9 @@
 package com.pacman.entity;
 
-import org.newdawn.slick.geom.Shape;
+import com.pacman.geometry.SquarePolygon;
 
 public interface Collidable {
 
-	boolean isCollidingWith(Shape shape);
+	boolean isCollidingWith(SquarePolygon polygon);
 
 }

@@ -2,7 +2,6 @@ package com.pacman.entity.maze;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Shape;
 
 import com.pacman.entity.Collidable;
 import com.pacman.entity.Point;
@@ -31,8 +30,8 @@ public class Block implements Renderable, Collidable {
 		return squarePolygon.getPolygon();
 	}
 
-	public boolean isCollidingWith(Shape shape) {
-		return squarePolygon.isCollidingWith(shape);
+	public boolean isCollidingWith(SquarePolygon collidable) {
+		return squarePolygon.isCollidingWith(collidable);
 	}
 
 }

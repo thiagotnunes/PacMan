@@ -1,7 +1,6 @@
 package com.pacman.entity.maze;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -9,10 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.Collidable;
+import com.pacman.geometry.SquarePolygon;
 
 public class BoardTest {
 
@@ -32,26 +31,26 @@ public class BoardTest {
 	public void shouldBeCollidingWhenAtLeastOneOfTheBlocksIsColliding()
 			throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		Shape shape = mock(Shape.class);
+		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 		List<Block> blocks = new ArrayList<Block>();
 		Block firstBlock = mock(Block.class);
 		blocks.add(firstBlock);
 		Block secondBlock = firstBlock;
-		when(secondBlock.isCollidingWith(shape)).thenReturn(true);
+		when(secondBlock.isCollidingWith(collisionPolygon)).thenReturn(true);
 		blocks.add(secondBlock);
 
 		Collidable board = new Board(map, blocks);
 
-		assertTrue(board.isCollidingWith(shape));
+		assertTrue(board.isCollidingWith(collisionPolygon));
 
-		verify(firstBlock).isCollidingWith(eq(shape));
-		verify(secondBlock).isCollidingWith(eq(shape));
+		verify(firstBlock).isCollidingWith(collisionPolygon);
+		verify(secondBlock).isCollidingWith(collisionPolygon);
 	}
 
 	@Test
 	public void shouldNotBeCollidingWhenNoBlocksAreColliding() throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		Shape shape = mock(Shape.class);
+		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 		List<Block> blocks = new ArrayList<Block>();
 		Block firstBlock = mock(Block.class);
 		Block secondBlock = mock(Block.class);
@@ -60,9 +59,9 @@ public class BoardTest {
 
 		Collidable board = new Board(map, blocks);
 
-		assertFalse(board.isCollidingWith(shape));
+		assertFalse(board.isCollidingWith(collisionPolygon));
 
-		verify(firstBlock).isCollidingWith(eq(shape));
-		verify(secondBlock).isCollidingWith(eq(shape));
+		verify(firstBlock).isCollidingWith(collisionPolygon);
+		verify(secondBlock).isCollidingWith(collisionPolygon);
 	}
 }

@@ -2,7 +2,6 @@ package com.pacman.geometry;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Shape;
 
 import com.pacman.entity.Collidable;
 import com.pacman.entity.Point;
@@ -43,8 +42,8 @@ public class SquarePolygon implements Renderable, Collidable {
 	}
 
 	@Override
-	public boolean isCollidingWith(Shape shape) {
-		return polygon.intersects(shape);
+	public boolean isCollidingWith(SquarePolygon collidable) {
+		return polygon.intersects(collidable.getPolygon());
 	}
 
 	public SquarePolygon translate(float x, float y) {
