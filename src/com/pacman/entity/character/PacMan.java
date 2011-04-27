@@ -16,11 +16,12 @@ import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
-	public static final Float SPEED = 0.5f;
+	public static final Float SPEED = 1f;
 
 	private final DirectionBuilder directionBuilder;
 	private SquarePolygon currentCollisionPolygon;
 	private Direction currentDirection;
+	private Direction bufferedDirection;
 
 	public PacMan(SquarePolygon collisionPolygon,
 			DirectionBuilder directionBuilder) throws SlickException {
@@ -28,6 +29,7 @@ public class PacMan implements Renderable {
 		this.directionBuilder = directionBuilder;
 		this.directionBuilder.buildDirectionMap();
 		currentDirection = directionBuilder.defaultDirection();
+		bufferedDirection = new NullDirection();
 	}
 
 	public void draw(Graphics g) {
@@ -43,24 +45,32 @@ public class PacMan implements Renderable {
 	public void update(GameContainer gc, int delta, Board board) {
 		Direction nextDirection = directionBuilder.from(gc.getInput());
 
-		if (nextDirection instanceof NullDirection
-				|| !move(nextDirection, board)) {
+		if (canMove(nextDirection, board)) {
+			move(nextDirection, board);
+		} else if (canMove(bufferedDirection, board)) {
+			move(bufferedDirection, board);
+		} else if (canMove(currentDirection, board)) {
 			move(currentDirection, board);
+		}
+
+		if (!(nextDirection instanceof NullDirection)) {
+			bufferedDirection = nextDirection;
 		}
 	}
 
-	private boolean move(Direction direction, Board board) {
+	private boolean canMove(Direction direction, Board board) {
+		SquarePolygon movedCollisionPolygon = direction.move(
+				currentCollisionPolygon, SPEED);
+		return movedCollisionPolygon == null ? false : !board
+				.isCollidingWith(movedCollisionPolygon);
+	}
+
+	private void move(Direction direction, Board board) {
 		SquarePolygon movedCollisionPolygon = direction.move(
 				currentCollisionPolygon, SPEED);
 
-		if (board.isCollidingWith(movedCollisionPolygon)) {
-			return false;
-		}
-
 		currentCollisionPolygon = movedCollisionPolygon;
 		currentDirection = direction;
-
-		return true;
 	}
 
 	public Direction currentDirection() {

@@ -8,7 +8,7 @@ public class NullDirection implements Direction {
 
 	@Override
 	public SquarePolygon move(SquarePolygon p, float delta) {
-		return p;
+		return null;
 	}
 
 	@Override
