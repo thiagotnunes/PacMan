@@ -7,15 +7,25 @@
     <property name="collidable" value="true"/>
    </properties>
   </tile>
+  <tile id="8">
+   <properties>
+    <property name="consumable" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Collision" width="28" height="31">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9VSWw7AMAjyb/e/8f6ND1BrN5ImS1sEVh4ReZYXiwme5cHzxtyJeKK+dYaM53ERn6fzbYD931nnOvNO62X5O/v6HH3zTl8iL1N6KKr9ndSr9CXyVOWz/lAgeuic2/lOvh+qh/L+3E9Wr9tR7bHDi/yyObJ5N/SszB1EszPv1t0J7paeB++c3bfOM//V3F/hbQD1Nrlej53vC5ANAAA=
+   H4sIAAAAAAAAC9VSWw7AMAjyb/e/8f6ND1BrN5ImS1sEVh4ReZYXiwme5cHzxtyJeKK+dYaM53ERn6fzbYD931nnOvNO62X5O/v6HH3zTl8iL1N6KKr9ndSr9CXyVOWz/lAgeuic2/lOvh+qh/L+3E9Wr9tR7bHDi/yyObJ5N/SszB1EszPv1t0J7paeB++c3bfOM//V3F/hbQD1Nrlej53vC5ANAAA=
   </data>
  </layer>
  <layer name="Maze" width="28" height="31">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+VWWwrDMAxz08f9j9ztY2BUy5GbdAxmKAXHSiI/c5jZUvz213fcxG1Wl20Czt93D3Rez3AMG+H8fSMd6hWbDNfcfdZAh3rFBnV343BXlPixWLKYqfHr8W+APwr2qj/ZelXv1zHeyB954b7Ik9WJ5xnd4/OP/MbyczdeJ5lE9aLiZp2n5KdyXoSP/NbLA7SP8mJJ9mB7VtdQ1PpVzlP6Q4Zn9cv8PzNfVNyv5WfWB7K6rvSBf3xPNLtyHpnvvvdm82jWzGd7e15oNzLfI5+vduWMPXNkvqPPe/n5xHzvzePqfO+9F5T+WK1rpb9+Q9h76anvzfMEZqMDspANAAA=
+   H4sIAAAAAAAAC+VWWwrDMAxz08f9j9ztY2BUy5GbdAxmKAXHSiI/c5jZUvz213fcxG1Wl20Czt93D3Rez3AMG+H8fSMd6hWbDNfcfdZAh3rFBnV343BXlPixWLKYqfHr8W+APwr2qj/ZelXv1zHeyB954b7Ik9WJ5xnd4/OP/MbyczdeJ5lE9aLiZp2n5KdyXoSP/NbLA7SP8mJJ9mB7VtdQ1PpVzlP6Q4Zn9cv8PzNfVNyv5WfWB7K6rvSBf3xPNLtyHpnvvvdm82jWzGd7e15oNzLfI5+vduWMPXNkvqPPe/n5xHzvzePqfO+9F5T+WK1rpb9+Q9h76anvzfMEZqMDspANAAA=
+  </data>
+ </layer>
+ <layer name="Normal Food" width="28" height="31">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1VsQ0AIAhj9f+HnVwMqLWC0dCEgcZaBkhF7qAAxWhE6S2u51ferOp+84soZJ4Z2P+8/ZC9R3ntJkbzoNjRpl/6pV/6ndAyueKRRxb/Yr5rHJvlVh5ZszN5O9JG+UXnO3JrL+pa71m3UAEBN9f+kA0AAA==
   </data>
  </layer>
 </map>
