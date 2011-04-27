@@ -2,14 +2,22 @@ package com.pacman.entity.direction;
 
 import org.newdawn.slick.Animation;
 
+import com.pacman.entity.maze.Board;
 import com.pacman.geometry.SquarePolygon;
 
-public interface Direction {
+public abstract class Direction {
 
-	Integer ANIMATION_DELAY = 70;
+	public static final Integer ANIMATION_DELAY = 70;
 
-	SquarePolygon move(SquarePolygon p, float delta);
+	public abstract SquarePolygon move(SquarePolygon collisionPolygon, Float delta);
 
-	Animation getAnimation();
+	public abstract Animation getAnimation();
+
+	public Boolean canMove(SquarePolygon collisionPolygon, Float delta,
+			Board board) {
+		SquarePolygon polygon = move(collisionPolygon, delta);
+		
+		return !board.isCollidingWith(polygon);
+	}
 
 }

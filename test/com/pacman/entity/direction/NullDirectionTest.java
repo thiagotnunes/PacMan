@@ -1,26 +1,24 @@
 package com.pacman.entity.direction;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-
-import com.pacman.geometry.SquarePolygon;
 
 public class NullDirectionTest {
 
 	@Test
 	public void shouldNotMovePolygon() throws Exception {
-		Direction direction = new NullDirection();
-		SquarePolygon polygon = mock(SquarePolygon.class);
-
-		assertSame(polygon, direction.move(polygon, 0));
+		assertNull(new NullDirection().move(null, 0f));
 	}
 
 	@Test
 	public void animationShouldBeNull() throws Exception {
-		NullDirection direction = new NullDirection();
-		assertNull(direction.getAnimation());
+		assertNull(new NullDirection().getAnimation());
+	}
+	
+	@Test
+	public void shouldNotBeAbleToMove() throws Exception {
+		assertFalse(new NullDirection().canMove(null, null, null));
 	}
 
 }

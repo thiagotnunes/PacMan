@@ -16,12 +16,12 @@ import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
 
-	public static final Float SPEED = 1f;
+	public static final Float SPEED = 0.5f;
 
 	private final DirectionBuilder directionBuilder;
 	private SquarePolygon currentCollisionPolygon;
 	private Direction currentDirection;
-	private Direction bufferedDirection;
+	protected Direction bufferedDirection;
 
 	public PacMan(SquarePolygon collisionPolygon,
 			DirectionBuilder directionBuilder) throws SlickException {
@@ -29,7 +29,7 @@ public class PacMan implements Renderable {
 		this.directionBuilder = directionBuilder;
 		this.directionBuilder.buildDirectionMap();
 		currentDirection = directionBuilder.defaultDirection();
-		bufferedDirection = new NullDirection();
+		bufferedDirection = currentDirection;
 	}
 
 	public void draw(Graphics g) {
@@ -45,12 +45,12 @@ public class PacMan implements Renderable {
 	public void update(GameContainer gc, int delta, Board board) {
 		Direction nextDirection = directionBuilder.from(gc.getInput());
 
-		if (canMove(nextDirection, board)) {
-			move(nextDirection, board);
-		} else if (canMove(bufferedDirection, board)) {
-			move(bufferedDirection, board);
-		} else if (canMove(currentDirection, board)) {
-			move(currentDirection, board);
+		if (nextDirection.canMove(currentCollisionPolygon, PacMan.SPEED, board)) {
+			move(nextDirection);
+		} else if (bufferedDirection.canMove(currentCollisionPolygon, PacMan.SPEED, board)) {
+			move(bufferedDirection);
+		} else if (currentDirection.canMove(currentCollisionPolygon, PacMan.SPEED, board)) {
+			move(currentDirection);
 		}
 
 		if (!(nextDirection instanceof NullDirection)) {
@@ -58,18 +58,9 @@ public class PacMan implements Renderable {
 		}
 	}
 
-	private boolean canMove(Direction direction, Board board) {
-		SquarePolygon movedCollisionPolygon = direction.move(
+	private void move(Direction direction) {
+		currentCollisionPolygon = direction.move(
 				currentCollisionPolygon, SPEED);
-		return movedCollisionPolygon == null ? false : !board
-				.isCollidingWith(movedCollisionPolygon);
-	}
-
-	private void move(Direction direction, Board board) {
-		SquarePolygon movedCollisionPolygon = direction.move(
-				currentCollisionPolygon, SPEED);
-
-		currentCollisionPolygon = movedCollisionPolygon;
 		currentDirection = direction;
 	}
 

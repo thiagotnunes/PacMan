@@ -5,8 +5,6 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,6 +15,7 @@ import org.newdawn.slick.geom.Polygon;
 import com.pacman.entity.Point;
 import com.pacman.entity.direction.Direction;
 import com.pacman.entity.direction.DirectionBuilder;
+import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
@@ -87,9 +86,9 @@ public class PacManTest {
 
 		when(gc.getInput()).thenReturn(input);
 		when(directionFactory.from(input)).thenReturn(nextDirection);
+		when(nextDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
 		when(nextDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(
 				movedCollisionPolygon);
-		when(board.isCollidingWith(movedCollisionPolygon)).thenReturn(false);
 
 		pacMan.update(gc, delta, board);
 
@@ -104,33 +103,41 @@ public class PacManTest {
 		Board board = mock(Board.class);
 		Input input = mock(Input.class);
 		SquarePolygon currentDirectionPolygon = mock(SquarePolygon.class);
-		SquarePolygon movedCollisionPolygon = currentDirectionPolygon;
 		Direction nextDirection = mock(Direction.class);
 
 		when(gc.getInput()).thenReturn(input);
 		when(directionFactory.from(input)).thenReturn(nextDirection);
-		when(nextDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(
-				movedCollisionPolygon);
+		when(nextDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
+		when(direction.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
 		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
 				currentDirectionPolygon);
-		when(board.isCollidingWith(any(SquarePolygon.class))).thenAnswer(
-				new Answer<Boolean>() {
-					private int invocationCounter = 0;
-
-					@Override
-					public Boolean answer(InvocationOnMock invocation)
-							throws Throwable {
-						if (invocationCounter == 0) {
-							invocationCounter++;
-							return true;
-						}
-						return false;
-					}
-				});
 
 		pacMan.update(gc, delta, board);
 
 		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
 		assertSame(direction, pacMan.currentDirection());
+		assertSame(nextDirection, pacMan.bufferedDirection);
+	}
+	
+	@Test
+	public void directionShouldNotBeBufferedForNullDirection() throws Exception {
+		int delta = 1;
+		GameContainer gc = mock(GameContainer.class);
+		Board board = mock(Board.class);
+		Input input = mock(Input.class);
+		SquarePolygon currentDirectionPolygon = mock(SquarePolygon.class);
+		Direction nextDirection = new NullDirection();
+		
+		when(gc.getInput()).thenReturn(input);
+		when(directionFactory.from(input)).thenReturn(nextDirection);
+		when(direction.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
+		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
+				currentDirectionPolygon);
+
+		pacMan.update(gc, delta, board);
+
+		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
+		assertSame(direction, pacMan.currentDirection());
+		assertSame(direction, pacMan.bufferedDirection);
 	}
 }

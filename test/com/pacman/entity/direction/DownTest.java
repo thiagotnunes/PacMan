@@ -30,5 +30,4 @@ public class DownTest {
 
 		verify(polygon).translate(0, delta);
 	}
-
 }

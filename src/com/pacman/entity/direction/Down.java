@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import com.pacman.entity.character.AnimationFactory;
 import com.pacman.geometry.SquarePolygon;
 
-public class Down implements Direction {
+public class Down extends Direction {
 
 	private Animation animation;
 
@@ -16,7 +16,7 @@ public class Down implements Direction {
 	}
 
 	@Override
-	public SquarePolygon move(SquarePolygon p, float delta) {
+	public SquarePolygon move(SquarePolygon p, Float delta) {
 		return p.translate(0, delta);
 	}
 
