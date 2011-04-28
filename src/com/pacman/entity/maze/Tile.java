@@ -8,11 +8,11 @@ import com.pacman.entity.Point;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 
-public class Block implements Renderable, Collidable {
+public class Tile implements Renderable, Collidable {
 
 	private final SquarePolygon squarePolygon;
 
-	public Block(SquarePolygon squarePolygon) {
+	public Tile(SquarePolygon squarePolygon) {
 		this.squarePolygon = squarePolygon;
 	}
 

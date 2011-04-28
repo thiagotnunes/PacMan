@@ -36,10 +36,9 @@ public class PacMan implements Renderable {
 		Polygon polygon = currentCollisionPolygon.getPolygon();
 		Animation animation = currentDirection.getAnimation();
 		animation.draw(0, 0, polygon.getWidth(), polygon.getHeight());
-		// g.draw(polygon);
-		// g.drawString(currentCollisionPolygon.toString(),
-		// polygon.getCenterX(),
-		// polygon.getCenterY());
+//		g.draw(polygon);
+//		g.drawString(currentCollisionPolygon.toString(), polygon.getCenterX(),
+//				polygon.getCenterY());
 	}
 
 	public void update(GameContainer gc, int delta, Board board) {

@@ -5,7 +5,7 @@ import org.newdawn.slick.AppGameContainer;
 import com.pacman.entity.character.AnimationFactory;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.direction.DirectionBuilder;
-import com.pacman.entity.maze.BlockFactory;
+import com.pacman.entity.maze.TileFactory;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.entity.maze.MapFactory;
 import com.pacman.renderer.DefaultRenderer;
@@ -17,7 +17,7 @@ public class Main {
 
 		DefaultRenderer renderer = new DefaultRenderer();
 		BoardFactory boardFactory = new BoardFactory(new MapFactory(),
-				new BlockFactory());
+				new TileFactory());
 		PacManFactory pacManFactory = new PacManFactory(new DirectionBuilder(
 				new AnimationFactory()));
 

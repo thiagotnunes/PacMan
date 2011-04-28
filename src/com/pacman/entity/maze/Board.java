@@ -1,5 +1,7 @@
 package com.pacman.entity.maze;
 
+import static com.pacman.game.properties.LayerProperties.*;
+
 import java.util.List;
 
 import org.newdawn.slick.Graphics;
@@ -13,20 +15,20 @@ import com.pacman.renderer.Renderable;
 public class Board implements Renderable, Collidable {
 
 	private final TiledMap map;
-	private List<Block> blocks;
+	private List<Tile> collidableBlocks;
 
-	protected Board(TiledMap map, List<Block> blocks) {
+	protected Board(TiledMap map, List<Tile> collidableBlocks) {
 		this.map = map;
-		this.blocks = blocks;
-	}
-
-	public List<Block> getBlocks() {
-		return blocks;
+		this.collidableBlocks = collidableBlocks;
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		map.render(0, 0);
+		for (int i = 0; i < map.getLayerCount(); i++) {
+			if (isLayerVisible(i)) {
+				map.render(0, 0, i);
+			}
+		}
 		// for (Block block : blocks) {
 		// g.draw(block.getPolygon());
 		// }
@@ -39,12 +41,17 @@ public class Board implements Renderable, Collidable {
 
 	@Override
 	public boolean isCollidingWith(SquarePolygon collidable) {
-		for (Block block : blocks) {
+		for (Tile block : collidableBlocks) {
 			if (block.isCollidingWith(collidable)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private Boolean isLayerVisible(int layerIndex) {
+		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE.property(),
+				VISIBLE.defaultValue()));
 	}
 
 }

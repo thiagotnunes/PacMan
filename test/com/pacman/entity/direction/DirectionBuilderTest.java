@@ -13,25 +13,25 @@ import com.pacman.entity.character.AnimationFactory;
 
 public class DirectionBuilderTest {
 
-	private DirectionBuilder factory;
+	private DirectionBuilder directionBuilder;
 	private AnimationFactory animationFactory;
 
 	@Before
 	public void setUp() throws SlickException {
 		animationFactory = mock(AnimationFactory.class);
-		factory = new DirectionBuilder(animationFactory);
+		directionBuilder = new DirectionBuilder(animationFactory);
+		
+		directionBuilder.buildDirectionMap();
 	}
 
 	@Test
 	public void defaultDirectionShouldBeLeft() throws Exception {
-		factory.buildDirectionMap();
-		assertEquals(new Left(animationFactory).getClass(), factory
+		assertEquals(new Left(animationFactory).getClass(), directionBuilder
 				.defaultDirection().getClass());
 	}
 
 	@Test
 	public void shouldReturnDirectionFromGivenInput() throws Exception {
-		factory.buildDirectionMap();
 		validateFromInput(KEY_DOWN, new Down(animationFactory));
 		validateFromInput(KEY_UP, new Up(animationFactory));
 		validateFromInput(KEY_RIGHT, new Right(animationFactory));
@@ -48,7 +48,7 @@ public class DirectionBuilderTest {
 	private void validateFromInput(int key, Direction expectedDirection) {
 		Input input = mock(Input.class);
 		when(input.isKeyDown(key)).thenReturn(true);
-		assertEquals(expectedDirection.getClass(), factory.from(input)
+		assertEquals(expectedDirection.getClass(), directionBuilder.from(input)
 				.getClass());
 	}
 

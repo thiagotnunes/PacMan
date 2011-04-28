@@ -24,6 +24,9 @@
   </data>
  </layer>
  <layer name="Normal Food" width="28" height="31">
+  <properties>
+   <property name="visible" value="false"/>
+  </properties>
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+1VsQ0AIAhj9f+HnVwMqLWC0dCEgcZaBkhF7qAAxWhE6S2u51ferOp+84soZJ4Z2P+8/ZC9R3ntJkbzoNjRpl/6pV/6ndAyueKRRxb/Yr5rHJvlVh5ZszN5O9JG+UXnO3JrL+pa71m3UAEBN9f+kA0AAA==
   </data>

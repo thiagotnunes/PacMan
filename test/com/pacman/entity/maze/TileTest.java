@@ -10,14 +10,14 @@ import org.newdawn.slick.Graphics;
 import com.pacman.entity.Collidable;
 import com.pacman.geometry.SquarePolygon;
 
-public class BlockTest {
+public class TileTest {
 
 	@Test
 	public void shouldCreateSquareForBlock() throws Exception {
 		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Block block = new Block(squarePolygon);
+		Tile tile = new Tile(squarePolygon);
 
-		block.getPolygon();
+		tile.getPolygon();
 
 		verify(squarePolygon).getPolygon();
 	}
@@ -25,10 +25,10 @@ public class BlockTest {
 	@Test
 	public void shouldDrawItSelf() throws Exception {
 		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Block block = new Block(squarePolygon);
+		Tile tile = new Tile(squarePolygon);
 		Graphics g = mock(Graphics.class);
 
-		block.draw(g);
+		tile.draw(g);
 
 		verify(squarePolygon).draw(eq(g));
 	}
@@ -36,22 +36,22 @@ public class BlockTest {
 	@Test
 	public void shouldBeCollidingWithIntersectingShape() throws Exception {
 		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Collidable block = new Block(squarePolygon);
+		Collidable tile = new Tile(squarePolygon);
 		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 
 		when(squarePolygon.isCollidingWith(collisionPolygon)).thenReturn(true);
 
-		assertTrue(block.isCollidingWith(collisionPolygon));
+		assertTrue(tile.isCollidingWith(collisionPolygon));
 	}
 
 	@Test
 	public void shouldNotBeCollidingWithNonIntersectingShape() throws Exception {
 		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Collidable block = new Block(squarePolygon);
+		Collidable tile = new Tile(squarePolygon);
 		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
 
 		when(squarePolygon.isCollidingWith(collisionPolygon)).thenReturn(false);
 
-		assertFalse(block.isCollidingWith(collisionPolygon));
+		assertFalse(tile.isCollidingWith(collisionPolygon));
 	}
 }
