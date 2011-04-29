@@ -1,4 +1,4 @@
-package com.pacman.entity;
+package com.pacman.entity.collision;
 
 import com.pacman.geometry.SquarePolygon;
 

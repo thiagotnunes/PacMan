@@ -7,8 +7,8 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.Collidable;
-import com.pacman.entity.Point;
+import com.pacman.entity.collision.Collidable;
+import com.pacman.geometry.Point;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 

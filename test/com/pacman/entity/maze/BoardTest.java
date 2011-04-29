@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.Collidable;
+import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.SquarePolygon;
 
 public class BoardTest {

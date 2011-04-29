@@ -7,7 +7,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
 
-import com.pacman.entity.Collidable;
+import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.SquarePolygon;
 
 public class TileTest {

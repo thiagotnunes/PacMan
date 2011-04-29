@@ -3,8 +3,8 @@ package com.pacman.entity.maze;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
-import com.pacman.entity.Collidable;
-import com.pacman.entity.Point;
+import com.pacman.entity.collision.Collidable;
+import com.pacman.geometry.Point;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 

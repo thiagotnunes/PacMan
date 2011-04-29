@@ -3,8 +3,7 @@ package com.pacman.geometry;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
-import com.pacman.entity.Collidable;
-import com.pacman.entity.Point;
+import com.pacman.entity.collision.Collidable;
 import com.pacman.renderer.Renderable;
 
 public class SquarePolygon implements Renderable, Collidable {

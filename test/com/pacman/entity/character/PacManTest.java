@@ -12,11 +12,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
-import com.pacman.entity.Point;
 import com.pacman.entity.direction.Direction;
 import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
+import com.pacman.geometry.Point;
 import com.pacman.geometry.SquarePolygon;
 import com.pacman.renderer.Renderable;
 

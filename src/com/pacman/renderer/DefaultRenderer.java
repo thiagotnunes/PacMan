@@ -2,7 +2,7 @@ package com.pacman.renderer;
 
 import org.newdawn.slick.Graphics;
 
-import com.pacman.entity.Point;
+import com.pacman.geometry.Point;
 
 public class DefaultRenderer implements Renderer {
 

@@ -1,4 +1,4 @@
-package com.pacman.entity;
+package com.pacman.geometry;
 
 public class Point {
 

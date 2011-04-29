@@ -5,7 +5,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
 
-import com.pacman.entity.Point;
+import com.pacman.geometry.Point;
 
 public class DefaultRendererTest {
 

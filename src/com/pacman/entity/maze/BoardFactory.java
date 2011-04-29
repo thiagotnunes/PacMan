@@ -3,6 +3,7 @@ package com.pacman.entity.maze;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.collision.FullPolygonFactory;
 import com.pacman.entity.maze.filter.CollidableTileFilter;
 
 public class BoardFactory {
@@ -17,7 +18,8 @@ public class BoardFactory {
 
 	public Board from(String path) throws SlickException {
 		TiledMap map = mapFactory.from(path);
-		return new Board(map, blockFactory.from(map, 0, new CollidableTileFilter()));
+		return new Board(map, blockFactory.from(map, 0,
+				new CollidableTileFilter(), new FullPolygonFactory()));
 	}
 
 }

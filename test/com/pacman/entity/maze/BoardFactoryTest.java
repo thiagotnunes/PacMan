@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.collision.FullPolygonFactory;
 import com.pacman.entity.maze.filter.CollidableTileFilter;
 
 public class BoardFactoryTest {
@@ -23,6 +24,6 @@ public class BoardFactoryTest {
 		boardFactory.from(path);
 
 		verify(mapFactory).from(path);
-		verify(blockFactory).from(eq(map), eq(0), any(CollidableTileFilter.class));
+		verify(blockFactory).from(eq(map), eq(0), any(CollidableTileFilter.class), any(FullPolygonFactory.class));
 	}
 }

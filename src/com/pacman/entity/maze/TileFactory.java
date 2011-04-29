@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.collision.PolygonFactory;
 import com.pacman.entity.maze.filter.TileFilter;
-import com.pacman.geometry.SquarePolygon;
 
 public class TileFactory {
 
-	public List<Tile> from(TiledMap map, Integer layer, TileFilter filter) {
+	public List<Tile> from(TiledMap map, Integer layer, TileFilter filter,
+			PolygonFactory polygonFactory) {
 		Integer width = map.getWidth();
 		Integer height = map.getHeight();
 		Float blockWidth = (float) map.getTileWidth();
@@ -20,9 +21,8 @@ public class TileFactory {
 			for (int y = 0; y < height; y++) {
 				int tileId = map.getTileId(x, y, layer);
 				if (filter.isValid(tileId, map)) {
-					SquarePolygon squarePolygon = new SquarePolygon(x
-							* blockWidth, y * blockWidth, blockWidth);
-					tiles.add(new Tile(squarePolygon));
+					tiles.add(new Tile(polygonFactory.from(x * blockWidth, y
+							* blockWidth, blockWidth)));
 				}
 			}
 		}
