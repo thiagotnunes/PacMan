@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.newdawn.slick.geom.Polygon;
 
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class FullPolygonFactoryTest {
 
@@ -16,7 +16,7 @@ public class FullPolygonFactoryTest {
 		Float x = 5f;
 		Float y = 2f;
 		Float width = 3f;
-		SquarePolygon collisionPolygon = factory.from(x, y, width);
+		CollisionPolygon collisionPolygon = factory.from(x, y, width);
 		Polygon polygon = collisionPolygon.getPolygon();
 
 		assertEquals(x, polygon.getMinX(), 10);

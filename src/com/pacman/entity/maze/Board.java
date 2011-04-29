@@ -9,7 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.Point;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderable;
 
 public class Board implements Renderable, Collidable {
@@ -40,7 +40,7 @@ public class Board implements Renderable, Collidable {
 	}
 
 	@Override
-	public boolean isCollidingWith(SquarePolygon collidable) {
+	public boolean isCollidingWith(CollisionPolygon collidable) {
 		for (Tile block : collidableBlocks) {
 			if (block.isCollidingWith(collidable)) {
 				return true;

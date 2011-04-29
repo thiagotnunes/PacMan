@@ -11,14 +11,14 @@ import org.newdawn.slick.geom.Polygon;
 import com.pacman.entity.collision.Collidable;
 import com.pacman.renderer.Renderable;
 
-public class SquarePolygonTest {
+public class CollisionPolygonTest {
 
 	@Test
 	public void shouldCreateSquarePolygon() throws Exception {
 		float x = 10f;
 		float y = 20f;
 		float width = 25f;
-		SquarePolygon square = new SquarePolygon(x, y, width);
+		CollisionPolygon square = new CollisionPolygon(x, y, width);
 
 		Polygon expectedPolygon = new Polygon(new float[] { x, y,
 				x + width - 1, y, x + width - 1, y + width - 1, x,
@@ -34,17 +34,17 @@ public class SquarePolygonTest {
 
 	@Test
 	public void shouldDrawItSelf() throws Exception {
-		SquarePolygon squarePolygon = new SquarePolygon(0f, 0f, 10f);
+		CollisionPolygon collisionPolygon = new CollisionPolygon(0f, 0f, 10f);
 		Graphics g = mock(Graphics.class);
 
-		squarePolygon.draw(g);
+		collisionPolygon.draw(g);
 
-		verify(g).draw(eq(squarePolygon.getPolygon()));
+		verify(g).draw(eq(collisionPolygon.getPolygon()));
 	}
 
 	@Test
 	public void shouldReturnCurrentPosition() throws Exception {
-		Renderable squarePolygon = new SquarePolygon(2f, 1f, 10f);
+		Renderable squarePolygon = new CollisionPolygon(2f, 1f, 10f);
 
 		assertEquals(2, squarePolygon.getPosition().getX(), 1);
 		assertEquals(1, squarePolygon.getPosition().getY(), 1);
@@ -53,8 +53,8 @@ public class SquarePolygonTest {
 	@Test
 	public void shouldBeCollidingWithIntersectingShape() throws Exception {
 		Polygon polygon = mock(Polygon.class);
-		Collidable squarePolygon = new SquarePolygon(polygon);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		Collidable squarePolygon = new CollisionPolygon(polygon);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(polygon.intersects(polygon)).thenReturn(true);
@@ -65,8 +65,8 @@ public class SquarePolygonTest {
 	@Test
 	public void shouldNotBeCollidingWithNonIntersectingShape() throws Exception {
 		Polygon polygon = mock(Polygon.class);
-		Collidable squarePolygon = new SquarePolygon(polygon);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		Collidable squarePolygon = new CollisionPolygon(polygon);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(polygon.intersects(polygon)).thenReturn(false);
@@ -77,13 +77,13 @@ public class SquarePolygonTest {
 	@Test
 	public void shouldTranslateSquarePolygon() throws Exception {
 		Polygon polygon = mock(Polygon.class);
-		SquarePolygon squarePolygon = new SquarePolygon(polygon);
+		CollisionPolygon collisionPolygon = new CollisionPolygon(polygon);
 
 		when(polygon.copy()).thenReturn(polygon);
 
 		Integer x = 1;
 		Integer y = 1;
-		SquarePolygon translated = squarePolygon.translate(x, y);
+		CollisionPolygon translated = collisionPolygon.translate(x, y);
 
 		assertEquals(x.doubleValue(), translated.getPolygon().getX(), 2);
 		assertEquals(y.doubleValue(), translated.getPolygon().getY(), 2);

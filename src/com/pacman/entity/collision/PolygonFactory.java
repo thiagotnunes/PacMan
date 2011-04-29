@@ -1,9 +1,9 @@
 package com.pacman.entity.collision;
 
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public interface PolygonFactory {
 
-	SquarePolygon from(Float x, Float y, Float width);
+	CollisionPolygon from(Float x, Float y, Float width);
 
 }

@@ -10,7 +10,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.PolygonFactory;
 import com.pacman.entity.maze.filter.TileFilter;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class TileFactoryTest {
 
@@ -20,7 +20,7 @@ public class TileFactoryTest {
 		TiledMap map = mock(TiledMap.class);
 		TileFilter filter = mock(TileFilter.class);
 		PolygonFactory collisionPolygonFactory = mock(PolygonFactory.class);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 		Integer firstTileId = 1;
 		Integer secondTileId = 2;
 		Integer layer = 0;

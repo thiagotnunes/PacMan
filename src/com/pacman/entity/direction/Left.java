@@ -4,7 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.character.AnimationFactory;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class Left extends Direction {
 
@@ -15,7 +15,7 @@ public class Left extends Direction {
 	}
 
 	@Override
-	public SquarePolygon move(SquarePolygon p, Float delta) {
+	public CollisionPolygon move(CollisionPolygon p, Float delta) {
 		return p.translate(-delta, 0);
 	}
 

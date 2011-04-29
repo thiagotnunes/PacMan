@@ -1,9 +1,9 @@
 package com.pacman.entity.collision;
 
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public interface Collidable {
 
-	boolean isCollidingWith(SquarePolygon polygon);
+	boolean isCollidingWith(CollisionPolygon polygon);
 
 }

@@ -11,7 +11,7 @@ import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.Point;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderable;
 
 public class PacMan implements Renderable {
@@ -19,11 +19,11 @@ public class PacMan implements Renderable {
 	public static final Float SPEED = 0.5f;
 
 	private final DirectionBuilder directionBuilder;
-	private SquarePolygon currentCollisionPolygon;
+	private CollisionPolygon currentCollisionPolygon;
 	private Direction currentDirection;
 	protected Direction bufferedDirection;
 
-	public PacMan(SquarePolygon collisionPolygon,
+	public PacMan(CollisionPolygon collisionPolygon,
 			DirectionBuilder directionBuilder) throws SlickException {
 		currentCollisionPolygon = collisionPolygon;
 		this.directionBuilder = directionBuilder;
@@ -67,7 +67,7 @@ public class PacMan implements Renderable {
 		return currentDirection;
 	}
 
-	public SquarePolygon currentCollisionPolygon() {
+	public CollisionPolygon currentCollisionPolygon() {
 		return currentCollisionPolygon;
 	}
 

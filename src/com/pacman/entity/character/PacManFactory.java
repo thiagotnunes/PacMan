@@ -3,7 +3,7 @@ package com.pacman.entity.character;
 import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.direction.DirectionBuilder;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class PacManFactory {
 
@@ -13,7 +13,7 @@ public class PacManFactory {
 		this.directionFactory = directionFactory;
 	}
 
-	public PacMan from(SquarePolygon collisionPolygon) throws SlickException {
+	public PacMan from(CollisionPolygon collisionPolygon) throws SlickException {
 		return new PacMan(collisionPolygon,
 				directionFactory);
 	}

@@ -5,33 +5,33 @@ import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.Point;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderable;
 
 public class Tile implements Renderable, Collidable {
 
-	private final SquarePolygon squarePolygon;
+	private final CollisionPolygon collisionPolygon;
 
-	public Tile(SquarePolygon squarePolygon) {
-		this.squarePolygon = squarePolygon;
+	public Tile(CollisionPolygon collisionPolygon) {
+		this.collisionPolygon = collisionPolygon;
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		squarePolygon.draw(g);
+		collisionPolygon.draw(g);
 	}
 
 	@Override
 	public Point getPosition() {
-		return squarePolygon.getPosition();
+		return collisionPolygon.getPosition();
 	}
 
 	protected Polygon getPolygon() {
-		return squarePolygon.getPolygon();
+		return collisionPolygon.getPolygon();
 	}
 
-	public boolean isCollidingWith(SquarePolygon collidable) {
-		return squarePolygon.isCollidingWith(collidable);
+	public boolean isCollidingWith(CollisionPolygon collidable) {
+		return collisionPolygon.isCollidingWith(collidable);
 	}
 
 }

@@ -15,7 +15,7 @@ import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderer;
 
 public class PacManGameTest {
@@ -37,7 +37,7 @@ public class PacManGameTest {
 		pacManGame = new PacManGame("PacMan", pacManFactory, boardFactory,
 				renderer);
 
-		when(pacManFactory.from(any(SquarePolygon.class))).thenReturn(pacMan);
+		when(pacManFactory.from(any(CollisionPolygon.class))).thenReturn(pacMan);
 		when(boardFactory.from(eq(PacManGame.MAP_PATH))).thenReturn(board);
 
 		pacManGame.init(null);
@@ -45,7 +45,7 @@ public class PacManGameTest {
 
 	@After
 	public void tearDown() throws SlickException {
-		verify(pacManFactory).from(any(SquarePolygon.class));
+		verify(pacManFactory).from(any(CollisionPolygon.class));
 		verify(boardFactory).from(eq(PacManGame.MAP_PATH));
 	}
 

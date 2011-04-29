@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.newdawn.slick.Animation;
 
 import com.pacman.entity.maze.Board;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 
 public class DirectionTest {
@@ -21,10 +21,10 @@ public class DirectionTest {
 			}
 
 			@Override
-			public SquarePolygon move(SquarePolygon p, Float delta) {
+			public CollisionPolygon move(CollisionPolygon p, Float delta) {
 				return p;
 			}};
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 		Float SPEED = 0.5f;
 		Board board = mock(Board.class);
 		boolean isColliding = true;

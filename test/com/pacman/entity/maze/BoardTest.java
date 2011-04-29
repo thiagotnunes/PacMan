@@ -13,7 +13,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class BoardTest {
 
@@ -42,7 +42,7 @@ public class BoardTest {
 	public void shouldBeCollidingWhenAtLeastOneOfTheBlocksIsColliding()
 			throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 		List<Tile> blocks = new ArrayList<Tile>();
 		Tile firstBlock = mock(Tile.class);
 		blocks.add(firstBlock);
@@ -61,7 +61,7 @@ public class BoardTest {
 	@Test
 	public void shouldNotBeCollidingWhenNoBlocksAreColliding() throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 		List<Tile> blocks = new ArrayList<Tile>();
 		Tile firstBlock = mock(Tile.class);
 		Tile secondBlock = mock(Tile.class);

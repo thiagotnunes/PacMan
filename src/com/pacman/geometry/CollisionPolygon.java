@@ -6,16 +6,16 @@ import org.newdawn.slick.geom.Polygon;
 import com.pacman.entity.collision.Collidable;
 import com.pacman.renderer.Renderable;
 
-public class SquarePolygon implements Renderable, Collidable {
+public class CollisionPolygon implements Renderable, Collidable {
 
 	private Polygon polygon;
 
-	public SquarePolygon(Float x, Float y, Float width) {
+	public CollisionPolygon(Float x, Float y, Float width) {
 		polygon = new Polygon(createPoints(x, y, width));
 		polygon.setClosed(true);
 	}
 
-	protected SquarePolygon(Polygon polygon) {
+	protected CollisionPolygon(Polygon polygon) {
 		this.polygon = polygon;
 	}
 
@@ -41,18 +41,18 @@ public class SquarePolygon implements Renderable, Collidable {
 	}
 
 	@Override
-	public boolean isCollidingWith(SquarePolygon collidable) {
+	public boolean isCollidingWith(CollisionPolygon collidable) {
 		return polygon.intersects(collidable.getPolygon());
 	}
 
-	public SquarePolygon translate(float x, float y) {
+	public CollisionPolygon translate(float x, float y) {
 		float currentX = polygon.getX();
 		float currentY = polygon.getY();
 
 		Polygon translatedPolygon = polygon.copy();
 		translatedPolygon.setLocation(currentX + x, currentY + y);
 
-		return new SquarePolygon(translatedPolygon);
+		return new CollisionPolygon(translatedPolygon);
 	}
 
 	@Override

@@ -17,19 +17,19 @@ import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.Point;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderable;
 
 public class PacManTest {
 
 	private PacMan pacMan;
-	private SquarePolygon collisionPolygon;
+	private CollisionPolygon collisionPolygon;
 	private DirectionBuilder directionFactory;
 	private Direction direction;
 
 	@Before
 	public void setUp() throws SlickException {
-		collisionPolygon = mock(SquarePolygon.class);
+		collisionPolygon = mock(CollisionPolygon.class);
 		directionFactory = mock(DirectionBuilder.class);
 
 		direction = mock(Direction.class);
@@ -81,7 +81,7 @@ public class PacManTest {
 		GameContainer gc = mock(GameContainer.class);
 		Board board = mock(Board.class);
 		Input input = mock(Input.class);
-		SquarePolygon movedCollisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon movedCollisionPolygon = mock(CollisionPolygon.class);
 		Direction nextDirection = mock(Direction.class);
 
 		when(gc.getInput()).thenReturn(input);
@@ -102,7 +102,7 @@ public class PacManTest {
 		GameContainer gc = mock(GameContainer.class);
 		Board board = mock(Board.class);
 		Input input = mock(Input.class);
-		SquarePolygon currentDirectionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon currentDirectionPolygon = mock(CollisionPolygon.class);
 		Direction nextDirection = mock(Direction.class);
 
 		when(gc.getInput()).thenReturn(input);
@@ -125,7 +125,7 @@ public class PacManTest {
 		GameContainer gc = mock(GameContainer.class);
 		Board board = mock(Board.class);
 		Input input = mock(Input.class);
-		SquarePolygon currentDirectionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon currentDirectionPolygon = mock(CollisionPolygon.class);
 		Direction nextDirection = new NullDirection();
 		
 		when(gc.getInput()).thenReturn(input);

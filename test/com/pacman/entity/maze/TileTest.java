@@ -8,50 +8,50 @@ import org.junit.Test;
 import org.newdawn.slick.Graphics;
 
 import com.pacman.entity.collision.Collidable;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class TileTest {
 
 	@Test
 	public void shouldCreateSquareForBlock() throws Exception {
-		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Tile tile = new Tile(squarePolygon);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
+		Tile tile = new Tile(collisionPolygon);
 
 		tile.getPolygon();
 
-		verify(squarePolygon).getPolygon();
+		verify(collisionPolygon).getPolygon();
 	}
 
 	@Test
 	public void shouldDrawItSelf() throws Exception {
-		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Tile tile = new Tile(squarePolygon);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
+		Tile tile = new Tile(collisionPolygon);
 		Graphics g = mock(Graphics.class);
 
 		tile.draw(g);
 
-		verify(squarePolygon).draw(eq(g));
+		verify(collisionPolygon).draw(eq(g));
 	}
 
 	@Test
 	public void shouldBeCollidingWithIntersectingShape() throws Exception {
-		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Collidable tile = new Tile(squarePolygon);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
+		Collidable tile = new Tile(collisionPolygon);
+		CollisionPolygon otherPolygon = mock(CollisionPolygon.class);
 
-		when(squarePolygon.isCollidingWith(collisionPolygon)).thenReturn(true);
+		when(collisionPolygon.isCollidingWith(otherPolygon)).thenReturn(true);
 
-		assertTrue(tile.isCollidingWith(collisionPolygon));
+		assertTrue(tile.isCollidingWith(otherPolygon));
 	}
 
 	@Test
 	public void shouldNotBeCollidingWithNonIntersectingShape() throws Exception {
-		SquarePolygon squarePolygon = mock(SquarePolygon.class);
-		Collidable tile = new Tile(squarePolygon);
-		SquarePolygon collisionPolygon = mock(SquarePolygon.class);
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
+		Collidable tile = new Tile(collisionPolygon);
+		CollisionPolygon otherPolygon = mock(CollisionPolygon.class);
 
-		when(squarePolygon.isCollidingWith(collisionPolygon)).thenReturn(false);
+		when(collisionPolygon.isCollidingWith(otherPolygon)).thenReturn(false);
 
-		assertFalse(tile.isCollidingWith(collisionPolygon));
+		assertFalse(tile.isCollidingWith(otherPolygon));
 	}
 }

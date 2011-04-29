@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.newdawn.slick.Animation;
 
 import com.pacman.entity.character.AnimationFactory;
-import com.pacman.geometry.SquarePolygon;
+import com.pacman.geometry.CollisionPolygon;
 
 public class DownTest {
 
@@ -16,8 +16,8 @@ public class DownTest {
 		Float delta = 1f;
 		AnimationFactory animationFactory = mock(AnimationFactory.class);
 		Animation animation = mock(Animation.class);
-		SquarePolygon polygon = mock(SquarePolygon.class);
-		SquarePolygon response = mock(SquarePolygon.class);
+		CollisionPolygon polygon = mock(CollisionPolygon.class);
+		CollisionPolygon response = mock(CollisionPolygon.class);
 
 		when(animationFactory.from("down", Direction.ANIMATION_DELAY))
 				.thenReturn(animation);
