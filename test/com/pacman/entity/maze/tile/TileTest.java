@@ -1,4 +1,4 @@
-package com.pacman.entity.maze;
+package com.pacman.entity.maze.tile;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.newdawn.slick.Graphics;
 
 import com.pacman.entity.collision.Collidable;
+import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 
 public class TileTest {

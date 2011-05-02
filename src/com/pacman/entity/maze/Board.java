@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
+import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.Point;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.renderer.Renderable;
@@ -15,11 +16,11 @@ import com.pacman.renderer.Renderable;
 public class Board implements Renderable, Collidable {
 
 	private final TiledMap map;
-	private List<Tile> collidableBlocks;
+	private List<Tile> walls;
 
-	protected Board(TiledMap map, List<Tile> collidableBlocks) {
+	protected Board(TiledMap map, List<Tile> walls) {
 		this.map = map;
-		this.collidableBlocks = collidableBlocks;
+		this.walls = walls;
 	}
 
 	@Override
@@ -29,9 +30,9 @@ public class Board implements Renderable, Collidable {
 				map.render(0, 0, i);
 			}
 		}
-		// for (Block block : blocks) {
-		// g.draw(block.getPolygon());
-		// }
+		for (Tile tile : walls) {
+			g.draw(tile.getPolygon());
+		}
 	}
 
 	@Override
@@ -41,8 +42,8 @@ public class Board implements Renderable, Collidable {
 
 	@Override
 	public boolean isCollidingWith(CollisionPolygon collidable) {
-		for (Tile block : collidableBlocks) {
-			if (block.isCollidingWith(collidable)) {
+		for (Tile tile : walls) {
+			if (tile.isCollidingWith(collidable)) {
 				return true;
 			}
 		}
@@ -50,8 +51,8 @@ public class Board implements Renderable, Collidable {
 	}
 
 	private Boolean isLayerVisible(int layerIndex) {
-		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE.property(),
-				VISIBLE.defaultValue()));
+		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE
+				.property(), VISIBLE.defaultValue()));
 	}
 
 }

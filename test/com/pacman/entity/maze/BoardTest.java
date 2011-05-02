@@ -13,6 +13,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
+import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 
 public class BoardTest {

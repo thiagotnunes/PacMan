@@ -1,4 +1,4 @@
-package com.pacman.entity.maze;
+package com.pacman.entity.maze.tile;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
@@ -26,7 +26,7 @@ public class Tile implements Renderable, Collidable {
 		return collisionPolygon.getPosition();
 	}
 
-	protected Polygon getPolygon() {
+	public Polygon getPolygon() {
 		return collisionPolygon.getPolygon();
 	}
 

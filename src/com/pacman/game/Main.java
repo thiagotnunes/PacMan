@@ -4,10 +4,12 @@ import org.newdawn.slick.AppGameContainer;
 
 import com.pacman.entity.character.AnimationFactory;
 import com.pacman.entity.character.PacManFactory;
+import com.pacman.entity.collision.FullPolygonFactory;
 import com.pacman.entity.direction.DirectionBuilder;
-import com.pacman.entity.maze.TileFactory;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.entity.maze.MapFactory;
+import com.pacman.entity.maze.filter.CollidableTileFilter;
+import com.pacman.entity.maze.tile.WallTileFactory;
 import com.pacman.renderer.DefaultRenderer;
 
 public class Main {
@@ -17,7 +19,8 @@ public class Main {
 
 		DefaultRenderer renderer = new DefaultRenderer();
 		BoardFactory boardFactory = new BoardFactory(new MapFactory(),
-				new TileFactory());
+				new WallTileFactory(new CollidableTileFilter(),
+						new FullPolygonFactory()));
 		PacManFactory pacManFactory = new PacManFactory(new DirectionBuilder(
 				new AnimationFactory()));
 
