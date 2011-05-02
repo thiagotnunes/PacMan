@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
@@ -19,16 +20,21 @@ import com.pacman.geometry.CollisionPolygon;
 public class BoardTest {
 
 	@Test
-	public void shouldOnlyRenderVisibleLayers() throws Exception {
+	public void shouldOnlyRenderVisibleLayersAndConsumables() throws Exception {
 		Graphics g = mock(Graphics.class);
 		TiledMap map = mock(TiledMap.class);
+		Tile firstTile = mock(Tile.class);
+		ArrayList<Tile> food = new ArrayList<Tile>();
+		food.add(firstTile);
+		Polygon firstPolygon = mock(Polygon.class);
 		
 		when(map.getLayerCount()).thenReturn(3);
 		when(map.getLayerProperty(0, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("true");
 		when(map.getLayerProperty(1, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("false");
 		when(map.getLayerProperty(2, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("true");
+		when(firstTile.getPolygon()).thenReturn(firstPolygon);
 		
-		Board board = new Board(map, null);
+		Board board = new Board(map, null, food);
 
 		board.draw(g);
 
@@ -37,6 +43,7 @@ public class BoardTest {
 		verify(map).render(0, 0, 0);
 		verify(map, never()).render(0, 0, 1);
 		verify(map).render(0, 0, 2);
+		verify(g).draw(firstPolygon);
 	}
 
 	@Test
@@ -51,7 +58,7 @@ public class BoardTest {
 		when(secondBlock.isCollidingWith(collisionPolygon)).thenReturn(true);
 		blocks.add(secondBlock);
 
-		Collidable board = new Board(map, blocks);
+		Collidable board = new Board(map, blocks, null);
 
 		assertTrue(board.isCollidingWith(collisionPolygon));
 
@@ -69,7 +76,7 @@ public class BoardTest {
 		blocks.add(firstBlock);
 		blocks.add(secondBlock);
 
-		Collidable board = new Board(map, blocks);
+		Collidable board = new Board(map, blocks, null);
 
 		assertFalse(board.isCollidingWith(collisionPolygon));
 

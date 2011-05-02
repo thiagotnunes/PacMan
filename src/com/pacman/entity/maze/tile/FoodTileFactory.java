@@ -4,13 +4,16 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.PolygonFactory;
 import com.pacman.entity.maze.filter.TileFilter;
-import com.pacman.geometry.CollisionPolygon;
 
-public class WallTileFactory extends TileFactory {
+public class FoodTileFactory extends TileFactory {
+
+	private static final float Y_DISPLACEMENT = 10f;
+	private static final float X_DISPLACEMENT = 10f;
+	private static final float FOOD_WIDTH = 6f;
 
 	private final PolygonFactory polygonFactory;
 
-	public WallTileFactory(TileFilter filter, PolygonFactory polygonFactory) {
+	public FoodTileFactory(TileFilter filter, PolygonFactory polygonFactory) {
 		super(filter);
 		this.polygonFactory = polygonFactory;
 	}
@@ -18,8 +21,8 @@ public class WallTileFactory extends TileFactory {
 	@Override
 	protected Tile createTile(Integer x, Integer y, TiledMap map) {
 		Float width = (float) map.getTileWidth();
-		CollisionPolygon collisionPolygon = polygonFactory.from(x * width, y
-				* width, width);
-		return new Tile(collisionPolygon);
+		return new Tile(polygonFactory.from(x * width + X_DISPLACEMENT, y
+				* width + Y_DISPLACEMENT, FOOD_WIDTH));
 	}
+
 }

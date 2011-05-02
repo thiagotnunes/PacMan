@@ -90,7 +90,7 @@ public class PacManTest {
 		when(nextDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(
 				movedCollisionPolygon);
 
-		pacMan.update(gc, delta, board);
+		pacMan.move(gc, delta, board);
 
 		assertSame(movedCollisionPolygon, pacMan.currentCollisionPolygon());
 		assertSame(nextDirection, pacMan.currentDirection());
@@ -112,7 +112,7 @@ public class PacManTest {
 		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
 				currentDirectionPolygon);
 
-		pacMan.update(gc, delta, board);
+		pacMan.move(gc, delta, board);
 
 		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
 		assertSame(direction, pacMan.currentDirection());
@@ -134,7 +134,7 @@ public class PacManTest {
 		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
 				currentDirectionPolygon);
 
-		pacMan.update(gc, delta, board);
+		pacMan.move(gc, delta, board);
 
 		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
 		assertSame(direction, pacMan.currentDirection());

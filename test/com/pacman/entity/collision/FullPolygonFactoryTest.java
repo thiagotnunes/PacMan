@@ -19,10 +19,10 @@ public class FullPolygonFactoryTest {
 		CollisionPolygon collisionPolygon = factory.from(x, y, width);
 		Polygon polygon = collisionPolygon.getPolygon();
 
-		assertEquals(x, polygon.getMinX(), 10);
-		assertEquals(y, polygon.getMinY(), 6);
-		assertEquals((x * width) + width, polygon.getMaxX(), 2);
-		assertEquals((y * width) + width, polygon.getMaxY(), 2);
+		assertEquals(x, polygon.getMinX(), 2);
+		assertEquals(y, polygon.getMinY(), 2);
+		assertEquals(x + width, polygon.getMaxX(), 2);
+		assertEquals(y + width, polygon.getMaxY(), 2);
 	}
 
 }

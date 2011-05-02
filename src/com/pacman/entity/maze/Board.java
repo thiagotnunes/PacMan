@@ -9,18 +9,20 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.collision.Collidable;
 import com.pacman.entity.maze.tile.Tile;
-import com.pacman.geometry.Point;
 import com.pacman.geometry.CollisionPolygon;
+import com.pacman.geometry.Point;
 import com.pacman.renderer.Renderable;
 
 public class Board implements Renderable, Collidable {
 
 	private final TiledMap map;
-	private List<Tile> walls;
+	private final List<Tile> walls;
+	private final List<Tile> food;
 
-	protected Board(TiledMap map, List<Tile> walls) {
+	protected Board(TiledMap map, List<Tile> walls, List<Tile> food) {
 		this.map = map;
 		this.walls = walls;
+		this.food = food;
 	}
 
 	@Override
@@ -30,9 +32,12 @@ public class Board implements Renderable, Collidable {
 				map.render(0, 0, i);
 			}
 		}
-		for (Tile tile : walls) {
+		for(Tile tile : food) {
 			g.draw(tile.getPolygon());
 		}
+//		for (Tile tile : walls) {
+//			g.draw(tile.getPolygon());
+//		}
 	}
 
 	@Override

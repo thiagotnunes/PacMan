@@ -38,7 +38,7 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		pacMan.update(gc, delta, board);
+		pacMan.move(gc, delta, board);
 	}
 
 	@Override

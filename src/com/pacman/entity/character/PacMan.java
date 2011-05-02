@@ -41,7 +41,7 @@ public class PacMan implements Renderable {
 //				polygon.getCenterY());
 	}
 
-	public void update(GameContainer gc, int delta, Board board) {
+	public void move(GameContainer gc, int delta, Board board) {
 		Direction nextDirection = directionBuilder.from(gc.getInput());
 
 		if (nextDirection.canMove(currentCollisionPolygon, PacMan.SPEED, board)) {
