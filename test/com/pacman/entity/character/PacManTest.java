@@ -16,9 +16,8 @@ import com.pacman.entity.direction.Direction;
 import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
-import com.pacman.entity.maze.tile.FoodTile;
-import com.pacman.geometry.Point;
 import com.pacman.geometry.CollisionPolygon;
+import com.pacman.geometry.Point;
 import com.pacman.renderer.Renderable;
 
 public class PacManTest {
@@ -145,12 +144,9 @@ public class PacManTest {
 	@Test
 	public void shouldEat() throws Exception {
 		Board board = mock(Board.class);
-		FoodTile foodTile = mock(FoodTile.class);
 		
-		when(board.isCollidingWithFood(collisionPolygon)).thenReturn(foodTile);
+		pacMan.eat(board);
 		
-		pacMan.eatFoodFrom(board);
-		
-		verify(foodTile).consume();
+		verify(board).consume(collisionPolygon);
 	}
 }

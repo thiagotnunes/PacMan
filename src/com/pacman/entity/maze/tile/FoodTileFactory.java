@@ -19,9 +19,9 @@ public class FoodTileFactory extends TileFactory {
 	}
 
 	@Override
-	protected FoodTile createTile(Integer x, Integer y, TiledMap map) {
+	protected Tile createTile(Integer x, Integer y, TiledMap map) {
 		Float width = (float) map.getTileWidth();
-		return new FoodTile(polygonFactory.from(x * width + X_DISPLACEMENT, y
+		return new Tile(polygonFactory.from(x * width + X_DISPLACEMENT, y
 				* width + Y_DISPLACEMENT, FOOD_WIDTH));
 	}
 

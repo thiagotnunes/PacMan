@@ -10,7 +10,6 @@ import com.pacman.entity.direction.Direction;
 import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
-import com.pacman.entity.maze.tile.FoodTile;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.geometry.Point;
 import com.pacman.renderer.Renderable;
@@ -64,9 +63,8 @@ public class PacMan implements Renderable {
 		currentDirection = direction;
 	}
 
-	public void eatFoodFrom(Board board) {
-		FoodTile food = board.isCollidingWithFood(currentCollisionPolygon);
-		food.consume();
+	public void eat(Board board) {
+		board.consume(currentCollisionPolygon);
 	}
 
 	public Direction currentDirection() {

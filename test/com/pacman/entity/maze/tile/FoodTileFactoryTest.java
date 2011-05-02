@@ -1,6 +1,5 @@
 package com.pacman.entity.maze.tile;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
@@ -23,9 +22,7 @@ public class FoodTileFactoryTest {
 		when(map.getTileWidth()).thenReturn(25);
 		when(polygonFactory.from(35f, 35f, 6f)).thenReturn(collisionPolygon);
 		
-		Tile foodTile = factory.createTile(1, 1, map);
-		
-		assertTrue(foodTile instanceof FoodTile);
+		factory.createTile(1, 1, map);
 		
 		verify(map).getTileWidth();
 		verify(polygonFactory).from(35f, 35f, 6f);
