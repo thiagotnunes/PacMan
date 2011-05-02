@@ -30,8 +30,8 @@ public class Tile implements Renderable, Collidable {
 		return collisionPolygon.getPolygon();
 	}
 
-	public boolean isCollidingWith(CollisionPolygon collidable) {
-		return collisionPolygon.isCollidingWith(collidable);
+	public boolean isCollidingWithWall(CollisionPolygon collidable) {
+		return collisionPolygon.isCollidingWithWall(collidable);
 	}
 
 }

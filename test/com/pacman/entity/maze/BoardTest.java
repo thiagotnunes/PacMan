@@ -13,7 +13,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.collision.Collidable;
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 
@@ -55,15 +54,15 @@ public class BoardTest {
 		Tile firstBlock = mock(Tile.class);
 		blocks.add(firstBlock);
 		Tile secondBlock = firstBlock;
-		when(secondBlock.isCollidingWith(collisionPolygon)).thenReturn(true);
+		when(secondBlock.isCollidingWithWall(collisionPolygon)).thenReturn(true);
 		blocks.add(secondBlock);
 
-		Collidable board = new Board(map, blocks, null);
+		Board board = new Board(map, blocks, null);
 
-		assertTrue(board.isCollidingWith(collisionPolygon));
+		assertTrue(board.isCollidingWithWall(collisionPolygon));
 
-		verify(firstBlock).isCollidingWith(collisionPolygon);
-		verify(secondBlock).isCollidingWith(collisionPolygon);
+		verify(firstBlock).isCollidingWithWall(collisionPolygon);
+		verify(secondBlock).isCollidingWithWall(collisionPolygon);
 	}
 
 	@Test
@@ -76,11 +75,11 @@ public class BoardTest {
 		blocks.add(firstBlock);
 		blocks.add(secondBlock);
 
-		Collidable board = new Board(map, blocks, null);
+		Board board = new Board(map, blocks, null);
 
-		assertFalse(board.isCollidingWith(collisionPolygon));
+		assertFalse(board.isCollidingWithWall(collisionPolygon));
 
-		verify(firstBlock).isCollidingWith(collisionPolygon);
-		verify(secondBlock).isCollidingWith(collisionPolygon);
+		verify(firstBlock).isCollidingWithWall(collisionPolygon);
+		verify(secondBlock).isCollidingWithWall(collisionPolygon);
 	}
 }

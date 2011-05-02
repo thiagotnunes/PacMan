@@ -7,13 +7,12 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.collision.Collidable;
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.geometry.Point;
 import com.pacman.renderer.Renderable;
 
-public class Board implements Renderable, Collidable {
+public class Board implements Renderable {
 
 	private final TiledMap map;
 	private final List<Tile> walls;
@@ -45,10 +44,9 @@ public class Board implements Renderable, Collidable {
 		return new Point(0f, 0f);
 	}
 
-	@Override
-	public boolean isCollidingWith(CollisionPolygon collidable) {
+	public boolean isCollidingWithWall(CollisionPolygon collidable) {
 		for (Tile tile : walls) {
-			if (tile.isCollidingWith(collidable)) {
+			if (tile.isCollidingWithWall(collidable)) {
 				return true;
 			}
 		}

@@ -59,7 +59,7 @@ public class CollisionPolygonTest {
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(polygon.intersects(polygon)).thenReturn(true);
 
-		assertTrue(squarePolygon.isCollidingWith(collisionPolygon));
+		assertTrue(squarePolygon.isCollidingWithWall(collisionPolygon));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class CollisionPolygonTest {
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(polygon.intersects(polygon)).thenReturn(false);
 
-		assertFalse(squarePolygon.isCollidingWith(collisionPolygon));
+		assertFalse(squarePolygon.isCollidingWithWall(collisionPolygon));
 	}
 
 	@Test

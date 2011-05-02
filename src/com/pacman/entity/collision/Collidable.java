@@ -4,6 +4,6 @@ import com.pacman.geometry.CollisionPolygon;
 
 public interface Collidable {
 
-	boolean isCollidingWith(CollisionPolygon polygon);
+	boolean isCollidingWithWall(CollisionPolygon polygon);
 
 }

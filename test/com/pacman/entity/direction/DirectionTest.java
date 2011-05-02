@@ -29,7 +29,7 @@ public class DirectionTest {
 		Board board = mock(Board.class);
 		boolean isColliding = true;
 		
-		when(board.isCollidingWith(collisionPolygon)).thenReturn(isColliding);
+		when(board.isCollidingWithWall(collisionPolygon)).thenReturn(isColliding);
 		
 		assertEquals(!isColliding, direction.canMove(collisionPolygon, SPEED, board));
 	}

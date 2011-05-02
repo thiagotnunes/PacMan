@@ -17,7 +17,7 @@ public abstract class Direction {
 			Board board) {
 		CollisionPolygon polygon = move(collisionPolygon, delta);
 		
-		return !board.isCollidingWith(polygon);
+		return !board.isCollidingWithWall(polygon);
 	}
 
 }
