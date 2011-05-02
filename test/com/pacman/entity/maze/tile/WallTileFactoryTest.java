@@ -17,19 +17,18 @@ public class WallTileFactoryTest {
 		TiledMap map = mock(TiledMap.class);
 		TileFactory wallFactory = new WallTileFactory(mock(TileFilter.class),
 				factory);
-		Integer x = 1;
-		Integer y = 2;
-		Integer width = 25;
+		Float x = 1f;
+		Float y = 2f;
+		Float width = 25f;
 		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 
-		when(map.getTileWidth()).thenReturn(width);
-		when(factory.from((float) x, (float) y, (float) width)).thenReturn(
-				collisionPolygon);
+		when(map.getTileWidth()).thenReturn(width.intValue());
+		when(factory.from(x * width, y * width, width)).thenReturn(collisionPolygon);
 
-		wallFactory.createTile(x, y, map);
+		wallFactory.createTile(x.intValue(), y.intValue(), map);
 
 		verify(map).getTileWidth();
-		verify(factory).from((float) x, (float) y, (float) width);
+		verify(factory).from(x * width, y * width, width);
 	}
 
 }

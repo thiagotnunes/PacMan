@@ -15,12 +15,12 @@
  </tileset>
  <layer name="Collision" width="28" height="31">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9VSWw7AMAjyb/e/8f6ND1BrN5ImS1sEVh4ReZYXiwme5cHzxtyJeKK+dYaM53ERn6fzbYD931nnOvNO62X5O/v6HH3zTl8iL1N6KKr9ndSr9CXyVOWz/lAgeuic2/lOvh+qh/L+3E9Wr9tR7bHDi/yyObJ5N/SszB1EszPv1t0J7paeB++c3bfOM//V3F/hbQD1Nrlej53vC5ANAAA=
+   H4sIAAAAAAAAC9VSWw7AMAjyb/e/8f6ND1BrN5ImS1sEVh4ReZYXiwme5cHzxtyJeKK+dYaM53ERn6fzbYD931nnOvNO62X5O/v6HH3zTl8iL1N6KKr9ndSr9CXyVOWz/lAgeuic2/lOvh+qh/L+3E9Wr9tR7bHDi/yyObJ5N/SszB1EszPv1t0J7paeB++c3bfOM//V3F/hbQD1Nrlej53vC5ANAAA=
   </data>
  </layer>
  <layer name="Maze" width="28" height="31">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+VWWwrDMAxz08f9j9ztY2BUy5GbdAxmKAXHSiI/c5jZUvz213fcxG1Wl20Czt93D3Rez3AMG+H8fSMd6hWbDNfcfdZAh3rFBnV343BXlPixWLKYqfHr8W+APwr2qj/ZelXv1zHeyB954b7Ik9WJ5xnd4/OP/MbyczdeJ5lE9aLiZp2n5KdyXoSP/NbLA7SP8mJJ9mB7VtdQ1PpVzlP6Q4Zn9cv8PzNfVNyv5WfWB7K6rvSBf3xPNLtyHpnvvvdm82jWzGd7e15oNzLfI5+vduWMPXNkvqPPe/n5xHzvzePqfO+9F5T+WK1rpb9+Q9h76anvzfMEZqMDspANAAA=
+   H4sIAAAAAAAAC+VWWwrDMAxz08f9j9ztY2BUy5GbdAxmKAXHSiI/c5jZUvz213fcxG1Wl20Czt93D3Rez3AMG+H8fSMd6hWbDNfcfdZAh3rFBnV343BXlPixWLKYqfHr8W+APwr2qj/ZelXv1zHeyB954b7Ik9WJ5xnd4/OP/MbyczdeJ5lE9aLiZp2n5KdyXoSP/NbLA7SP8mJJ9mB7VtdQ1PpVzlP6Q4Zn9cv8PzNfVNyv5WfWB7K6rvSBf3xPNLtyHpnvvvdm82jWzGd7e15oNzLfI5+vduWMPXNkvqPPe/n5xHzvzePqfO+9F5T+WK1rpb9+Q9h76anvzfMEZqMDspANAAA=
   </data>
  </layer>
  <layer name="Normal Food" width="28" height="31">
@@ -28,7 +28,7 @@
    <property name="visible" value="false"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2WSw4AEAxEbd3/wvaC5vUnpJN0Q8eMItpaPjoMD97Kw84byZFyo/S0fjz2R89BG8SPBOt60Xrk3tPxeV7yS6Hhll7plV7peXB/7ydu9C/WWkk1J94t/+2Jm6WX/b+Tt/YqLyNuYAD4GbLkkA0AAA==
+   H4sIAAAAAAAAC+2WSQoAIAwDvfr/D3sXtUw3URroRRsTN9rW8tFhePBWHnbeSI6UG6Wn9eOxP3oP2iB+JFjXi9Yj756Oz/OSXwoNt/RKr/RKz4P7ez9xo38hZ6XJId4t9fbEzdLLru/kr73Ky4gbGIJm86aQDQAA
   </data>
  </layer>
 </map>

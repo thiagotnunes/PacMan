@@ -32,7 +32,7 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		pacMan = pacManFactory.from(new CollisionPolygon(24.1f, 24.1f, 26.85f));
+		pacMan = pacManFactory.from(new CollisionPolygon(324.1f, 574.1f, 26.85f));
 		board = boardFactory.from(MAP_PATH);
 	}
 
