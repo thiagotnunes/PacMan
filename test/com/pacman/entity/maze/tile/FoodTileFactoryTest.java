@@ -1,5 +1,6 @@
 package com.pacman.entity.maze.tile;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
@@ -12,7 +13,7 @@ import com.pacman.geometry.CollisionPolygon;
 public class FoodTileFactoryTest {
 
 	@Test
-	public void shouldCreateSmallerTile() throws Exception {
+	public void shouldCreateFoodTile() throws Exception {
 		PolygonFactory polygonFactory = mock(PolygonFactory.class);
 		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
 		TiledMap map = mock(TiledMap.class);
@@ -22,7 +23,9 @@ public class FoodTileFactoryTest {
 		when(map.getTileWidth()).thenReturn(25);
 		when(polygonFactory.from(35f, 35f, 6f)).thenReturn(collisionPolygon);
 		
-		factory.createTile(1, 1, map);
+		Tile foodTile = factory.createTile(1, 1, map);
+		
+		assertTrue(foodTile instanceof FoodTile);
 		
 		verify(map).getTileWidth();
 		verify(polygonFactory).from(35f, 35f, 6f);

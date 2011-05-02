@@ -40,9 +40,9 @@ public class TileTest {
 		Collidable tile = new Tile(collisionPolygon);
 		CollisionPolygon otherPolygon = mock(CollisionPolygon.class);
 
-		when(collisionPolygon.isCollidingWithWall(otherPolygon)).thenReturn(true);
+		when(collisionPolygon.isCollidingWith(otherPolygon)).thenReturn(true);
 
-		assertTrue(tile.isCollidingWithWall(otherPolygon));
+		assertTrue(tile.isCollidingWith(otherPolygon));
 	}
 
 	@Test
@@ -51,8 +51,8 @@ public class TileTest {
 		Collidable tile = new Tile(collisionPolygon);
 		CollisionPolygon otherPolygon = mock(CollisionPolygon.class);
 
-		when(collisionPolygon.isCollidingWithWall(otherPolygon)).thenReturn(false);
+		when(collisionPolygon.isCollidingWith(otherPolygon)).thenReturn(false);
 
-		assertFalse(tile.isCollidingWithWall(otherPolygon));
+		assertFalse(tile.isCollidingWith(otherPolygon));
 	}
 }

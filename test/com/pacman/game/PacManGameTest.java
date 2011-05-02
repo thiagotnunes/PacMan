@@ -72,6 +72,7 @@ public class PacManGameTest {
 
 		pacManGame.update(gc, delta);
 
-		verify(pacMan).move(eq(gc), eq(delta), eq(board));
+		verify(pacMan).move(gc, delta, board);
+		verify(pacMan).eatFoodFrom(board);
 	}
 }

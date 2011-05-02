@@ -41,7 +41,7 @@ public class CollisionPolygon implements Renderable, Collidable {
 	}
 
 	@Override
-	public boolean isCollidingWithWall(CollisionPolygon collidable) {
+	public boolean isCollidingWith(CollisionPolygon collidable) {
 		return polygon.intersects(collidable.getPolygon());
 	}
 

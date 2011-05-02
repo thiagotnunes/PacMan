@@ -7,6 +7,8 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.maze.tile.FoodTile;
+import com.pacman.entity.maze.tile.NullFoodTile;
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.geometry.Point;
@@ -32,7 +34,10 @@ public class Board implements Renderable {
 			}
 		}
 		for(Tile tile : food) {
-			g.draw(tile.getPolygon());
+			FoodTile foodTile = (FoodTile) tile;
+			if (!foodTile.wasConsumed()) {
+				g.draw(tile.getPolygon());
+			}
 		}
 //		for (Tile tile : walls) {
 //			g.draw(tile.getPolygon());
@@ -45,17 +50,25 @@ public class Board implements Renderable {
 	}
 
 	public boolean isCollidingWithWall(CollisionPolygon collidable) {
-		for (Tile tile : walls) {
-			if (tile.isCollidingWithWall(collidable)) {
-				return true;
+		return isCollidingWith(collidable, walls) != null;
+	}
+
+	public FoodTile isCollidingWithFood(CollisionPolygon collidable) {
+		Tile tile = isCollidingWith(collidable, food);
+		return tile == null ? new NullFoodTile() : (FoodTile) tile;
+	}
+
+	private Tile isCollidingWith(CollisionPolygon collidable, List<Tile> tiles) {
+		for (Tile tile : tiles) {
+			if (tile.isCollidingWith(collidable)) {
+				return tile;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	private Boolean isLayerVisible(int layerIndex) {
 		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE
 				.property(), VISIBLE.defaultValue()));
 	}
-
 }
