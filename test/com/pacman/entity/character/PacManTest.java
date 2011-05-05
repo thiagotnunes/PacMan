@@ -90,14 +90,36 @@ public class PacManTest {
 	}
 	
 	@Test
-	public void shouldMoveIfThereIsNoCollision() throws Exception {
+	public void shouldMoveToBufferedIfPossible() throws Exception {
 		CollisionPolygon movedCollisionPolygon = mock(CollisionPolygon.class);
+		Direction bufferedDirection = mock(Direction.class);
+		pacMan.bufferedDirection = bufferedDirection;
 		
+		when(bufferedDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
+		when(bufferedDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(movedCollisionPolygon);
+		
+		pacMan.move();
+		
+		verify(bufferedDirection).canMove(collisionPolygon, PacMan.SPEED, board);
+		verify(bufferedDirection).move(collisionPolygon, PacMan.SPEED);
+		
+		assertSame(pacMan.currentCollisionPolygon, movedCollisionPolygon);
+		assertSame(pacMan.currentDirection, bufferedDirection);
+	}
+	
+	@Test
+	public void shouldMoveToCurrentIfCantMoveToBuffered() throws Exception {
+		CollisionPolygon movedCollisionPolygon = mock(CollisionPolygon.class);
+		Direction bufferedDirection = mock(Direction.class);
+		pacMan.bufferedDirection = bufferedDirection;
+		
+		when(bufferedDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
 		when(initialDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
 		when(initialDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(movedCollisionPolygon);
 		
 		pacMan.move();
 		
+		verify(bufferedDirection).canMove(collisionPolygon, PacMan.SPEED, board);
 		verify(initialDirection).canMove(collisionPolygon, PacMan.SPEED, board);
 		verify(initialDirection).move(collisionPolygon, PacMan.SPEED);
 		
@@ -105,11 +127,17 @@ public class PacManTest {
 	}
 	
 	@Test
-	public void shouldNotMoveIfThereIsCollision() throws Exception {
+	public void shouldNotMoveIfItIsColliding() throws Exception {
+		Direction bufferedDirection = mock(Direction.class);
+		pacMan.bufferedDirection = bufferedDirection;
+		
+		when(bufferedDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
 		when(initialDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
 		
 		pacMan.move();
 		
+		verify(bufferedDirection).canMove(collisionPolygon, PacMan.SPEED, board);
+		verify(bufferedDirection, never()).move(any(CollisionPolygon.class), anyFloat());
 		verify(initialDirection).canMove(collisionPolygon, PacMan.SPEED, board);
 		verify(initialDirection, never()).move(any(CollisionPolygon.class), anyFloat());
 		

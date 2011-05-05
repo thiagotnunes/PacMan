@@ -38,7 +38,10 @@ public class PacMan implements Renderable {
 	}
 
 	public void move() {
-		if (currentDirection.canMove(currentCollisionPolygon, SPEED, board)) {
+		if (bufferedDirection.canMove(currentCollisionPolygon, SPEED, board)) {
+			currentCollisionPolygon = bufferedDirection.move(currentCollisionPolygon, SPEED);
+			currentDirection = bufferedDirection;
+		} else if (currentDirection.canMove(currentCollisionPolygon, SPEED, board)) {
 			currentCollisionPolygon = currentDirection.move(
 					currentCollisionPolygon, SPEED);
 		}
