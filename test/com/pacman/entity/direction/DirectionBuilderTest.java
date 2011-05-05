@@ -4,52 +4,41 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.newdawn.slick.Input.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-
-import com.pacman.entity.character.AnimationFactory;
 
 public class DirectionBuilderTest {
 
+	private Map<Integer, Direction> directions;
+	private Direction up;
 	private DirectionBuilder directionBuilder;
-	private AnimationFactory animationFactory;
 
 	@Before
 	public void setUp() throws SlickException {
-		animationFactory = mock(AnimationFactory.class);
-		directionBuilder = new DirectionBuilder(animationFactory);
+		directions = new HashMap<Integer, Direction>();
+		up = mock(Direction.class);
+		directions.put(KEY_UP, up);
 		
-		directionBuilder.buildDirectionMap();
+		directionBuilder = new DirectionBuilder(up, directions);
 	}
 
 	@Test
-	public void defaultDirectionShouldBeLeft() throws Exception {
-		assertEquals(new Left(animationFactory).getClass(), directionBuilder
-				.defaultDirection().getClass());
+	public void shouldReturnDirectionFromMappedKey() throws Exception {
+		assertSame(up, directionBuilder.from(KEY_UP));
 	}
-
+	
 	@Test
-	public void shouldReturnDirectionFromGivenInput() throws Exception {
-		validateFromInput(KEY_DOWN, new Down(animationFactory));
-		validateFromInput(KEY_UP, new Up(animationFactory));
-		validateFromInput(KEY_RIGHT, new Right(animationFactory));
-		validateFromInput(KEY_LEFT, new Left(animationFactory));
+	public void shouldReturnNullFromUnmappedKey() throws Exception {
+		assertNull(directionBuilder.from(KEY_A));
 	}
-
+	
 	@Test
-	public void shouldReturnSameDirectionFromInvalidInput() throws Exception {
-		validateFromInput(KEY_0, new NullDirection());
-		validateFromInput(KEY_A, new NullDirection());
-		validateFromInput(KEY_APOSTROPHE, new NullDirection());
-	}
-
-	private void validateFromInput(int key, Direction expectedDirection) {
-		Input input = mock(Input.class);
-		when(input.isKeyDown(key)).thenReturn(true);
-		assertEquals(expectedDirection.getClass(), directionBuilder.from(input)
-				.getClass());
+	public void shouldReturnDefaultDirection() throws Exception {
+		assertSame(up, directionBuilder.defaultDirection());
 	}
 
 }

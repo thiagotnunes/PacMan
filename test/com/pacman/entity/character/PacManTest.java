@@ -6,15 +6,11 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.direction.Direction;
-import com.pacman.entity.direction.DirectionBuilder;
-import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.geometry.Point;
@@ -24,27 +20,22 @@ public class PacManTest {
 
 	private PacMan pacMan;
 	private CollisionPolygon collisionPolygon;
-	private DirectionBuilder directionFactory;
-	private Direction direction;
+	private Direction initialDirection;
+	private Board board;
 
 	@Before
 	public void setUp() throws SlickException {
 		collisionPolygon = mock(CollisionPolygon.class);
-		directionFactory = mock(DirectionBuilder.class);
+		initialDirection = mock(Direction.class);
+		board = mock(Board.class);
 
-		direction = mock(Direction.class);
-		when(directionFactory.defaultDirection()).thenReturn(direction);
 
-		pacMan = new PacMan(collisionPolygon, directionFactory);
-
-		verify(directionFactory).buildDirectionMap();
+		pacMan = new PacMan(collisionPolygon, initialDirection, board);
 	}
-
+	
 	@Test
 	public void shouldSetCurrentDirectionAsDefault() throws Exception {
-		verify(directionFactory).defaultDirection();
-
-		assertSame(direction, pacMan.currentDirection());
+		assertSame(initialDirection, pacMan.currentDirection);
 	}
 
 	@Test
@@ -58,7 +49,7 @@ public class PacManTest {
 
 		when(collisionPolygon.getPosition()).thenReturn(position);
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
-		when(direction.getAnimation()).thenReturn(animation);
+		when(initialDirection.getAnimation()).thenReturn(animation);
 
 		pacMan.draw(g);
 
@@ -74,73 +65,57 @@ public class PacManTest {
 		assertTrue(pacMan instanceof Renderable);
 		assertSame(position, pacMan.getPosition());
 	}
-
+	
 	@Test
-	public void shouldMovePacManIfWillNotCollideWithBoard() throws Exception {
-		int delta = 1;
-		GameContainer gc = mock(GameContainer.class);
-		Board board = mock(Board.class);
-		Input input = mock(Input.class);
-		CollisionPolygon movedCollisionPolygon = mock(CollisionPolygon.class);
-		Direction nextDirection = mock(Direction.class);
-
-		when(gc.getInput()).thenReturn(input);
-		when(directionFactory.from(input)).thenReturn(nextDirection);
-		when(nextDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
-		when(nextDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(
-				movedCollisionPolygon);
-
-		pacMan.move(gc, delta, board);
-
-		assertSame(movedCollisionPolygon, pacMan.currentCollisionPolygon());
-		assertSame(nextDirection, pacMan.currentDirection());
-	}
-
-	@Test
-	public void shouldNotMovePacManIfWillCollideWithBoard() throws Exception {
-		int delta = 1;
-		GameContainer gc = mock(GameContainer.class);
-		Board board = mock(Board.class);
-		Input input = mock(Input.class);
-		CollisionPolygon currentDirectionPolygon = mock(CollisionPolygon.class);
-		Direction nextDirection = mock(Direction.class);
-
-		when(gc.getInput()).thenReturn(input);
-		when(directionFactory.from(input)).thenReturn(nextDirection);
-		when(nextDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
+	public void shouldUpdateDirectionWhenThereIsNoCollision() throws Exception {
+		Direction direction = mock(Direction.class);
+		
 		when(direction.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
-		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
-				currentDirectionPolygon);
 
-		pacMan.move(gc, delta, board);
-
-		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
-		assertSame(direction, pacMan.currentDirection());
-		assertSame(nextDirection, pacMan.bufferedDirection);
+		pacMan.updateDirection(direction);
+		
+		assertSame(direction, pacMan.currentDirection);
 	}
 	
 	@Test
-	public void directionShouldNotBeBufferedForNullDirection() throws Exception {
-		int delta = 1;
-		GameContainer gc = mock(GameContainer.class);
-		Board board = mock(Board.class);
-		Input input = mock(Input.class);
-		CollisionPolygon currentDirectionPolygon = mock(CollisionPolygon.class);
-		Direction nextDirection = new NullDirection();
+	public void shouldBufferDirectionWhenThereIsCollision() throws Exception {
+		Direction direction = mock(Direction.class);
 		
-		when(gc.getInput()).thenReturn(input);
-		when(directionFactory.from(input)).thenReturn(nextDirection);
-		when(direction.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
-		when(direction.move(collisionPolygon, PacMan.SPEED)).thenReturn(
-				currentDirectionPolygon);
-
-		pacMan.move(gc, delta, board);
-
-		assertSame(currentDirectionPolygon, pacMan.currentCollisionPolygon());
-		assertSame(direction, pacMan.currentDirection());
+		when(direction.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
+		
+		pacMan.updateDirection(direction);
+		
+		assertSame(initialDirection, pacMan.currentDirection);
 		assertSame(direction, pacMan.bufferedDirection);
 	}
 	
+	@Test
+	public void shouldMoveIfThereIsNoCollision() throws Exception {
+		CollisionPolygon movedCollisionPolygon = mock(CollisionPolygon.class);
+		
+		when(initialDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(true);
+		when(initialDirection.move(collisionPolygon, PacMan.SPEED)).thenReturn(movedCollisionPolygon);
+		
+		pacMan.move();
+		
+		verify(initialDirection).canMove(collisionPolygon, PacMan.SPEED, board);
+		verify(initialDirection).move(collisionPolygon, PacMan.SPEED);
+		
+		assertSame(pacMan.currentCollisionPolygon, movedCollisionPolygon);
+	}
+	
+	@Test
+	public void shouldNotMoveIfThereIsCollision() throws Exception {
+		when(initialDirection.canMove(collisionPolygon, PacMan.SPEED, board)).thenReturn(false);
+		
+		pacMan.move();
+		
+		verify(initialDirection).canMove(collisionPolygon, PacMan.SPEED, board);
+		verify(initialDirection, never()).move(any(CollisionPolygon.class), anyFloat());
+		
+		assertSame(pacMan.currentCollisionPolygon, collisionPolygon);
+	}
+
 	@Test
 	public void shouldEat() throws Exception {
 		Board board = mock(Board.class);

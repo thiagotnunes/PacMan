@@ -7,6 +7,8 @@ import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
+import com.pacman.entity.character.PacManKeyListenerFactory;
+import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.geometry.CollisionPolygon;
@@ -21,24 +23,37 @@ public class PacManGame extends BasicGame {
 	private final PacManFactory pacManFactory;
 	private final Renderer renderer;
 	private final BoardFactory boardFactory;
+	private final PacManKeyListenerFactory listenerFactory;
+	private final DirectionBuilder directionBuilder;
+
 
 	public PacManGame(String title, PacManFactory pacManFactory,
-			BoardFactory boardFactory, Renderer renderer) {
+			BoardFactory boardFactory, Renderer renderer,
+			PacManKeyListenerFactory listenerFactory,
+			DirectionBuilder directionBuilder) {
 		super(title);
 		this.pacManFactory = pacManFactory;
 		this.boardFactory = boardFactory;
 		this.renderer = renderer;
+		this.listenerFactory = listenerFactory;
+		this.directionBuilder = directionBuilder;
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		pacMan = pacManFactory.from(new CollisionPolygon(324.1f, 574.1f, 26.85f));
+		directionBuilder.buildDirections();
+		
 		board = boardFactory.from(MAP_PATH);
+		pacMan = pacManFactory.from(
+				new CollisionPolygon(324.1f, 574.1f, 26.85f), directionBuilder.defaultDirection(),
+				board);
+
+		gc.getInput().addKeyListener(listenerFactory.from(pacMan, directionBuilder));
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		pacMan.move(gc, delta, board);
+		pacMan.move();
 		pacMan.eat(board);
 	}
 
