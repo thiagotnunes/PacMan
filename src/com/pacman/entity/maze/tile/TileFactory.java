@@ -3,6 +3,7 @@ package com.pacman.entity.maze.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.maze.filter.TileFilter;
@@ -15,7 +16,7 @@ public abstract class TileFactory {
 		this.filter = filter;
 	}
 
-	public List<Tile> from(TiledMap map, Integer layer) {
+	public List<Tile> from(TiledMap map, Integer layer) throws SlickException {
 		Integer width = map.getWidth();
 		Integer height = map.getHeight();
 		List<Tile> tiles = new ArrayList<Tile>();
@@ -32,6 +33,6 @@ public abstract class TileFactory {
 		return tiles;
 	}
 
-	protected abstract Tile createTile(Integer x, Integer y, TiledMap map);
+	protected abstract Tile createTile(Integer x, Integer y, TiledMap map) throws SlickException;
 
 }

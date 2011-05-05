@@ -12,6 +12,7 @@ import com.pacman.entity.maze.filter.CollidableTileFilter;
 import com.pacman.entity.maze.filter.ConsumableTileFilter;
 import com.pacman.entity.maze.tile.FoodTileFactory;
 import com.pacman.entity.maze.tile.WallTileFactory;
+import com.pacman.graphics.ImageFactory;
 import com.pacman.renderer.DefaultRenderer;
 
 public class Main {
@@ -23,7 +24,7 @@ public class Main {
 		FullPolygonFactory polygonFactory = new FullPolygonFactory();
 		WallTileFactory wallFactory = new WallTileFactory(new CollidableTileFilter(),
 				polygonFactory);
-		FoodTileFactory foodFactory = new FoodTileFactory(new ConsumableTileFilter(), polygonFactory);
+		FoodTileFactory foodFactory = new FoodTileFactory(new ConsumableTileFilter(), polygonFactory, new ImageFactory());
 		BoardFactory boardFactory = new BoardFactory(new MapFactory(),
 				wallFactory, foodFactory);
 		PacManFactory pacManFactory = new PacManFactory();

@@ -1,14 +1,14 @@
 package com.pacman.entity.maze.tile;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
-import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 
 public class TileTest {
@@ -26,12 +26,21 @@ public class TileTest {
 	@Test
 	public void shouldDrawItSelf() throws Exception {
 		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
-		Tile tile = new Tile(collisionPolygon);
+		Image image = mock(Image.class);
+		Tile tile = new Tile(collisionPolygon, image);
 		Graphics g = mock(Graphics.class);
+		float width = 3f;
+		float height = 5f;
+		Polygon polygon = mock(Polygon.class);
+		
+		when(collisionPolygon.getPolygon()).thenReturn(polygon);
+		when(polygon.getWidth()).thenReturn(width);
+		when(polygon.getHeight()).thenReturn(height);
 
 		tile.draw(g);
 
-		verify(collisionPolygon).draw(eq(g));
+		verify(collisionPolygon).draw(g);
+		verify(image).draw(0, 0, width , height);
 	}
 
 	@Test

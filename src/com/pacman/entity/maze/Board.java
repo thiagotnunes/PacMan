@@ -34,9 +34,6 @@ public class Board implements Renderable {
 		for(Tile tile : food) {
 			g.draw(tile.getPolygon());
 		}
-//		for (Tile tile : walls) {
-//			g.draw(tile.getPolygon());
-//		}
 	}
 
 	@Override
@@ -48,6 +45,11 @@ public class Board implements Renderable {
 		return isCollidingWith(collidable, walls) != null;
 	}
 
+	public void consume(CollisionPolygon collidable) {
+		Tile tile = isCollidingWith(collidable, food);
+		food.remove(tile);
+	}
+
 	private Tile isCollidingWith(CollisionPolygon collidable, List<Tile> tiles) {
 		for (Tile tile : tiles) {
 			if (tile.isCollidingWith(collidable)) {
@@ -56,12 +58,7 @@ public class Board implements Renderable {
 		}
 		return null;
 	}
-
-	public void consume(CollisionPolygon collidable) {
-		Tile tile = isCollidingWith(collidable, food);
-		food.remove(tile);
-	}
-
+	
 	private Boolean isLayerVisible(int layerIndex) {
 		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE
 				.property(), VISIBLE.defaultValue()));

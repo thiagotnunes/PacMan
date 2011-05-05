@@ -3,8 +3,8 @@ package com.pacman.entity.direction;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.character.AnimationFactory;
 import com.pacman.geometry.CollisionPolygon;
+import com.pacman.graphics.AnimationFactory;
 
 public class Left extends Direction {
 

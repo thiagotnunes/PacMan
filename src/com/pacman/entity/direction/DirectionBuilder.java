@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.character.AnimationFactory;
+import com.pacman.graphics.AnimationFactory;
 
 public class DirectionBuilder {
 

@@ -6,8 +6,8 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.Animation;
 
-import com.pacman.entity.character.AnimationFactory;
 import com.pacman.geometry.CollisionPolygon;
+import com.pacman.graphics.AnimationFactory;
 
 public class DownTest {
 

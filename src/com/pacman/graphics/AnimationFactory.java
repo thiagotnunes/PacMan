@@ -1,4 +1,4 @@
-package com.pacman.entity.character;
+package com.pacman.graphics;
 
 import java.io.File;
 import java.util.ArrayList;
