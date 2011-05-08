@@ -10,7 +10,7 @@ import com.pacman.entity.maze.BoardFactory;
 import com.pacman.entity.maze.MapFactory;
 import com.pacman.entity.maze.filter.CollidableTileFilter;
 import com.pacman.entity.maze.filter.ConsumableTileFilter;
-import com.pacman.entity.maze.tile.FoodTileFactory;
+import com.pacman.entity.maze.tile.ImageTileFactory;
 import com.pacman.entity.maze.tile.WallTileFactory;
 import com.pacman.graphics.ImageFactory;
 import com.pacman.renderer.DefaultRenderer;
@@ -22,22 +22,24 @@ public class Main {
 
 		DefaultRenderer renderer = new DefaultRenderer();
 		FullPolygonFactory polygonFactory = new FullPolygonFactory();
-		WallTileFactory wallFactory = new WallTileFactory(new CollidableTileFilter(),
-				polygonFactory);
-		FoodTileFactory foodFactory = new FoodTileFactory(new ConsumableTileFilter(), polygonFactory, new ImageFactory());
+		WallTileFactory wallFactory = new WallTileFactory(
+				new CollidableTileFilter(), polygonFactory);
+		ImageTileFactory foodFactory = new ImageTileFactory(
+				new ConsumableTileFilter(), polygonFactory, new ImageFactory(),
+				ImageTileFactory.FOOD_PATH);
 		BoardFactory boardFactory = new BoardFactory(new MapFactory(),
 				wallFactory, foodFactory);
-		PacManFactory pacManFactory = new PacManFactory();
-
 		DirectionBuilder directionBuilder = new DirectionBuilder();
-		PacManKeyListenerFactory listenerFactory = new PacManKeyListenerFactory();
-		
+		PacManFactory pacManFactory = new PacManFactory(directionBuilder);
+
+		PacManKeyListenerFactory listenerFactory = new PacManKeyListenerFactory(directionBuilder);
+
 		PacManGame pacManGame = new PacManGame(title, pacManFactory,
-				boardFactory, renderer, listenerFactory, directionBuilder);
+				boardFactory, renderer, listenerFactory);
 
 		AppGameContainer container = new AppGameContainer(pacManGame);
 		container.setDisplayMode(700, 800, false);
-
+		
 		container.start();
 	}
 

@@ -5,8 +5,6 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.CollisionPolygon;
@@ -26,21 +24,12 @@ public class TileTest {
 	@Test
 	public void shouldDrawItSelf() throws Exception {
 		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
-		Image image = mock(Image.class);
-		Tile tile = new Tile(collisionPolygon, image);
+		Tile tile = new Tile(collisionPolygon);
 		Graphics g = mock(Graphics.class);
-		float width = 3f;
-		float height = 5f;
-		Polygon polygon = mock(Polygon.class);
-		
-		when(collisionPolygon.getPolygon()).thenReturn(polygon);
-		when(polygon.getWidth()).thenReturn(width);
-		when(polygon.getHeight()).thenReturn(height);
 
 		tile.draw(g);
 
 		verify(collisionPolygon).draw(g);
-		verify(image).draw(0, 0, width , height);
 	}
 
 	@Test

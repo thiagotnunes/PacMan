@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.maze.tile.Tile;
@@ -27,15 +26,11 @@ public class BoardTest {
 		ArrayList<Tile> food = new ArrayList<Tile>();
 		food.add(firstFood);
 		food.add(secondFood);
-		Polygon firstPolygon = mock(Polygon.class);
-		Polygon secondPolygon = mock(Polygon.class);
 		
 		when(map.getLayerCount()).thenReturn(3);
 		when(map.getLayerProperty(0, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("true");
 		when(map.getLayerProperty(1, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("false");
 		when(map.getLayerProperty(2, VISIBLE.property(), VISIBLE.defaultValue())).thenReturn("true");
-		when(firstFood.getPolygon()).thenReturn(firstPolygon);
-		when(secondFood.getPolygon()).thenReturn(secondPolygon);
 		
 		Board board = new Board(map, null, food);
 
@@ -46,8 +41,8 @@ public class BoardTest {
 		verify(map).render(0, 0, 0);
 		verify(map, never()).render(0, 0, 1);
 		verify(map).render(0, 0, 2);
-		verify(g).draw(firstPolygon);
-		verify(g).draw(secondPolygon);
+		verify(firstFood).draw(g);
+		verify(secondFood).draw(g);
 	}
 
 	@Test

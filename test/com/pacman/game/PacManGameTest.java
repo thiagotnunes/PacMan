@@ -16,8 +16,6 @@ import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.character.PacManKeyListener;
 import com.pacman.entity.character.PacManKeyListenerFactory;
-import com.pacman.entity.direction.Direction;
-import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.geometry.CollisionPolygon;
@@ -35,7 +33,6 @@ public class PacManGameTest {
 	private GameContainer gameContainer;
 	private Input input;
 	private PacManKeyListenerFactory keyListenerFactory;
-	private DirectionBuilder directionBuilder;
 
 	@Before
 	public void setUp() throws SlickException {
@@ -46,15 +43,13 @@ public class PacManGameTest {
 		board = mock(Board.class);
 		keyListener = mock(PacManKeyListener.class);
 		keyListenerFactory = mock(PacManKeyListenerFactory.class);
-		directionBuilder = mock(DirectionBuilder.class);
 		pacManGame = new PacManGame("PacMan", pacManFactory, boardFactory,
-				renderer, keyListenerFactory, directionBuilder);
+				renderer, keyListenerFactory);
 
-		when(
-				pacManFactory.from(any(CollisionPolygon.class),
-						any(Direction.class), eq(board))).thenReturn(pacMan);
+		when(pacManFactory.from(any(CollisionPolygon.class), eq(board)))
+				.thenReturn(pacMan);
 		when(boardFactory.from(eq(PacManGame.MAP_PATH))).thenReturn(board);
-		when(keyListenerFactory.from(pacMan, directionBuilder)).thenReturn(keyListener);
+		when(keyListenerFactory.from(pacMan)).thenReturn(keyListener);
 
 		gameContainer = mock(GameContainer.class);
 		input = mock(Input.class);
@@ -66,11 +61,9 @@ public class PacManGameTest {
 
 	@After
 	public void tearDown() throws SlickException {
-		verify(directionBuilder).buildDirections();
-		verify(pacManFactory).from(any(CollisionPolygon.class),
-				any(Direction.class), eq(board));
+		verify(pacManFactory).from(any(CollisionPolygon.class), eq(board));
 		verify(boardFactory).from(eq(PacManGame.MAP_PATH));
-		verify(keyListenerFactory).from(pacMan, directionBuilder);
+		verify(keyListenerFactory).from(pacMan);
 		verify(gameContainer).getInput();
 		verify(input).addKeyListener(keyListener);
 	}

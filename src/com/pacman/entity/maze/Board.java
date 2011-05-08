@@ -26,13 +26,21 @@ public class Board implements Renderable {
 
 	@Override
 	public void draw(Graphics g) {
+		drawMap();
+		drawFood(g);
+	}
+
+	private void drawMap() {
 		for (int i = 0; i < map.getLayerCount(); i++) {
 			if (isLayerVisible(i)) {
 				map.render(0, 0, i);
 			}
 		}
-		for(Tile tile : food) {
-			g.draw(tile.getPolygon());
+	}
+
+	private void drawFood(Graphics g) {
+		for (Tile tile : food) {
+			tile.draw(g);
 		}
 	}
 
@@ -58,7 +66,7 @@ public class Board implements Renderable {
 		}
 		return null;
 	}
-	
+
 	private Boolean isLayerVisible(int layerIndex) {
 		return Boolean.valueOf(map.getLayerProperty(layerIndex, VISIBLE
 				.property(), VISIBLE.defaultValue()));

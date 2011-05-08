@@ -12,11 +12,13 @@ public class PacManKeyListenerFactoryTest {
 	
 	@Test
 	public void shouldCreateListenerForPacMan() throws Exception {
-		PacManKeyListenerFactory factory = new PacManKeyListenerFactory();
 		DirectionBuilder directionBuilder = mock(DirectionBuilder.class);
 		PacMan pacMan = mock(PacMan.class);
+		PacManKeyListenerFactory factory = new PacManKeyListenerFactory(directionBuilder);
 		
-		PacManKeyListener listener = factory.from(pacMan, directionBuilder);
+		PacManKeyListener listener = factory.from(pacMan);
+		
+		verify(directionBuilder).buildDirections();
 		
 		assertSame(pacMan, listener.pacMan);
 		assertSame(directionBuilder, listener.directionBuilder);

@@ -31,24 +31,18 @@ public class PacMan implements Renderable {
 		Polygon polygon = currentCollisionPolygon.getPolygon();
 		Animation animation = currentDirection.getAnimation();
 		animation.draw(0, 0, polygon.getWidth(), polygon.getHeight());
-		// g.draw(polygon);
-		// g.drawString(currentCollisionPolygon.toString(),
-		// polygon.getCenterX(),
-		// polygon.getCenterY());
 	}
 
 	public void move() {
 		if (bufferedDirection.canMove(currentCollisionPolygon, SPEED, board)) {
-			currentCollisionPolygon = bufferedDirection.move(currentCollisionPolygon, SPEED);
+			currentCollisionPolygon = bufferedDirection.move(
+					currentCollisionPolygon, SPEED);
 			currentDirection = bufferedDirection;
-		} else if (currentDirection.canMove(currentCollisionPolygon, SPEED, board)) {
+		} else if (currentDirection.canMove(currentCollisionPolygon, SPEED,
+				board)) {
 			currentCollisionPolygon = currentDirection.move(
 					currentCollisionPolygon, SPEED);
 		}
-	}
-
-	public void eat(Board board) {
-		board.consume(currentCollisionPolygon);
 	}
 
 	public void updateDirection(Direction direction) {
@@ -57,6 +51,10 @@ public class PacMan implements Renderable {
 		} else {
 			bufferedDirection = direction;
 		}
+	}
+
+	public void eat(Board board) {
+		board.consume(currentCollisionPolygon);
 	}
 
 	public CollisionPolygon currentCollisionPolygon() {
