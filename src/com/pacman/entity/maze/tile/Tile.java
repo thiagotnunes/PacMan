@@ -5,10 +5,9 @@ import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.geometry.Point;
-import com.pacman.renderer.Renderable;
+import com.pacman.graphics.Drawable;
 
-public class Tile implements Renderable, Collidable {
+public class Tile implements Drawable, Collidable {
 
 	protected final CollisionPolygon collisionPolygon;
 
@@ -19,11 +18,6 @@ public class Tile implements Renderable, Collidable {
 	@Override
 	public void draw(Graphics g) {
 		collisionPolygon.draw(g);
-	}
-
-	@Override
-	public Point getPosition() {
-		return collisionPolygon.getPosition();
 	}
 
 	public Polygon getPolygon() {

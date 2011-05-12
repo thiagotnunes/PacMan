@@ -9,10 +9,9 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.geometry.Point;
-import com.pacman.renderer.Renderable;
+import com.pacman.graphics.Drawable;
 
-public class Board implements Renderable {
+public class Board implements Drawable {
 
 	private final TiledMap map;
 	private final List<Tile> walls;
@@ -44,21 +43,16 @@ public class Board implements Renderable {
 		}
 	}
 
-	@Override
-	public Point getPosition() {
-		return new Point(0f, 0f);
-	}
-
 	public boolean isCollidingWithWall(CollisionPolygon collidable) {
-		return isCollidingWith(collidable, walls) != null;
+		return collidingTile(collidable, walls) != null;
 	}
 
 	public void consume(CollisionPolygon collidable) {
-		Tile tile = isCollidingWith(collidable, food);
+		Tile tile = collidingTile(collidable, food);
 		food.remove(tile);
 	}
 
-	private Tile isCollidingWith(CollisionPolygon collidable, List<Tile> tiles) {
+	private Tile collidingTile(CollisionPolygon collidable, List<Tile> tiles) {
 		for (Tile tile : tiles) {
 			if (tile.isCollidingWith(collidable)) {
 				return tile;

@@ -11,7 +11,6 @@ import com.pacman.entity.character.PacManKeyListenerFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.renderer.Renderer;
 
 public class PacManGame extends BasicGame {
 
@@ -20,17 +19,15 @@ public class PacManGame extends BasicGame {
 	private PacMan pacMan;
 	private Board board;
 	private final PacManFactory pacManFactory;
-	private final Renderer renderer;
 	private final BoardFactory boardFactory;
 	private final PacManKeyListenerFactory listenerFactory;
 
 	public PacManGame(String title, PacManFactory pacManFactory,
-			BoardFactory boardFactory, Renderer renderer,
+			BoardFactory boardFactory,
 			PacManKeyListenerFactory listenerFactory) {
 		super(title);
 		this.pacManFactory = pacManFactory;
 		this.boardFactory = boardFactory;
-		this.renderer = renderer;
 		this.listenerFactory = listenerFactory;
 	}
 
@@ -51,8 +48,8 @@ public class PacManGame extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		renderer.render(board, g);
-		renderer.render(pacMan, g);
+		board.draw(g);
+		pacMan.draw(g);
 	}
 
 }

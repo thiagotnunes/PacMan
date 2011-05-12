@@ -3,7 +3,7 @@ package com.pacman.entity.maze;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.maze.tile.ImageTileFactory;
+import com.pacman.entity.maze.tile.FoodTileFactory;
 import com.pacman.entity.maze.tile.TileFactory;
 import com.pacman.entity.maze.tile.WallTileFactory;
 
@@ -13,9 +13,9 @@ public class BoardFactory {
 	private static final int WALL_LAYER = 0;
 	private final MapFactory mapFactory;
 	private final TileFactory wallFactory;
-	private final ImageTileFactory foodFactory;
+	private final FoodTileFactory foodFactory;
 
-	public BoardFactory(MapFactory mapFactory, WallTileFactory wallFactory, ImageTileFactory foodFactory) {
+	public BoardFactory(MapFactory mapFactory, WallTileFactory wallFactory, FoodTileFactory foodFactory) {
 		this.mapFactory = mapFactory;
 		this.wallFactory = wallFactory;
 		this.foodFactory = foodFactory;

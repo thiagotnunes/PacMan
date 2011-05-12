@@ -9,7 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
-import com.pacman.renderer.Renderable;
 
 public class CollisionPolygonTest {
 
@@ -40,14 +39,6 @@ public class CollisionPolygonTest {
 		collisionPolygon.draw(g);
 
 		verify(g).draw(eq(collisionPolygon.getPolygon()));
-	}
-
-	@Test
-	public void shouldReturnCurrentPosition() throws Exception {
-		Renderable squarePolygon = new CollisionPolygon(2f, 1f, 10f);
-
-		assertEquals(2, squarePolygon.getPosition().getX(), 1);
-		assertEquals(1, squarePolygon.getPosition().getY(), 1);
 	}
 
 	@Test

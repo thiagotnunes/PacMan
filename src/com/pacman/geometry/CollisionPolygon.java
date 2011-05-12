@@ -4,9 +4,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.collision.Collidable;
-import com.pacman.renderer.Renderable;
+import com.pacman.graphics.Drawable;
 
-public class CollisionPolygon implements Renderable, Collidable {
+public class CollisionPolygon implements Drawable, Collidable {
 
 	private Polygon polygon;
 
@@ -31,13 +31,9 @@ public class CollisionPolygon implements Renderable, Collidable {
 		return polygon;
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		g.draw(polygon);
-	}
-
-	@Override
-	public Point getPosition() {
-		return new Point(polygon.getX(), polygon.getY());
 	}
 
 	@Override

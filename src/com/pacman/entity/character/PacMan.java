@@ -7,10 +7,9 @@ import org.newdawn.slick.geom.Polygon;
 import com.pacman.entity.direction.Direction;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.geometry.Point;
-import com.pacman.renderer.Renderable;
+import com.pacman.graphics.Drawable;
 
-public class PacMan implements Renderable {
+public class PacMan implements Drawable {
 
 	public static final Float SPEED = 0.5f;
 
@@ -27,10 +26,12 @@ public class PacMan implements Renderable {
 		this.board = board;
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		Polygon polygon = currentCollisionPolygon.getPolygon();
 		Animation animation = currentDirection.getAnimation();
-		animation.draw(0, 0, polygon.getWidth(), polygon.getHeight());
+		animation.draw(polygon.getX(), polygon.getY(), polygon.getWidth(),
+				polygon.getHeight());
 	}
 
 	public void move() {
@@ -60,10 +61,4 @@ public class PacMan implements Renderable {
 	public CollisionPolygon currentCollisionPolygon() {
 		return currentCollisionPolygon;
 	}
-
-	@Override
-	public Point getPosition() {
-		return currentCollisionPolygon.getPosition();
-	}
-
 }

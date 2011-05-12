@@ -18,7 +18,8 @@ public class ImageTile extends Tile {
 	@Override
 	public void draw(Graphics g) {
 		Polygon polygon = collisionPolygon.getPolygon();
-		image.draw(0, 0, polygon.getWidth(), polygon.getHeight());
+		image.draw(polygon.getX(), polygon.getY(), polygon.getWidth(), polygon
+				.getHeight());
 	}
 
 }

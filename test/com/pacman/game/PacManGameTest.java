@@ -19,14 +19,12 @@ import com.pacman.entity.character.PacManKeyListenerFactory;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.renderer.Renderer;
 
 public class PacManGameTest {
 
 	private BasicGame pacManGame;
 	private PacManFactory pacManFactory;
 	private PacMan pacMan;
-	private Renderer renderer;
 	private Board board;
 	private BoardFactory boardFactory;
 	private PacManKeyListener keyListener;
@@ -39,12 +37,10 @@ public class PacManGameTest {
 		pacMan = mock(PacMan.class);
 		pacManFactory = mock(PacManFactory.class);
 		boardFactory = mock(BoardFactory.class);
-		renderer = mock(Renderer.class);
 		board = mock(Board.class);
 		keyListener = mock(PacManKeyListener.class);
 		keyListenerFactory = mock(PacManKeyListenerFactory.class);
-		pacManGame = new PacManGame("PacMan", pacManFactory, boardFactory,
-				renderer, keyListenerFactory);
+		pacManGame = new PacManGame("PacMan", pacManFactory, boardFactory, keyListenerFactory);
 
 		when(pacManFactory.from(any(CollisionPolygon.class), eq(board)))
 				.thenReturn(pacMan);
@@ -73,7 +69,7 @@ public class PacManGameTest {
 		Graphics g = mock(Graphics.class);
 		pacManGame.render(null, g);
 
-		verify(renderer).render(pacMan, g);
+		verify(pacMan).draw(g);
 	}
 
 	@Test
@@ -81,7 +77,7 @@ public class PacManGameTest {
 		Graphics g = mock(Graphics.class);
 		pacManGame.render(null, g);
 
-		verify(renderer).render(board, g);
+		verify(board).draw(g);
 	}
 
 	@Test

@@ -1,6 +1,7 @@
 package com.pacman.entity.character;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -13,8 +14,6 @@ import org.newdawn.slick.geom.Polygon;
 import com.pacman.entity.direction.Direction;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.geometry.Point;
-import com.pacman.renderer.Renderable;
 
 public class PacManTest {
 
@@ -42,30 +41,20 @@ public class PacManTest {
 	public void shouldDrawPacMan() throws Exception {
 		Float x = 20f;
 		Float y = 30f;
-		Point position = new Point(x, y);
 		Polygon polygon = mock(Polygon.class);
 		Graphics g = mock(Graphics.class);
 		Animation animation = mock(Animation.class);
 
-		when(collisionPolygon.getPosition()).thenReturn(position);
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
+		when(polygon.getX()).thenReturn(x);
+		when(polygon.getY()).thenReturn(y);
 		when(initialDirection.getAnimation()).thenReturn(animation);
 
 		pacMan.draw(g);
 
-		verify(animation).draw(0, 0, polygon.getWidth(), polygon.getHeight());
+		verify(animation).draw(x, y, polygon.getWidth(), polygon.getHeight());
 	}
 
-	@Test
-	public void shouldReturnCurrentPosition() throws Exception {
-		Point position = new Point(10f, 20f);
-
-		when(collisionPolygon.getPosition()).thenReturn(position);
-
-		assertTrue(pacMan instanceof Renderable);
-		assertSame(position, pacMan.getPosition());
-	}
-	
 	@Test
 	public void shouldUpdateDirectionWhenThereIsNoCollision() throws Exception {
 		Direction direction = mock(Direction.class);

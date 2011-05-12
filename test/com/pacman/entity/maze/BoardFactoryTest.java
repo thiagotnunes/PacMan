@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.newdawn.slick.tiled.TiledMap;
 
-import com.pacman.entity.maze.tile.ImageTileFactory;
+import com.pacman.entity.maze.tile.FoodTileFactory;
 import com.pacman.entity.maze.tile.WallTileFactory;
 
 public class BoardFactoryTest {
@@ -16,7 +16,7 @@ public class BoardFactoryTest {
 		String path = "path";
 		MapFactory mapFactory = mock(MapFactory.class);
 		WallTileFactory wallFactory = mock(WallTileFactory.class);
-		ImageTileFactory foodFactory = mock(ImageTileFactory.class);
+		FoodTileFactory foodFactory = mock(FoodTileFactory.class);
 		TiledMap map = mock(TiledMap.class);
 
 		when(mapFactory.from(eq(path))).thenReturn(map);

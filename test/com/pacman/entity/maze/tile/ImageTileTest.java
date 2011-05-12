@@ -17,16 +17,20 @@ public class ImageTileTest {
 		Polygon polygon = mock(Polygon.class);
 		float width = 6.0f;
 		float height = 7.0f;
+		float x = 11f;
+		float y = 12f;
 		Image image = mock(Image.class);
 		Tile tile = new ImageTile(collisionPolygon, image);
 
 		when(collisionPolygon.getPolygon()).thenReturn(polygon);
 		when(polygon.getWidth()).thenReturn(width);
 		when(polygon.getHeight()).thenReturn(height);
+		when(polygon.getX()).thenReturn(x);
+		when(polygon.getY()).thenReturn(y);
 
 		tile.draw(mock(Graphics.class));
 
-		verify(image).draw(0, 0, width, height);
+		verify(image).draw(x, y, width, height);
 	}
 
 }
