@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.direction.Direction;
+import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
 
@@ -28,13 +29,13 @@ public class PacManTest {
 		initialDirection = mock(Direction.class);
 		board = mock(Board.class);
 
-
 		pacMan = new PacMan(collisionPolygon, initialDirection, board);
 	}
 	
 	@Test
 	public void shouldSetCurrentDirectionAsDefault() throws Exception {
 		assertSame(initialDirection, pacMan.currentDirection);
+		assertTrue(pacMan.bufferedDirection instanceof NullDirection);
 	}
 
 	@Test
@@ -94,6 +95,7 @@ public class PacManTest {
 		
 		assertSame(pacMan.currentCollisionPolygon, movedCollisionPolygon);
 		assertSame(pacMan.currentDirection, bufferedDirection);
+		assertTrue(pacMan.bufferedDirection instanceof NullDirection);
 	}
 	
 	@Test

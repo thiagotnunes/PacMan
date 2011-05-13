@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 
 import com.pacman.entity.direction.Direction;
+import com.pacman.entity.direction.NullDirection;
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.Drawable;
@@ -22,7 +23,7 @@ public class PacMan implements Drawable {
 			Board board) {
 		currentCollisionPolygon = collisionPolygon;
 		currentDirection = direction;
-		bufferedDirection = direction;
+		bufferedDirection = new NullDirection();
 		this.board = board;
 	}
 
@@ -39,6 +40,7 @@ public class PacMan implements Drawable {
 			currentCollisionPolygon = bufferedDirection.move(
 					currentCollisionPolygon, SPEED);
 			currentDirection = bufferedDirection;
+			bufferedDirection = new NullDirection();
 		} else if (currentDirection.canMove(currentCollisionPolygon, SPEED,
 				board)) {
 			currentCollisionPolygon = currentDirection.move(
