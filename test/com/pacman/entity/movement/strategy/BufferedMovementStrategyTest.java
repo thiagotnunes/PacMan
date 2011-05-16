@@ -9,9 +9,8 @@ import org.junit.Test;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
+import com.pacman.entity.movement.MovementBuilder;
 import com.pacman.entity.movement.NullMovement;
-import com.pacman.entity.movement.strategy.BufferedMovementStrategy;
-import com.pacman.entity.movement.strategy.MovementStrategy;
 import com.pacman.geometry.CollisionPolygon;
 
 
@@ -33,8 +32,13 @@ public class BufferedMovementStrategyTest {
 		currentMovement = mock(Movement.class);
 		speed = PacMan.SPEED;
 		collisionPolygon = mock(CollisionPolygon.class);
+		MovementBuilder movementBuilder = mock(MovementBuilder.class);
 		
-		movementStrategy = new BufferedMovementStrategy(board, currentMovement, bufferedMovement);
+		when(movementBuilder.defaultMovement()).thenReturn(currentMovement);
+		
+		movementStrategy = new BufferedMovementStrategy(board, movementBuilder, bufferedMovement);
+		
+		verify(movementBuilder).defaultMovement();
 	}
 	
 	@Test
@@ -76,20 +80,6 @@ public class BufferedMovementStrategyTest {
 		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
 		
 		Movement nextDirection = movementStrategy.next(bufferedMovement, collisionPolygon, speed);
-		
-		assertSame(nextDirection, currentMovement);
-		assertSame(bufferedMovement, movementStrategy.bufferedMovement);
-	}
-	
-	@Test
-	public void shouldReturnStoppedCurrentDirectionWhenCollidesWithAll() throws Exception {
-		when(nextMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
-		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
-		when(currentMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
-		
-		Movement nextDirection = movementStrategy.next(bufferedMovement, collisionPolygon, speed);
-		
-		verify(currentMovement).stop();
 		
 		assertSame(nextDirection, currentMovement);
 		assertSame(bufferedMovement, movementStrategy.bufferedMovement);

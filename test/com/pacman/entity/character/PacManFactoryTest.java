@@ -19,12 +19,12 @@ public class PacManFactoryTest {
 		Movement movement = mock(Movement.class);
 		Board board = mock(Board.class);
 		
-		when(movementBuilder.defaultDirection()).thenReturn(movement);
+		when(movementBuilder.defaultMovement()).thenReturn(movement);
 		
 		PacMan pacMan = new PacManFactory(movementBuilder).from(collisionPolygon, board);
 		
 		verify(movementBuilder).buildMovements();
-		verify(movementBuilder).defaultDirection();
+		verify(movementBuilder).defaultMovement();
 		
 		assertSame(collisionPolygon, pacMan.currentCollisionPolygon);
 		assertSame(movement, pacMan.currentMovement);

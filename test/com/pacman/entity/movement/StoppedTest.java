@@ -6,18 +6,23 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 
 import com.pacman.entity.maze.Board;
-import com.pacman.entity.movement.Movement;
-import com.pacman.entity.movement.NullMovement;
 import com.pacman.geometry.CollisionPolygon;
 
 
-public class NullDirectionTest {
+public class StoppedTest {
 
 	@Test
 	public void shouldNotBeAbleToMove() throws Exception {
-		Movement movement = new NullMovement();
+		Movement movement = new Stopped();
 		
 		assertFalse(movement.canMove(mock(CollisionPolygon.class), 1f, mock(Board.class)));
 	}
 	
+	@Test
+	public void shouldReturnSamePolygonWhenMoving() throws Exception {
+		Stopped movement = new Stopped();
+		
+		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
+		assertSame(collisionPolygon, movement.move(collisionPolygon, 1f));
+	}
 }

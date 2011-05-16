@@ -11,13 +11,10 @@ public abstract class Movement {
 
 	public static final Integer ANIMATION_DELAY = 70;
 
-	private boolean stopped;
 	private Animation animation;
-	private Animation stoppedAnimation;
 	
 	public Movement(AnimationFactory animationFactory) throws SlickException {
 		animation = animationFactory.from(this, ANIMATION_DELAY, false);
-		stoppedAnimation = animationFactory.from(this, ANIMATION_DELAY, true);
 	}
 	
 	protected Movement() {}
@@ -25,11 +22,7 @@ public abstract class Movement {
 	public abstract CollisionPolygon move(CollisionPolygon collisionPolygon, Float delta);
 
 	public Animation getAnimation() {
-		return stopped ? stoppedAnimation : animation;
-	}
-
-	public void stop() {
-		stopped = true;
+		return animation;
 	}
 
 	public Boolean canMove(CollisionPolygon collisionPolygon, Float delta,

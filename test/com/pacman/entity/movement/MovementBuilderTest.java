@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 import com.pacman.entity.movement.Movement;
 import com.pacman.entity.movement.MovementBuilder;
 
-public class DirectionBuilderTest {
+public class MovementBuilderTest {
 
 	private Map<Integer, Movement> movements;
 	private Movement up;
@@ -40,8 +40,8 @@ public class DirectionBuilderTest {
 	}
 	
 	@Test
-	public void shouldReturnDefaultDirection() throws Exception {
-		assertSame(up, movementBuilder.defaultDirection());
+	public void shouldReturnDefaultMovement() throws Exception {
+		assertSame(up, movementBuilder.defaultMovement());
 	}
-
+	
 }

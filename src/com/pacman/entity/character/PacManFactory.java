@@ -20,7 +20,7 @@ public class PacManFactory {
 			throws SlickException {
 		movementBuilder.buildMovements();
 		return new PacMan(collisionPolygon, new BufferedMovementStrategy(board,
-				movementBuilder.defaultDirection(), new NullMovement()), board);
+				movementBuilder.defaultMovement(), new NullMovement()), board);
 	}
 
 }

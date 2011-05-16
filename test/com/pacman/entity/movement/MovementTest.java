@@ -53,26 +53,4 @@ public class MovementTest {
 		assertSame(animation, movement.getAnimation());
 	}
 	
-	@Test
-	public void shouldGetStoppedAnimationWhenItIsStopped() throws Exception {
-		AnimationFactory animationFactory = mock(AnimationFactory.class);
-		Animation animation = mock(Animation.class);
-		Animation stopped = mock(Animation.class);
-		
-		when(animationFactory.from(any(Movement.class), anyInt(), eq(false))).thenReturn(animation);
-		when(animationFactory.from(any(Movement.class), anyInt(), eq(true))).thenReturn(stopped);
-		
-		Movement movement = new Movement(animationFactory) {
-			@Override
-			public CollisionPolygon move(CollisionPolygon collisionPolygon,
-					Float delta) {
-				return null;
-			}
-		};
-		
-		movement.stop();
-		
-		assertSame(stopped, movement.getAnimation());
-	}
-
 }
