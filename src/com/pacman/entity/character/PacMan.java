@@ -37,7 +37,7 @@ public class PacMan implements Drawable {
 	}
 
 	public void move() {
-		currentMovement.move(currentCollisionPolygon, SPEED);
+		currentCollisionPolygon = currentMovement.move(currentCollisionPolygon, SPEED);
 	}
 
 	public void updateDirection(Movement movement) {
