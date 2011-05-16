@@ -4,13 +4,13 @@ import org.newdawn.slick.AppGameContainer;
 
 import com.pacman.entity.character.PacManFactory;
 import com.pacman.entity.character.PacManKeyListenerFactory;
-import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.maze.BoardFactory;
 import com.pacman.entity.maze.MapFactory;
 import com.pacman.entity.maze.filter.CollidableTileFilter;
 import com.pacman.entity.maze.filter.ConsumableTileFilter;
 import com.pacman.entity.maze.tile.FoodTileFactory;
 import com.pacman.entity.maze.tile.WallTileFactory;
+import com.pacman.entity.movement.MovementBuilder;
 import com.pacman.graphics.ImageFactory;
 
 public class Main {
@@ -25,10 +25,10 @@ public class Main {
 				FoodTileFactory.FOOD_PATH);
 		BoardFactory boardFactory = new BoardFactory(new MapFactory(),
 				wallFactory, foodFactory);
-		DirectionBuilder directionBuilder = new DirectionBuilder();
-		PacManFactory pacManFactory = new PacManFactory(directionBuilder);
+		MovementBuilder movementBuilder = new MovementBuilder();
+		PacManFactory pacManFactory = new PacManFactory(movementBuilder);
 
-		PacManKeyListenerFactory listenerFactory = new PacManKeyListenerFactory(directionBuilder);
+		PacManKeyListenerFactory listenerFactory = new PacManKeyListenerFactory(movementBuilder);
 
 		PacManGame pacManGame = new PacManGame(title, pacManFactory,
 				boardFactory, listenerFactory);

@@ -1,4 +1,4 @@
-package com.pacman.entity.direction;
+package com.pacman.entity.movement;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -11,34 +11,37 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
+import com.pacman.entity.movement.Movement;
+import com.pacman.entity.movement.MovementBuilder;
+
 public class DirectionBuilderTest {
 
-	private Map<Integer, Direction> directions;
-	private Direction up;
-	private DirectionBuilder directionBuilder;
+	private Map<Integer, Movement> movements;
+	private Movement up;
+	private MovementBuilder movementBuilder;
 
 	@Before
 	public void setUp() throws SlickException {
-		directions = new HashMap<Integer, Direction>();
-		up = mock(Direction.class);
-		directions.put(KEY_UP, up);
+		movements = new HashMap<Integer, Movement>();
+		up = mock(Movement.class);
+		movements.put(KEY_UP, up);
 		
-		directionBuilder = new DirectionBuilder(up, directions);
+		movementBuilder = new MovementBuilder(up, movements);
 	}
 
 	@Test
 	public void shouldReturnDirectionFromMappedKey() throws Exception {
-		assertSame(up, directionBuilder.from(KEY_UP));
+		assertSame(up, movementBuilder.from(KEY_UP));
 	}
 	
 	@Test
 	public void shouldReturnNullFromUnmappedKey() throws Exception {
-		assertNull(directionBuilder.from(KEY_A));
+		assertNull(movementBuilder.from(KEY_A));
 	}
 	
 	@Test
 	public void shouldReturnDefaultDirection() throws Exception {
-		assertSame(up, directionBuilder.defaultDirection());
+		assertSame(up, movementBuilder.defaultDirection());
 	}
 
 }

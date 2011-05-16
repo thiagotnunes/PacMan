@@ -2,22 +2,25 @@ package com.pacman.entity.character;
 
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.maze.Board;
+import com.pacman.entity.movement.MovementBuilder;
+import com.pacman.entity.movement.NullMovement;
+import com.pacman.entity.movement.strategy.BufferedMovementStrategy;
 import com.pacman.geometry.CollisionPolygon;
 
 public class PacManFactory {
 
-	private final DirectionBuilder directionBuilder;
+	private final MovementBuilder movementBuilder;
 
-	public PacManFactory(DirectionBuilder directionBuilder) {
-		this.directionBuilder = directionBuilder;
+	public PacManFactory(MovementBuilder movementBuilder) {
+		this.movementBuilder = movementBuilder;
 	}
 
-	public PacMan from(CollisionPolygon collisionPolygon, Board board) throws SlickException {
-		directionBuilder.buildDirections();
-		return new PacMan(collisionPolygon,
-				directionBuilder.defaultDirection(), board);
+	public PacMan from(CollisionPolygon collisionPolygon, Board board)
+			throws SlickException {
+		movementBuilder.buildMovements();
+		return new PacMan(collisionPolygon, new BufferedMovementStrategy(board,
+				movementBuilder.defaultDirection(), new NullMovement()), board);
 	}
 
 }

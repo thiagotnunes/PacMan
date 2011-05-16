@@ -1,27 +1,19 @@
-package com.pacman.entity.direction;
+package com.pacman.entity.movement;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.AnimationFactory;
 
-public class Up extends Direction {
-
-	private Animation animation;
+public class Up extends Movement {
 
 	public Up(AnimationFactory animationFactory) throws SlickException {
-		animation = animationFactory.from(toString(), ANIMATION_DELAY);
+		super(animationFactory);
 	}
 
 	@Override
 	public CollisionPolygon move(CollisionPolygon p, Float delta) {
 		return p.translate(0, -delta);
-	}
-
-	@Override
-	public Animation getAnimation() {
-		return animation;
 	}
 
 	@Override

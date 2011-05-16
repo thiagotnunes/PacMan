@@ -5,23 +5,23 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
-import com.pacman.entity.direction.DirectionBuilder;
+import com.pacman.entity.movement.MovementBuilder;
 
 
 public class PacManKeyListenerFactoryTest {
 	
 	@Test
 	public void shouldCreateListenerForPacMan() throws Exception {
-		DirectionBuilder directionBuilder = mock(DirectionBuilder.class);
+		MovementBuilder movementBuilder = mock(MovementBuilder.class);
 		PacMan pacMan = mock(PacMan.class);
-		PacManKeyListenerFactory factory = new PacManKeyListenerFactory(directionBuilder);
+		PacManKeyListenerFactory factory = new PacManKeyListenerFactory(movementBuilder);
 		
 		PacManKeyListener listener = factory.from(pacMan);
 		
-		verify(directionBuilder).buildDirections();
+		verify(movementBuilder).buildMovements();
 		
 		assertSame(pacMan, listener.pacMan);
-		assertSame(directionBuilder, listener.directionBuilder);
+		assertSame(movementBuilder, listener.movementBuilder);
 	}
 
 }

@@ -8,9 +8,11 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.pacman.entity.movement.Movement;
+
 public class AnimationFactory {
 
-	private static final int TOTAL_FRAMES = 4;
+	private static final int TOTAL_MOVEMENT_FRAMES = 4;
 
 	public Animation from(List<String> paths, Integer delay)
 			throws SlickException {
@@ -23,18 +25,24 @@ public class AnimationFactory {
 		return new Animation(frames, delay);
 	}
 
-	public Animation from(String direction, Integer delay)
+	public Animation from(Movement movement, Integer delay, boolean stopped)
 			throws SlickException {
 		String prefix = "data" + File.separator + "pacman" + File.separator
-				+ direction + File.separator + "Pacman_" + direction + "-";
+				+ movement + File.separator + "Pacman_" + movement + "-";
 		String extension = ".png";
 
 		List<String> paths = new ArrayList<String>();
-		for (int i = 0; i < TOTAL_FRAMES; i++) {
-			paths.add(prefix + i + extension);
+		
+		if (stopped) {
+			paths.add(prefix + 1 + extension);
+		} else {
+			for (int i = 0; i < TOTAL_MOVEMENT_FRAMES; i++) {
+				paths.add(prefix + i + extension);
+			}
 		}
 
 		return from(paths, delay);
 	}
+	
 
 }

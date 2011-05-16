@@ -1,17 +1,14 @@
-package com.pacman.entity.direction;
+package com.pacman.entity.movement;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.AnimationFactory;
 
-public class Left extends Direction {
-
-	private Animation animation;
+public class Left extends Movement {
 
 	public Left(AnimationFactory animationFactory) throws SlickException {
-		animation = animationFactory.from(toString(), ANIMATION_DELAY);
+		super(animationFactory);
 	}
 
 	@Override
@@ -24,8 +21,4 @@ public class Left extends Direction {
 		return "left";
 	}
 
-	@Override
-	public Animation getAnimation() {
-		return animation;
-	}
 }

@@ -3,29 +3,29 @@ package com.pacman.entity.character;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
-import com.pacman.entity.direction.Direction;
-import com.pacman.entity.direction.DirectionBuilder;
+import com.pacman.entity.movement.Movement;
+import com.pacman.entity.movement.MovementBuilder;
 
 public class PacManKeyListener implements KeyListener {
 
 	protected final PacMan pacMan;
-	protected final DirectionBuilder directionBuilder;
+	protected final MovementBuilder movementBuilder;
 
-	public PacManKeyListener(PacMan pacMan, DirectionBuilder directionBuilder) {
+	public PacManKeyListener(PacMan pacMan, MovementBuilder movementBuilder) {
 		this.pacMan = pacMan;
-		this.directionBuilder = directionBuilder;
+		this.movementBuilder = movementBuilder;
 	}
 
 	@Override
 	public void keyPressed(int key, char character) {
-		Direction direction = directionBuilder.from(key);
-		if (isValid(direction)) {
-			pacMan.updateDirection(direction);
+		Movement movement = movementBuilder.from(key);
+		if (isValid(movement)) {
+			pacMan.updateDirection(movement);
 		}
 	}
 
-	private boolean isValid(Direction direction) {
-		return direction != null;
+	private boolean isValid(Movement movement) {
+		return movement != null;
 	}
 
 	@Override

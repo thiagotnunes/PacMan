@@ -5,9 +5,9 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
-import com.pacman.entity.direction.Direction;
-import com.pacman.entity.direction.DirectionBuilder;
 import com.pacman.entity.maze.Board;
+import com.pacman.entity.movement.Movement;
+import com.pacman.entity.movement.MovementBuilder;
 import com.pacman.geometry.CollisionPolygon;
 
 public class PacManFactoryTest {
@@ -15,19 +15,19 @@ public class PacManFactoryTest {
 	@Test
 	public void shouldCreatePacManUsingPolygonDirectionAndBoard() throws Exception {
 		CollisionPolygon collisionPolygon = mock(CollisionPolygon.class);
-		DirectionBuilder directionBuilder = mock(DirectionBuilder.class);
-		Direction direction = mock(Direction.class);
+		MovementBuilder movementBuilder = mock(MovementBuilder.class);
+		Movement movement = mock(Movement.class);
 		Board board = mock(Board.class);
 		
-		when(directionBuilder.defaultDirection()).thenReturn(direction);
+		when(movementBuilder.defaultDirection()).thenReturn(movement);
 		
-		PacMan pacMan = new PacManFactory(directionBuilder).from(collisionPolygon, board);
+		PacMan pacMan = new PacManFactory(movementBuilder).from(collisionPolygon, board);
 		
-		verify(directionBuilder).buildDirections();
-		verify(directionBuilder).defaultDirection();
+		verify(movementBuilder).buildMovements();
+		verify(movementBuilder).defaultDirection();
 		
 		assertSame(collisionPolygon, pacMan.currentCollisionPolygon);
-		assertSame(direction, pacMan.currentDirection);
+		assertSame(movement, pacMan.currentMovement);
 		assertSame(board, pacMan.board);
 	}
 
