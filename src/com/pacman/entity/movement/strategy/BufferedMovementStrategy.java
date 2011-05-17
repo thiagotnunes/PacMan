@@ -9,9 +9,9 @@ import com.pacman.geometry.CollisionPolygon;
 public class BufferedMovementStrategy implements MovementStrategy {
 
 	private final Board board;
-	protected Movement currentMovement;
-	protected Movement bufferedMovement;
 	private final MovementBuilder movementBuilder;
+	private Movement currentMovement;
+	protected Movement bufferedMovement;
 
 	public BufferedMovementStrategy(Board board, MovementBuilder movementBuilder, Movement bufferedMovement) {
 		this.board = board;
@@ -26,20 +26,26 @@ public class BufferedMovementStrategy implements MovementStrategy {
 	}
 
 	@Override
-	public Movement next(Movement movement,
+	public void update(Movement movement,
 			CollisionPolygon collisionPolygon, Float speed) {
 		if (movement.canMove(collisionPolygon, speed, board)) {
 			currentMovement = movement;
-			bufferedMovement = new NullMovement();
-		} else if (bufferedMovement.canMove(collisionPolygon, speed, board)) {
+		} else {
+			bufferedMovement = movement;
+		}
+	}
+
+	public Movement availableMovement(CollisionPolygon collisionPolygon,
+			Float speed) {
+		if (bufferedMovement.canMove(collisionPolygon, speed, board)) {
 			currentMovement = bufferedMovement;
 			bufferedMovement = new NullMovement();
+			
+			return currentMovement;
 		} else if (currentMovement.canMove(collisionPolygon, speed, board)) {
-			bufferedMovement = movement;
-		} else {
-			//currentMovement.stop();
+			return currentMovement;
 		}
 		
-		return currentMovement;
+		return movementBuilder.stoppedFrom(currentMovement);
 	}
 }

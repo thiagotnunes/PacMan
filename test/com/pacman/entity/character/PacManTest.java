@@ -64,15 +64,25 @@ public class PacManTest {
 	public void shouldUpdateDirection() throws Exception {
 		Movement movement = mock(Movement.class);
 
-		when(strategy.next(movement, collisionPolygon, PacMan.SPEED))
-				.thenReturn(movement);
-
 		pacMan.updateDirection(movement);
 
-		verify(strategy).next(movement, collisionPolygon, PacMan.SPEED);
-
-		assertSame(movement, pacMan.currentMovement);
-		;
+		verify(strategy).update(movement, collisionPolygon, PacMan.SPEED);
+	}
+	
+	@Test
+	public void shouldMoveUsingAvailableMovement() throws Exception {
+		Movement nextMovement = mock(Movement.class);
+		CollisionPolygon movedPolygon = mock(CollisionPolygon.class);
+		
+		when(strategy.availableMovement(collisionPolygon, PacMan.SPEED)).thenReturn(nextMovement);
+		when(nextMovement.move(collisionPolygon, PacMan.SPEED)).thenReturn(movedPolygon);
+		
+		pacMan.move();
+		
+		verify(strategy).availableMovement(collisionPolygon, PacMan.SPEED);
+		verify(nextMovement).move(collisionPolygon, PacMan.SPEED);
+		
+		assertSame(movedPolygon, pacMan.currentCollisionPolygon);
 	}
 
 	@Test

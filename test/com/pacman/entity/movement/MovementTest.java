@@ -9,13 +9,13 @@ import org.newdawn.slick.Animation;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.graphics.AnimationFactory;
+import com.pacman.graphics.MovementAnimationFactory;
 
 public class MovementTest {
 
 	@Test
 	public void shouldVerifyIfPolygonCanBeMoved() throws Exception {
-		Movement movement = new Movement(mock(AnimationFactory.class)) {
+		Movement movement = new Movement("", mock(MovementAnimationFactory.class)) {
 			@Override
 			public CollisionPolygon move(CollisionPolygon p, Float delta) {
 				return p;
@@ -35,14 +35,12 @@ public class MovementTest {
 
 	@Test
 	public void shouldGetDefaultAnimationWhenItIsNotStopped() throws Exception {
-		AnimationFactory animationFactory = mock(AnimationFactory.class);
-		Animation stopped = mock(Animation.class);
+		MovementAnimationFactory animationFactory = mock(MovementAnimationFactory.class);
 		Animation animation = mock(Animation.class);
 		
-		when(animationFactory.from(any(Movement.class), anyInt(), eq(false))).thenReturn(animation);
-		when(animationFactory.from(any(Movement.class), anyInt(), eq(true))).thenReturn(stopped);
+		when(animationFactory.from(any(String.class), anyInt())).thenReturn(animation);
 		
-		Movement movement = new Movement(animationFactory) {
+		Movement movement = new Movement("", animationFactory) {
 			@Override
 			public CollisionPolygon move(CollisionPolygon collisionPolygon,
 					Float delta) {

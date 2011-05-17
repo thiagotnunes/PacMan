@@ -37,11 +37,12 @@ public class PacMan implements Drawable {
 	}
 
 	public void move() {
+		currentMovement = movementStrategy.availableMovement(currentCollisionPolygon, SPEED);
 		currentCollisionPolygon = currentMovement.move(currentCollisionPolygon, SPEED);
 	}
 
 	public void updateDirection(Movement movement) {
-		currentMovement = movementStrategy.next(movement, currentCollisionPolygon, SPEED);
+		movementStrategy.update(movement, currentCollisionPolygon, SPEED);
 	}
 
 	public void eat(Board board) {

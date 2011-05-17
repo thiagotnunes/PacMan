@@ -7,6 +7,8 @@ public interface MovementStrategy {
 
 	Movement currentMovement();
 
-	Movement next(Movement movement, CollisionPolygon collisionPolygon,
+	void update(Movement movement, CollisionPolygon collisionPolygon,
 			Float speed);
+
+	Movement availableMovement(CollisionPolygon collisionPolygon, Float speed);
 }

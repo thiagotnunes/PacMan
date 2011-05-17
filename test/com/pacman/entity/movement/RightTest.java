@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.pacman.entity.movement.Movement;
 import com.pacman.entity.movement.Right;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.graphics.AnimationFactory;
+import com.pacman.graphics.MovementAnimationFactory;
 
 public class RightTest {
 
@@ -20,7 +20,7 @@ public class RightTest {
 
 		when(polygon.translate(delta, 0)).thenReturn(response);
 
-		Movement movement = new Right(mock(AnimationFactory.class));
+		Movement movement = new Right(mock(MovementAnimationFactory.class));
 
 		assertSame(response, movement.move(polygon, delta));
 

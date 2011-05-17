@@ -17,16 +17,23 @@ import com.pacman.entity.movement.MovementBuilder;
 public class MovementBuilderTest {
 
 	private Map<Integer, Movement> movements;
+	private Map<Movement, Stopped> stoppedMovements;
 	private Movement up;
 	private MovementBuilder movementBuilder;
+	private Stopped stoppedUp;
 
 	@Before
 	public void setUp() throws SlickException {
-		movements = new HashMap<Integer, Movement>();
 		up = mock(Movement.class);
+		stoppedUp = mock(Stopped.class);
+		
+		movements = new HashMap<Integer, Movement>();
 		movements.put(KEY_UP, up);
 		
-		movementBuilder = new MovementBuilder(up, movements);
+		stoppedMovements = new HashMap<Movement, Stopped>();
+		stoppedMovements.put(up, stoppedUp);
+		
+		movementBuilder = new MovementBuilder(up, movements, stoppedMovements);
 	}
 
 	@Test
@@ -42,6 +49,11 @@ public class MovementBuilderTest {
 	@Test
 	public void shouldReturnDefaultMovement() throws Exception {
 		assertSame(up, movementBuilder.defaultMovement());
+	}
+	
+	@Test
+	public void shouldReturnStopped() throws Exception {
+		assertSame(stoppedUp , movementBuilder.stoppedFrom(up));
 	}
 	
 }

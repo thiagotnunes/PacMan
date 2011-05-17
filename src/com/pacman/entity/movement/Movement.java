@@ -5,20 +5,23 @@ import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
-import com.pacman.graphics.AnimationFactory;
+import com.pacman.graphics.MovementAnimationFactory;
 
 public abstract class Movement {
 
 	public static final Integer ANIMATION_DELAY = 70;
 
 	private Animation animation;
-	
-	public Movement(AnimationFactory animationFactory) throws SlickException {
-		animation = animationFactory.from(this, ANIMATION_DELAY, false);
-	}
+
+	private String name;
 	
 	protected Movement() {}
-
+	
+	public Movement(String name, MovementAnimationFactory animationFactory) throws SlickException {
+		this.name = name;
+		animation = animationFactory.from(name, ANIMATION_DELAY);
+	}
+	
 	public abstract CollisionPolygon move(CollisionPolygon collisionPolygon, Float delta);
 
 	public Animation getAnimation() {
@@ -30,5 +33,9 @@ public abstract class Movement {
 		CollisionPolygon polygon = move(collisionPolygon, delta);
 		
 		return !board.isCollidingWithWall(polygon);
+	}
+
+	public String getName() {
+		return name;
 	}
 }
