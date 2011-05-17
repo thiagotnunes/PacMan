@@ -47,6 +47,7 @@ public class BufferedMovementStrategy implements MovementStrategy {
 			return currentMovement;
 		}
 		
+		bufferedMovement = new NullMovement();
 		return movementBuilder.stoppedFrom(currentMovement);
 	}
 }

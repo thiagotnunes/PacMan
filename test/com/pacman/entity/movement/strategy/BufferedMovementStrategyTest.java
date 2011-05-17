@@ -10,6 +10,7 @@ import com.pacman.entity.character.PacMan;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
 import com.pacman.entity.movement.MovementBuilder;
+import com.pacman.entity.movement.NullMovement;
 import com.pacman.entity.movement.Stopped;
 import com.pacman.geometry.CollisionPolygon;
 
@@ -102,6 +103,7 @@ public class BufferedMovementStrategyTest {
 		Movement result = movementStrategy.availableMovement(collisionPolygon, speed);
 		
 		assertSame(stopped, result);
+		assertTrue(movementStrategy.bufferedMovement instanceof NullMovement);
 	}
 	
 }
