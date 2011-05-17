@@ -41,13 +41,11 @@ public class BufferedMovementStrategy implements MovementStrategy {
 		if (bufferedMovement.canMove(collisionPolygon, speed, board)) {
 			currentMovement = bufferedMovement;
 			bufferedMovement = new NullMovement();
-			
-			return currentMovement;
-		} else if (currentMovement.canMove(collisionPolygon, speed, board)) {
-			return currentMovement;
+		} else if (!currentMovement.canMove(collisionPolygon, speed, board)) {
+			bufferedMovement = new NullMovement();
+			currentMovement = movementBuilder.stoppedFrom(currentMovement);
 		}
 		
-		bufferedMovement = new NullMovement();
-		return movementBuilder.stoppedFrom(currentMovement);
+		return currentMovement;
 	}
 }

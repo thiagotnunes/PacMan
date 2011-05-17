@@ -33,21 +33,38 @@ public class MovementBuilder {
 		Down down = new Down(animationFactory);
 		Up up = new Up(animationFactory);
 		Right right = new Right(animationFactory);
-		
+
 		defaultDirection = left;
 		
+		buildMovements(left, down, up, right);
+		
+		buildStoppedMovements(left, down, up, right);
+	}
+
+	private void buildMovements(Left left, Down down, Up up, Right right) {
 		movements = new HashMap<Integer, Movement>();
 		movements.put(KEY_DOWN, down);
 		movements.put(KEY_UP, up);
 		movements.put(KEY_RIGHT, right);
 		movements.put(KEY_LEFT, left);
-		
-		stoppedMovements = new HashMap<Movement, Stopped>();
+	}
+
+	private void buildStoppedMovements(Left left, Down down, Up up, Right right)
+			throws SlickException {
 		StoppedAnimationFactory stoppedFactory = new StoppedAnimationFactory();
-		stoppedMovements.put(up, new Stopped(stoppedFactory, up));
-		stoppedMovements.put(down, new Stopped(stoppedFactory, down));
-		stoppedMovements.put(right, new Stopped(stoppedFactory, right));
-		stoppedMovements.put(left, new Stopped(stoppedFactory, left));
+		Stopped stoppedUp = new Stopped(stoppedFactory, up);
+		Stopped stoppedDown = new Stopped(stoppedFactory, down);
+		Stopped stoppedRight = new Stopped(stoppedFactory, right);
+		Stopped stoppedLeft = new Stopped(stoppedFactory, left);
+		stoppedMovements = new HashMap<Movement, Stopped>();
+		stoppedMovements.put(up, stoppedUp);
+		stoppedMovements.put(down, stoppedDown);
+		stoppedMovements.put(right, stoppedRight);
+		stoppedMovements.put(left, stoppedLeft);
+		stoppedMovements.put(stoppedUp, stoppedUp);
+		stoppedMovements.put(stoppedDown, stoppedDown);
+		stoppedMovements.put(stoppedRight, stoppedRight);
+		stoppedMovements.put(stoppedLeft, stoppedLeft);
 	}
 
 	public Movement from(Integer key) {
