@@ -27,4 +27,23 @@ public class UpTest {
 		verify(polygon).translate(0, -delta);
 	}
 
+	@Test
+	public void shouldBeEquals() throws Exception {
+		MovementAnimationFactory animationFactory = mock(MovementAnimationFactory.class);
+		Up up = new Up(animationFactory);
+		Up other = new Up(animationFactory);
+	
+		assertEquals(up, other);
+		assertEquals(up.hashCode(), other.hashCode());
+	}
+	
+	@Test
+	public void shouldNotBeEquals() throws Exception {
+		MovementAnimationFactory animationFactory = mock(MovementAnimationFactory.class);
+		Up up = new Up(animationFactory);
+		Down other = new Down(animationFactory);
+	
+		assertFalse(up.equals(other));
+		assertFalse(up.hashCode() == other.hashCode());
+	}
 }

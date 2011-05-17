@@ -35,6 +35,7 @@ public class BufferedMovementStrategy implements MovementStrategy {
 		}
 	}
 
+	@Override
 	public Movement availableMovement(CollisionPolygon collisionPolygon,
 			Float speed) {
 		if (bufferedMovement.canMove(collisionPolygon, speed, board)) {

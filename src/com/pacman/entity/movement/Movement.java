@@ -13,7 +13,7 @@ public abstract class Movement {
 
 	private Animation animation;
 
-	private String name;
+	protected String name;
 	
 	protected Movement() {}
 	

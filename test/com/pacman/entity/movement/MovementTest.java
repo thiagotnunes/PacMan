@@ -1,13 +1,13 @@
 package com.pacman.entity.movement;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.newdawn.slick.Animation;
 
 import com.pacman.entity.maze.Board;
-import com.pacman.entity.movement.Movement;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.MovementAnimationFactory;
 

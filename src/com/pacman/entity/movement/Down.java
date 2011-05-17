@@ -15,4 +15,19 @@ public class Down extends Movement {
 	public CollisionPolygon move(CollisionPolygon p, Float delta) {
 		return p.translate(0, delta);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Down) {
+			Down other = ((Down) obj);
+			return name.equals(other.name);
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 }

@@ -26,5 +26,25 @@ public class RightTest {
 
 		verify(polygon).translate(delta, 0);
 	}
+	
+	@Test
+	public void shouldBeEquals() throws Exception {
+		MovementAnimationFactory animationFactory = mock(MovementAnimationFactory.class);
+		Right right = new Right(animationFactory);
+		Right other = new Right(animationFactory);
+	
+		assertEquals(right, other);
+		assertEquals(right.hashCode(), other.hashCode());
+	}
+	
+	@Test
+	public void shouldNotBeEquals() throws Exception {
+		MovementAnimationFactory animationFactory = mock(MovementAnimationFactory.class);
+		Right right = new Right(animationFactory);
+		Left other = new Left(animationFactory);
+	
+		assertFalse(right.equals(other));
+		assertFalse(right.hashCode() == other.hashCode());
+	}
 
 }
