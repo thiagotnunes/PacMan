@@ -6,9 +6,9 @@ import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.StoppedAnimationFactory;
 
-public class Stopped extends Movement {
+public class Stopped extends BaseMovement {
 
-	public Stopped(StoppedAnimationFactory factory, Movement movement) throws SlickException {
+	public Stopped(StoppedAnimationFactory factory, BaseMovement movement) throws SlickException {
 		super(movement.getName(), factory);
 	}
 

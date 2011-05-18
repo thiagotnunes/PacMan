@@ -11,11 +11,11 @@ import com.pacman.entity.maze.Board;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.MovementAnimationFactory;
 
-public class MovementTest {
+public class BaseMovementTest {
 
 	@Test
 	public void shouldVerifyIfPolygonCanBeMoved() throws Exception {
-		Movement movement = new Movement("", mock(MovementAnimationFactory.class)) {
+		Movement movement = new BaseMovement("", mock(MovementAnimationFactory.class)) {
 			@Override
 			public CollisionPolygon move(CollisionPolygon p, Float delta) {
 				return p;
@@ -40,7 +40,7 @@ public class MovementTest {
 		
 		when(animationFactory.from(any(String.class), anyInt())).thenReturn(animation);
 		
-		Movement movement = new Movement("", animationFactory) {
+		Movement movement = new BaseMovement("", animationFactory) {
 			@Override
 			public CollisionPolygon move(CollisionPolygon collisionPolygon,
 					Float delta) {

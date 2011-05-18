@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.MovementAnimationFactory;
 
-public class Left extends Movement {
+public class Left extends BaseMovement {
 
 	public Left(MovementAnimationFactory animationFactory) throws SlickException {
 		super("left", animationFactory);
@@ -16,18 +16,4 @@ public class Left extends Movement {
 		return p.translate(-delta, 0);
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Left) {
-			Left other = ((Left) obj);
-			return name.equals(other.name);
-		}
-		
-		return false;
-	}
-	
-	@Override
-	public int hashCode() {
-		return name.hashCode();
-	}
 }

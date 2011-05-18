@@ -14,12 +14,12 @@ import com.pacman.graphics.StoppedAnimationFactory;
 public class StoppedTest {
 
 	private Movement movement;
-	private Movement enclosingMovement;
+	private BaseMovement baseMovement;
 
 	@Before
 	public void setUp() throws SlickException {
-		enclosingMovement = mock(Movement.class);
-		movement = new Stopped(mock(StoppedAnimationFactory.class), enclosingMovement);
+		baseMovement = mock(BaseMovement.class);
+		movement = new Stopped(mock(StoppedAnimationFactory.class), baseMovement);
 	}
 	
 	@Test
