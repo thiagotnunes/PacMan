@@ -34,5 +34,4 @@ public abstract class TileFactory {
 	}
 
 	protected abstract Tile createTile(Integer x, Integer y, TiledMap map) throws SlickException;
-
 }

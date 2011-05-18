@@ -1,27 +1,26 @@
 package com.pacman.entity.maze.tile;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.tiled.TiledMap;
-
-import com.pacman.graphics.ImageFactory;
 
 public class FoodTileFactoryTest {
 
 	@Test
 	public void shouldCreateFoodTile() throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		ImageFactory imageFactory = mock(ImageFactory.class);
 
-		TileFactory factory = new FoodTileFactory(null,
-				imageFactory, FoodTileFactory.FOOD_PATH);
+		FoodTileFactory factory = new FoodTileFactory(null);
 
+		assertTrue(factory instanceof TileFactory);
+		
 		when(map.getTileWidth()).thenReturn(25);
 
-		factory.createTile(1, 1, map);
+		factory.createTile(1, 1, map, mock(Image.class));
 
 		verify(map).getTileWidth();
-		verify(imageFactory).from(FoodTileFactory.FOOD_PATH);
 	}
 }

@@ -17,7 +17,7 @@ public class Board implements Drawable {
 	private final List<Tile> walls;
 	private final List<Tile> food;
 
-	protected Board(TiledMap map, List<Tile> walls, List<Tile> food) {
+	public Board(TiledMap map, List<Tile> walls, List<Tile> food) {
 		this.map = map;
 		this.walls = walls;
 		this.food = food;
