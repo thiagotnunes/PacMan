@@ -12,9 +12,8 @@ public class Stopped implements Movement {
 	private String name;
 
 	protected Stopped(StoppedAnimationFactory factory, BaseMovement movement) throws SlickException {
-		String movementName = movement.toString();
-		name = "stopped_" + movementName;
-		factory.from(movementName, MOVEMENT_ANIMATION_DELAY);
+		name = "stopped_" + movement.name();
+		factory.from(movement.name(), MOVEMENT_ANIMATION_DELAY);
 	}
 
 	@Override
