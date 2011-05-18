@@ -13,8 +13,9 @@ import com.pacman.graphics.StoppedAnimationFactory;
 public class MovementBuilder {
 
 	private Map<Integer, Movement> movements;
-	private Movement defaultDirection;
 	private Map<Movement, Stopped> stoppedMovements;
+	private Movement defaultDirection;
+	private NullMovement nullMovement;
 
 	protected MovementBuilder(Movement defaultDirection,
 			Map<Integer, Movement> movements,
@@ -22,6 +23,7 @@ public class MovementBuilder {
 		this.defaultDirection = defaultDirection;
 		this.movements = movements;
 		this.stoppedMovements = stoppedMovements;
+		this.nullMovement = new NullMovement();
 	}
 	
 	public MovementBuilder() {
@@ -77,6 +79,10 @@ public class MovementBuilder {
 
 	public Stopped stoppedFrom(Movement movement) {
 		return stoppedMovements.get(movement);
+	}
+
+	public NullMovement nullMovement() {
+		return nullMovement;
 	}
 
 }

@@ -75,11 +75,17 @@ public class BufferedMovementStrategyTest {
 	
 	@Test
 	public void shouldReturnBufferedMovementIfCanMoveThere() throws Exception {
+		NullMovement nullMovement = mock(NullMovement.class);
+		
 		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(true);
+		when(movementBuilder.nullMovement()).thenReturn(nullMovement);
 		
 		Movement result = movementStrategy.availableMovement(collisionPolygon, speed);
 		
+		verify(movementBuilder).nullMovement();
+		
 		assertSame(bufferedMovement, result);
+		assertSame(nullMovement, movementStrategy.bufferedMovement);
 	}
 	
 	@Test
@@ -95,15 +101,19 @@ public class BufferedMovementStrategyTest {
 	@Test
 	public void shouldReturnStoppedCorrespondenceIfCantMoveAnywhere() throws Exception {
 		Stopped stopped = mock(Stopped.class);
+		NullMovement nullMovement = mock(NullMovement.class);
 
 		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
 		when(currentMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
 		when(movementBuilder.stoppedFrom(currentMovement)).thenReturn(stopped);
+		when(movementBuilder.nullMovement()).thenReturn(nullMovement);
 		
 		Movement result = movementStrategy.availableMovement(collisionPolygon, speed);
 		
+		verify(movementBuilder).nullMovement();
+		
 		assertSame(stopped, result);
-		assertTrue(movementStrategy.bufferedMovement instanceof NullMovement);
+		assertSame(nullMovement, movementStrategy.bufferedMovement);
 	}
 	
 }

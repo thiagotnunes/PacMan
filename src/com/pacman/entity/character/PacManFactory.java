@@ -4,7 +4,6 @@ import org.newdawn.slick.SlickException;
 
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.MovementBuilder;
-import com.pacman.entity.movement.NullMovement;
 import com.pacman.entity.movement.strategy.BufferedMovementStrategy;
 import com.pacman.geometry.CollisionPolygon;
 
@@ -20,7 +19,7 @@ public class PacManFactory {
 			throws SlickException {
 		movementBuilder.buildMovements();
 		return new PacMan(collisionPolygon, new BufferedMovementStrategy(board,
-				movementBuilder, new NullMovement()), board);
+				movementBuilder, movementBuilder.nullMovement()), board);
 	}
 
 }

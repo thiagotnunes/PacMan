@@ -7,7 +7,7 @@ import com.pacman.graphics.MovementAnimationFactory;
 
 public class Up extends BaseMovement {
 
-	public Up(MovementAnimationFactory animationFactory) throws SlickException {
+	protected Up(MovementAnimationFactory animationFactory) throws SlickException {
 		super("up", animationFactory);
 	}
 

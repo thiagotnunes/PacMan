@@ -15,4 +15,6 @@ public interface Movement {
 	CollisionPolygon move(CollisionPolygon collisionPolygon, Float delta);
 
 	Animation getAnimation();
+	
+	String name();
 }

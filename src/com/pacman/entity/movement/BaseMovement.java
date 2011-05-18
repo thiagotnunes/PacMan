@@ -25,13 +25,13 @@ public abstract class BaseMovement implements Movement {
 		return !board.isCollidingWithWall(polygon);
 	}
 	
-	public String getName() {
-		return name;
-	}
-
 	@Override
 	public Animation getAnimation() {
 		return animation;
+	}
+	
+	public String name() {
+		return name;
 	}
 	
 	@Override

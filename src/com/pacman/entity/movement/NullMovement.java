@@ -7,6 +7,8 @@ import com.pacman.geometry.CollisionPolygon;
 
 public class NullMovement implements Movement {
 
+	protected NullMovement() {}
+	
 	@Override
 	public Boolean canMove(CollisionPolygon collisionPolygon, Float delta,
 			Board board) {
@@ -21,6 +23,11 @@ public class NullMovement implements Movement {
 	@Override
 	public Animation getAnimation() {
 		return null;
+	}
+	
+	@Override
+	public String name() {
+		return "nullMovement";
 	}
 
 }

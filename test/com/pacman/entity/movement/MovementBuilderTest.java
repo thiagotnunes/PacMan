@@ -11,9 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-import com.pacman.entity.movement.Movement;
-import com.pacman.entity.movement.MovementBuilder;
-
 public class MovementBuilderTest {
 
 	private Map<Integer, Movement> movements;
@@ -54,6 +51,11 @@ public class MovementBuilderTest {
 	@Test
 	public void shouldReturnStopped() throws Exception {
 		assertSame(stoppedUp , movementBuilder.stoppedFrom(up));
+	}
+	
+	@Test
+	public void shouldReturnNullMovement() throws Exception {
+		assertTrue(movementBuilder.nullMovement() instanceof NullMovement);
 	}
 	
 }

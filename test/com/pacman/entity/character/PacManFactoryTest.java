@@ -25,6 +25,7 @@ public class PacManFactoryTest {
 		
 		verify(movementBuilder).buildMovements();
 		verify(movementBuilder).defaultMovement();
+		verify(movementBuilder).nullMovement();
 		
 		assertSame(collisionPolygon, pacMan.currentCollisionPolygon);
 		assertSame(movement, pacMan.currentMovement);

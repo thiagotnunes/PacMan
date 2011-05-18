@@ -3,7 +3,6 @@ package com.pacman.entity.movement.strategy;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
 import com.pacman.entity.movement.MovementBuilder;
-import com.pacman.entity.movement.NullMovement;
 import com.pacman.geometry.CollisionPolygon;
 
 public class BufferedMovementStrategy implements MovementStrategy {
@@ -40,10 +39,10 @@ public class BufferedMovementStrategy implements MovementStrategy {
 			Float speed) {
 		if (bufferedMovement.canMove(collisionPolygon, speed, board)) {
 			currentMovement = bufferedMovement;
-			bufferedMovement = new NullMovement();
+			bufferedMovement = movementBuilder.nullMovement();
 		} else if (!currentMovement.canMove(collisionPolygon, speed, board)) {
-			bufferedMovement = new NullMovement();
 			currentMovement = movementBuilder.stoppedFrom(currentMovement);
+			bufferedMovement = movementBuilder.nullMovement();
 		}
 		
 		return currentMovement;
