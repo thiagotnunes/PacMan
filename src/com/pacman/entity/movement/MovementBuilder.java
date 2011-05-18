@@ -20,13 +20,14 @@ public class MovementBuilder {
 	protected MovementBuilder(Movement defaultDirection,
 			Map<Integer, Movement> movements,
 			Map<Movement, Stopped> stoppedMovements) {
+		this();
 		this.defaultDirection = defaultDirection;
 		this.movements = movements;
 		this.stoppedMovements = stoppedMovements;
-		this.nullMovement = new NullMovement();
 	}
 	
 	public MovementBuilder() {
+		this.nullMovement = new NullMovement();
 	}
 	
 	public void buildMovements() throws SlickException {

@@ -10,10 +10,11 @@ import com.pacman.graphics.StoppedAnimationFactory;
 public class Stopped implements Movement {
 
 	private String name;
+	private Animation animation;
 
 	protected Stopped(StoppedAnimationFactory factory, BaseMovement movement) throws SlickException {
 		name = "stopped_" + movement.name();
-		factory.from(movement.name(), MOVEMENT_ANIMATION_DELAY);
+		animation = factory.from(movement.name(), MOVEMENT_ANIMATION_DELAY);
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class Stopped implements Movement {
 
 	@Override
 	public Animation getAnimation() {
-		return null;
+		return animation;
 	}
 
 	@Override
