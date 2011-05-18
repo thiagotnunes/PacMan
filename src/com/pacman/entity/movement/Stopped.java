@@ -12,7 +12,7 @@ public class Stopped implements Movement {
 	private String name;
 	private Animation animation;
 
-	protected Stopped(StoppedAnimationFactory factory, BaseMovement movement) throws SlickException {
+	public Stopped(StoppedAnimationFactory factory, BaseMovement movement) throws SlickException {
 		name = "stopped_" + movement.name();
 		animation = factory.from(movement.name(), MOVEMENT_ANIMATION_DELAY);
 	}

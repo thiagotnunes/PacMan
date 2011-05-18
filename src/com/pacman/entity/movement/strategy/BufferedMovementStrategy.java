@@ -2,20 +2,20 @@ package com.pacman.entity.movement.strategy;
 
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
-import com.pacman.entity.movement.MovementBuilder;
+import com.pacman.entity.movement.MovementFactory;
 import com.pacman.geometry.CollisionPolygon;
 
 public class BufferedMovementStrategy implements MovementStrategy {
 
 	private final Board board;
-	private final MovementBuilder movementBuilder;
+	private final MovementFactory movementFactory;
 	private Movement currentMovement;
 	protected Movement bufferedMovement;
 
-	public BufferedMovementStrategy(Board board, MovementBuilder movementBuilder, Movement bufferedMovement) {
+	public BufferedMovementStrategy(Board board, MovementFactory movementFactory, Movement bufferedMovement) {
 		this.board = board;
-		this.movementBuilder = movementBuilder;
-		this.currentMovement = movementBuilder.defaultMovement();
+		this.movementFactory = movementFactory;
+		this.currentMovement = movementFactory.defaultMovement();
 		this.bufferedMovement = bufferedMovement;
 	}
 
@@ -39,10 +39,10 @@ public class BufferedMovementStrategy implements MovementStrategy {
 			Float speed) {
 		if (bufferedMovement.canMove(collisionPolygon, speed, board)) {
 			currentMovement = bufferedMovement;
-			bufferedMovement = movementBuilder.nullMovement();
+			bufferedMovement = movementFactory.nullMovement();
 		} else if (!currentMovement.canMove(collisionPolygon, speed, board)) {
-			currentMovement = movementBuilder.stoppedFrom(currentMovement);
-			bufferedMovement = movementBuilder.nullMovement();
+			currentMovement = movementFactory.stoppedFrom(currentMovement);
+			bufferedMovement = movementFactory.nullMovement();
 		}
 		
 		return currentMovement;

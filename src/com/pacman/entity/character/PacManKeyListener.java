@@ -4,21 +4,21 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
 import com.pacman.entity.movement.Movement;
-import com.pacman.entity.movement.MovementBuilder;
+import com.pacman.entity.movement.MovementFactory;
 
 public class PacManKeyListener implements KeyListener {
 
 	protected final PacMan pacMan;
-	protected final MovementBuilder movementBuilder;
+	protected final MovementFactory movementFactory;
 
-	public PacManKeyListener(PacMan pacMan, MovementBuilder movementBuilder) {
+	public PacManKeyListener(PacMan pacMan, MovementFactory movementFactory) {
 		this.pacMan = pacMan;
-		this.movementBuilder = movementBuilder;
+		this.movementFactory = movementFactory;
 	}
 
 	@Override
 	public void keyPressed(int key, char character) {
-		Movement movement = movementBuilder.from(key);
+		Movement movement = movementFactory.from(key);
 		if (isValid(movement)) {
 			pacMan.updateDirection(movement);
 		}

@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.maze.Board;
 import com.pacman.entity.movement.Movement;
-import com.pacman.entity.movement.MovementBuilder;
+import com.pacman.entity.movement.MovementFactory;
 import com.pacman.entity.movement.NullMovement;
 import com.pacman.entity.movement.Stopped;
 import com.pacman.geometry.CollisionPolygon;
@@ -24,7 +24,7 @@ public class BufferedMovementStrategyTest {
 	private Movement nextMovement;
 	private Movement bufferedMovement;
 	private Movement currentMovement;
-	private MovementBuilder movementBuilder;
+	private MovementFactory movementFactory;
 
 	@Before
 	public void setUp() {
@@ -34,13 +34,13 @@ public class BufferedMovementStrategyTest {
 		currentMovement = mock(Movement.class);
 		speed = PacMan.SPEED;
 		collisionPolygon = mock(CollisionPolygon.class);
-		movementBuilder = mock(MovementBuilder.class);
+		movementFactory = mock(MovementFactory.class);
 		
-		when(movementBuilder.defaultMovement()).thenReturn(currentMovement);
+		when(movementFactory.defaultMovement()).thenReturn(currentMovement);
 		
-		movementStrategy = new BufferedMovementStrategy(board, movementBuilder, bufferedMovement);
+		movementStrategy = new BufferedMovementStrategy(board, movementFactory, bufferedMovement);
 		
-		verify(movementBuilder).defaultMovement();
+		verify(movementFactory).defaultMovement();
 	}
 	
 	@Test
@@ -78,11 +78,11 @@ public class BufferedMovementStrategyTest {
 		NullMovement nullMovement = mock(NullMovement.class);
 		
 		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(true);
-		when(movementBuilder.nullMovement()).thenReturn(nullMovement);
+		when(movementFactory.nullMovement()).thenReturn(nullMovement);
 		
 		Movement result = movementStrategy.availableMovement(collisionPolygon, speed);
 		
-		verify(movementBuilder).nullMovement();
+		verify(movementFactory).nullMovement();
 		
 		assertSame(bufferedMovement, result);
 		assertSame(nullMovement, movementStrategy.bufferedMovement);
@@ -105,12 +105,12 @@ public class BufferedMovementStrategyTest {
 
 		when(bufferedMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
 		when(currentMovement.canMove(collisionPolygon, speed, board)).thenReturn(false);
-		when(movementBuilder.stoppedFrom(currentMovement)).thenReturn(stopped);
-		when(movementBuilder.nullMovement()).thenReturn(nullMovement);
+		when(movementFactory.stoppedFrom(currentMovement)).thenReturn(stopped);
+		when(movementFactory.nullMovement()).thenReturn(nullMovement);
 		
 		Movement result = movementStrategy.availableMovement(collisionPolygon, speed);
 		
-		verify(movementBuilder).nullMovement();
+		verify(movementFactory).nullMovement();
 		
 		assertSame(stopped, result);
 		assertSame(nullMovement, movementStrategy.bufferedMovement);

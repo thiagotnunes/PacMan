@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class MovementBuilderTest {
+public class MovementFactoryTest {
 
 	private Map<Integer, Movement> movements;
 	private Map<Movement, Stopped> stoppedMovements;
 	private Movement up;
-	private MovementBuilder movementBuilder;
+	private MovementFactory movementFactory;
 	private Stopped stoppedUp;
 
 	@Before
@@ -30,32 +30,32 @@ public class MovementBuilderTest {
 		stoppedMovements = new HashMap<Movement, Stopped>();
 		stoppedMovements.put(up, stoppedUp);
 		
-		movementBuilder = new MovementBuilder(up, movements, stoppedMovements);
+		movementFactory = new MovementFactory(up, movements, stoppedMovements);
 	}
 
 	@Test
 	public void shouldReturnDirectionFromMappedKey() throws Exception {
-		assertSame(up, movementBuilder.from(KEY_UP));
+		assertSame(up, movementFactory.from(KEY_UP));
 	}
 	
 	@Test
 	public void shouldReturnNullFromUnmappedKey() throws Exception {
-		assertNull(movementBuilder.from(KEY_A));
+		assertNull(movementFactory.from(KEY_A));
 	}
 	
 	@Test
 	public void shouldReturnDefaultMovement() throws Exception {
-		assertSame(up, movementBuilder.defaultMovement());
+		assertSame(up, movementFactory.defaultMovement());
 	}
 	
 	@Test
 	public void shouldReturnStopped() throws Exception {
-		assertSame(stoppedUp , movementBuilder.stoppedFrom(up));
+		assertSame(stoppedUp , movementFactory.stoppedFrom(up));
 	}
 	
 	@Test
 	public void shouldReturnNullMovement() throws Exception {
-		assertTrue(movementBuilder.nullMovement() instanceof NullMovement);
+		assertTrue(movementFactory.nullMovement() instanceof NullMovement);
 	}
 	
 }
