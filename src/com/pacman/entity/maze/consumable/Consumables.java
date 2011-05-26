@@ -6,8 +6,9 @@ import org.newdawn.slick.Graphics;
 
 import com.pacman.entity.collision.CollisionDetector;
 import com.pacman.geometry.CollisionPolygon;
+import com.pacman.graphics.Drawable;
 
-public class Consumables {
+public class Consumables implements Drawable {
 
 	private final CollisionDetector detector;
 	protected final List<Food> food;
@@ -25,6 +26,7 @@ public class Consumables {
 		food.remove(foodPiece);
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		for (Food foodPiece : food) {
 			foodPiece.draw(g);
