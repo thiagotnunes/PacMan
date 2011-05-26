@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.maze.tile.TileFactory;
+
 public class FoodTileFactoryTest {
 
 	@Test

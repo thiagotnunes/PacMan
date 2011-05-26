@@ -7,6 +7,7 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.pacman.entity.maze.consumable.Consumables;
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.Drawable;
@@ -15,18 +16,18 @@ public class Board implements Drawable {
 
 	private final TiledMap map;
 	private final List<Tile> walls;
-	private final List<Tile> food;
+	private final Consumables consumables;
 
-	public Board(TiledMap map, List<Tile> walls, List<Tile> food) {
+	public Board(TiledMap map, List<Tile> walls, Consumables consumables) {
 		this.map = map;
 		this.walls = walls;
-		this.food = food;
+		this.consumables = consumables;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		drawMap();
-		drawFood(g);
+		consumables.draw(g);
 	}
 
 	private void drawMap() {
@@ -37,19 +38,12 @@ public class Board implements Drawable {
 		}
 	}
 
-	private void drawFood(Graphics g) {
-		for (Tile tile : food) {
-			tile.draw(g);
-		}
-	}
-
 	public boolean isCollidingWithWall(CollisionPolygon collidable) {
 		return collidingTile(collidable, walls) != null;
 	}
 
 	public void consume(CollisionPolygon collidable) {
-		Tile tile = collidingTile(collidable, food);
-		food.remove(tile);
+		consumables.consume(collidable);
 	}
 
 	private Tile collidingTile(CollisionPolygon collidable, List<Tile> tiles) {

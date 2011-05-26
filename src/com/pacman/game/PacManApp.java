@@ -14,10 +14,14 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import com.pacman.entity.character.PacMan;
 import com.pacman.entity.character.PacManKeyListener;
+import com.pacman.entity.collision.CollisionDetector;
 import com.pacman.entity.maze.Board;
+import com.pacman.entity.maze.consumable.Consumables;
+import com.pacman.entity.maze.consumable.FoodFactory;
 import com.pacman.entity.maze.filter.CollidableTileFilter;
 import com.pacman.entity.maze.filter.ConsumableTileFilter;
 import com.pacman.entity.maze.tile.FoodTileFactory;
+import com.pacman.entity.maze.tile.ImageTile;
 import com.pacman.entity.maze.tile.Tile;
 import com.pacman.entity.maze.tile.WallTileFactory;
 import com.pacman.entity.movement.Down;
@@ -31,6 +35,7 @@ import com.pacman.entity.movement.strategy.BufferedMovementStrategy;
 import com.pacman.geometry.CollisionPolygon;
 import com.pacman.graphics.MovementAnimationFactory;
 import com.pacman.graphics.StoppedAnimationFactory;
+import com.pacman.sound.SoundPlayer;
 
 public class PacManApp extends BasicGame {
 
@@ -78,13 +83,19 @@ public class PacManApp extends BasicGame {
 	private Board createBoard() throws SlickException {
 		WallTileFactory wallFactory = new WallTileFactory(
 				new CollidableTileFilter());
-		FoodTileFactory foodFactory = new FoodTileFactory(
+		FoodTileFactory foodTileFactory = new FoodTileFactory(
 				new ConsumableTileFilter());
 		TiledMap map = new TiledMap(MAP_PATH);
 		List<Tile> walls = wallFactory.from(map, WALL_LAYER);
-		List<Tile> food = foodFactory.from(map, FOOD_LAYER);
-		Board board = new Board(map, walls, food);
+		List<ImageTile> food = foodTileFactory.from(map, FOOD_LAYER);
+		FoodFactory foodFactory = new FoodFactory();
+		Consumables consumables = new Consumables(foodFactory.from(food,
+				new SoundPlayer("data/pacman/sounds/eating.wav")),
+				new CollisionDetector());
+		Board board = new Board(map, walls, consumables);
 
+		//new SoundPlayer("data/pacman/sounds/eating.wav", (int) (25 / PacMan.SPEED) * 5))
+		
 		return board;
 	}
 
@@ -97,7 +108,7 @@ public class PacManApp extends BasicGame {
 		MovementFactory movementFactory = new MovementFactory(left,
 				buildMovements(left, down, up, right), buildStoppedMovements(
 						left, down, up, right));
-		
+
 		return movementFactory;
 	}
 

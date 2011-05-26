@@ -5,7 +5,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import com.pacman.entity.maze.filter.TileFilter;
 import com.pacman.geometry.CollisionPolygon;
 
-public class WallTileFactory extends TileFactory {
+public class WallTileFactory extends TileFactory<Tile> {
 
 	public WallTileFactory(TileFilter filter) {
 		super(filter);

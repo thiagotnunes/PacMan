@@ -12,7 +12,7 @@ public class WallTileFactoryTest {
 	@Test
 	public void shouldCreateTileWithFullPolygon() throws Exception {
 		TiledMap map = mock(TiledMap.class);
-		TileFactory wallFactory = new WallTileFactory(mock(TileFilter.class));
+		TileFactory<Tile> wallFactory = new WallTileFactory(mock(TileFilter.class));
 		Float x = 1f;
 		Float y = 2f;
 		Float width = 25f;

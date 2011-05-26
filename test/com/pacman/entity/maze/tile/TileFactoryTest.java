@@ -17,7 +17,7 @@ public class TileFactoryTest {
 
 	@Test
 	public void shouldCreateTilesFromTiledMap() throws Exception {
-		TileFactory factory = mock(TileFactory.class);
+		TileFactory<Tile> factory = mock(TileFactory.class);
 		TileFilter filter = mock(TileFilter.class);
 		TiledMap map = mock(TiledMap.class);
 		Tile tile = mock(Tile.class);
