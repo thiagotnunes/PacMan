@@ -12,7 +12,7 @@ import com.pacman.graphics.Drawable;
 
 public class PacMan implements Drawable {
 
-	public static final Float SPEED = 0.5f;
+	public static final Float SPEED = 0.25f;
 
 	protected final Board board;
 	protected CollisionPolygon currentCollisionPolygon;

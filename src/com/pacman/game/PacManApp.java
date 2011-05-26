@@ -90,7 +90,7 @@ public class PacManApp extends BasicGame {
 		List<ImageTile> food = foodTileFactory.from(map, FOOD_LAYER);
 		FoodFactory foodFactory = new FoodFactory();
 		Consumables consumables = new Consumables(foodFactory.from(food,
-				new SoundPlayer("data/pacman/sounds/eating.wav")),
+				new SoundPlayer("data/pacman/sounds/eating_original.wav")),
 				new CollisionDetector());
 		Board board = new Board(map, walls, consumables);
 
